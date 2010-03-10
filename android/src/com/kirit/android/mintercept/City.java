@@ -19,43 +19,28 @@
 */
 
 
-package com.kirit.android.mintercept.views;
+package com.kirit.android.mintercept;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.view.MotionEvent;
-import android.view.View;
+import android.graphics.drawable.Drawable;
 
-import com.kirit.android.mintercept.City;
-import com.kirit.android.mintercept.Player;
-
-
-public class Level extends View {
-	private Player player = new Player();
-	private City cities [];
+import com.kirit.android.Element;
+import com.kirit.android.mintercept.R.drawable;
 
 
-	public Level(Context context) {
-		super(context);
-		cities = new City [3];
-		for ( int n = 0; n != cities.length; ++n )
-			cities[n] = new City(context, n, cities.length);
+public class City extends Element {
+	private Drawable city;
+
+	public City(Context context, int number, int outof) {
+		city = context.getResources().getDrawable(drawable.city);
+		city.setBounds(30 + number * 40, 30, 30 + number * 40 + city.getMinimumWidth(), 30 + city.getMinimumHeight());
 	}
-
 
 	@Override
-	protected void onDraw(Canvas c) {
-		player.draw(c);
-		for ( City city : cities )
-			city.draw(c);
+	public boolean draw(Canvas c) {
+		city.draw(c);
+		return true;
 	}
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-    	if ( event.getAction() == MotionEvent.ACTION_DOWN ) {
-    		player.tap(event.getX(), event.getY());
-    		return true;
-    	}
-    	return false;
-    }
 }
