@@ -23,7 +23,9 @@ package com.kirit.android.mintercept;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.view.View;
 
 import com.kirit.android.Element;
 import com.kirit.android.mintercept.R.drawable;
@@ -31,16 +33,30 @@ import com.kirit.android.mintercept.R.drawable;
 
 public class City extends Element {
 	private Drawable city;
+	private View view;
+	private int number, outof;
+	private Rect location;
 
-	public City(Context context, int number, int outof) {
+	public City(Context context, View v, int n, int o) {
+		view = v;
+		number = n;
+		outof = o;
 		city = context.getResources().getDrawable(drawable.city);
-		city.setBounds(30 + number * 40, 30, 30 + number * 40 + city.getMinimumWidth(), 30 + city.getMinimumHeight());
 	}
 
 	@Override
 	public boolean draw(Canvas c) {
+		if ( location == null ) {
+			int w = city.getMinimumWidth();
+			int spacing = view.getWidth() / (outof + 1);
+			int left = spacing * number - w / 2 + spacing;
+			location = new Rect(
+					left, view.getHeight() - city.getMinimumHeight(),
+					left + w, view.getHeight()
+				);
+		}
+		city.setBounds(location);
 		city.draw(c);
 		return true;
 	}
-
 }

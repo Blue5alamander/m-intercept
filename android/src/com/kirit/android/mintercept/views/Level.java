@@ -39,7 +39,7 @@ public class Level extends View {
 		super(context);
 		cities = new City [3];
 		for ( int n = 0; n != cities.length; ++n )
-			cities[n] = new City(context, n, cities.length);
+			cities[n] = new City(context, this, n, cities.length);
 	}
 
 
