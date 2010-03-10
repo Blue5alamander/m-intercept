@@ -33,7 +33,7 @@ public class Player extends Element {
 		cities = 3;
 		explosions = new Explosion [10];
 		for ( int i = 0; i != explosions.length; ++i )
-			explosions[i] = new Explosion();
+			explosions[i] = new Explosion(35);
 	}
 	
 	public int getCities() {

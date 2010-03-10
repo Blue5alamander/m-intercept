@@ -34,7 +34,12 @@ class Explosion extends Element {
 	private Spectrum colour = new Spectrum(0.0f, 0.75f, 0.75f);
 	private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private float cx, cy, inner_radius, outer_radius;
-	
+	private int size;
+
+	public Explosion(int s) {
+		size = s;
+	}
+
 	public boolean reset(float x, float y) {
 		if ( !draw ) {
 			draw = true;
@@ -49,10 +54,10 @@ class Explosion extends Element {
 	@Override
 	public boolean draw(Canvas c) {
 		if ( draw ) {
-			if (inner_radius < 50) {
-				paint.setColor(colour.next(50));
+			if (inner_radius < size) {
+				paint.setColor(colour.next(size));
 				c.drawCircle(cx, cy, outer_radius, paint);
-				if ( outer_radius > 50 ) {
+				if ( outer_radius > size ) {
 					paint.setColor(Color.BLACK);
 					c.drawCircle(cx, cy, inner_radius, paint);
 					++inner_radius;
