@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.kirit.android.mcommand">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.kirit.android.mintercept">
 
     <!-- This package contains an application...  The 'label' is the name
          to display to the user for the overall application, and provides

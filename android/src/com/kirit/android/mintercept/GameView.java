@@ -1,11 +1,12 @@
-package com.kirit.android.mcommand;
+package com.kirit.android.mintercept;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import com.kirit.android.mcommand.Player;
+
+import com.kirit.android.mintercept.Player;
 
 
 public class GameView extends View {

@@ -1,4 +1,4 @@
-package com.kirit.android.mcommand;
+package com.kirit.android.mintercept;
 
 import android.app.Activity;
 import android.os.Bundle;
