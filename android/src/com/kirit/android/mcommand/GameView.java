@@ -5,11 +5,11 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import com.kirit.android.mcommand.Explosions;
+import com.kirit.android.mcommand.Player;
 
 
 public class GameView extends View {
-	private Explosions explosions = new Explosions();
+	private Player player = new Player();
 
 	public GameView(Context context) {
 		super(context);
@@ -23,13 +23,13 @@ public class GameView extends View {
 
 	@Override
 	protected void onDraw(Canvas c) {
-		explosions.draw(c);
+		player.draw(c);
 	}
     
     @Override
     public boolean onTouchEvent(MotionEvent event) {
     	if ( event.getAction() == MotionEvent.ACTION_DOWN ) {
-    		explosions.tap(event.getX(), event.getY());
+    		player.tap(event.getX(), event.getY());
     		return true;
     	}
     	return false;
