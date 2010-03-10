@@ -1,7 +1,6 @@
 package com.kirit.android.mintercept;
 
 import android.graphics.Canvas;
-
 import com.kirit.android.Element;
 
 
