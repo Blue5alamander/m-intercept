@@ -37,7 +37,7 @@ public class Level extends View {
 
 	public Level(Context context) {
 		super(context);
-		cities = new City [3];
+		cities = new City [player.getCities()];
 		for ( int n = 0; n != cities.length; ++n )
 			cities[n] = new City(context, this, n, cities.length);
 	}

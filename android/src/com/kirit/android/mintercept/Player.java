@@ -27,13 +27,19 @@ import com.kirit.android.Element;
 
 public class Player extends Element {
 	private Explosion [] explosions;
+	private int cities;
 
 	public 	Player() {
+		cities = 3;
 		explosions = new Explosion [10];
 		for ( int i = 0; i != explosions.length; ++i )
 			explosions[i] = new Explosion();
 	}
 	
+	public int getCities() {
+		return cities;
+	}
+
 	public boolean tap(float x, float y) {
 		if ( explosions[0].reset(x, y) ) {
 			Explosion e = explosions[0];

@@ -38,9 +38,7 @@ public class City extends Element {
 	private Rect location;
 
 	public City(Context context, View v, int n, int o) {
-		view = v;
-		number = n;
-		outof = o;
+		view = v; number = n; outof = o;
 		city = context.getResources().getDrawable(drawable.city);
 	}
 
@@ -48,8 +46,8 @@ public class City extends Element {
 	public boolean draw(Canvas c) {
 		if ( location == null ) {
 			int w = city.getMinimumWidth();
-			int spacing = view.getWidth() / (outof + 1);
-			int left = spacing * number - w / 2 + spacing;
+			int spacing = view.getWidth() / outof;
+			int left = spacing * number + (spacing - w) / 2;
 			location = new Rect(
 					left, view.getHeight() - city.getMinimumHeight(),
 					left + w, view.getHeight()
