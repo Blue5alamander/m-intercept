@@ -27,17 +27,17 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.kirit.android.mintercept.City;
-import com.kirit.android.mintercept.Player;
+import com.kirit.android.mintercept.Game;
 
 
 public class Level extends View {
-	private Player player = new Player();
+	private Game game;
 	private City cities [];
 
 
-	public Level(Context context) {
+	public Level(Context context, Game game) {
 		super(context);
-		cities = new City [player.getCities()];
+		cities = new City [game.getPlayer().getCities()];
 		for ( int n = 0; n != cities.length; ++n )
 			cities[n] = new City(context, this, n, cities.length);
 	}
@@ -45,7 +45,7 @@ public class Level extends View {
 
 	@Override
 	protected void onDraw(Canvas c) {
-		player.draw(c);
+		game.getPlayer().draw(c);
 		for ( City city : cities )
 			city.draw(c);
 	}
@@ -53,7 +53,7 @@ public class Level extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
     	if ( event.getAction() == MotionEvent.ACTION_DOWN ) {
-    		player.tap(event.getX(), event.getY());
+    		game.getPlayer().tap(event.getX(), event.getY());
     		return true;
     	}
     	return false;

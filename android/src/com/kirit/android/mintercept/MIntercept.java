@@ -30,6 +30,7 @@ import android.view.View;
 
 
 public class MIntercept extends Activity {
+	Game game;
 	View view;
 	private Handler handler = new Handler();
 	private Runnable runner = new Runnable() {
@@ -47,7 +48,8 @@ public class MIntercept extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        view = new Level(this);
+        game = new Game();
+        view = new Level(this, game);
         view.setPadding(0, 0, 0, 0);
         setContentView(view);
     }
