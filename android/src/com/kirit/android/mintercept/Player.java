@@ -1,7 +1,8 @@
 package com.kirit.android.mintercept;
 
 import android.graphics.Canvas;
-import com.kirit.mgl.Element;
+
+import com.kirit.android.Element;
 
 
 public class Player extends Element {

@@ -1,4 +1,4 @@
-package com.kirit.android.mintercept;
+package com.kirit.android.mintercept.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -9,16 +9,16 @@ import android.view.View;
 import com.kirit.android.mintercept.Player;
 
 
-public class GameView extends View {
+public class Level extends View {
 	private Player player = new Player();
 
-	public GameView(Context context) {
+	public Level(Context context) {
 		super(context);
 	}
-	public GameView(Context context, AttributeSet attrs) {
+	public Level(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
-	public GameView(Context context, AttributeSet attrs, int defStyle) {
+	public Level(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 	}
 

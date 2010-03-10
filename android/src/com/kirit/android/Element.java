@@ -1,4 +1,4 @@
-package com.kirit.mgl;
+package com.kirit.android;
 
 import android.graphics.Canvas;
 

@@ -1,5 +1,7 @@
 package com.kirit.android.mintercept;
 
+import com.kirit.android.mintercept.views.Level;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,7 +26,7 @@ public class MIntercept extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        view = new GameView(this);
+        view = new Level(this);
         view.setPadding(0, 0, 0, 0);
         setContentView(view);
     }

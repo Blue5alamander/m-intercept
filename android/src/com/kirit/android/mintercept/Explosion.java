@@ -7,8 +7,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import com.kirit.mgl.Element;
-import com.kirit.mgl.Spectrum;
+import com.kirit.android.Element;
+import com.kirit.android.Spectrum;
 
 class Explosion extends Element {
 	private boolean draw = false;
