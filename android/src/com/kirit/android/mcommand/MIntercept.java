@@ -3,11 +3,11 @@ package com.kirit.android.mcommand;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.MotionEvent;
+import android.view.View;
 
 
-public class MCommand extends Activity {
-	GameView view;
+public class MIntercept extends Activity {
+	View view;
 	private Handler handler = new Handler();
 	private Runnable runner = new Runnable() {
 		public void run() {
@@ -18,7 +18,7 @@ public class MCommand extends Activity {
 		}
 	};
 
-    public MCommand() {
+    public MIntercept() {
     }
 
     @Override
