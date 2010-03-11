@@ -30,10 +30,14 @@ public class Player extends Element {
 	private int cities;
 
 	public 	Player() {
-		cities = 3;
 		explosions = new Explosion [10];
 		for ( int i = 0; i != explosions.length; ++i )
 			explosions[i] = new Explosion(35);
+		reset();
+	}
+	
+	public void reset() {
+		cities = 3;
 	}
 	
 	public int getCities() {
