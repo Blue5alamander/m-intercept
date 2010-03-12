@@ -40,7 +40,7 @@ public class Game extends Element {
 	public NumberPanel score, level, missiles;
 
 	private BitmapDrawable gameover;
-	private Rect location;
+	private Rect location = new Rect();
 
 	static public Random randomGenerator = new Random();
 
@@ -54,9 +54,9 @@ public class Game extends Element {
 		level.reset(1); level.setLeft(score.getWidth());
 
 		missiles = new NumberPanel(context, 4, R.drawable.missiles_prolog, R.drawable.missiles_numbers);
-		missiles.reset(0); missiles.setLeft(score.getWidth() + level.getWidth());
+		missiles.reset(0);
 
-		int prolog = Math.max(Math.max(score.getPrologHeight(), level.getPrologHeight()), missiles.getPrologHeight());
+		int prolog = Math.max(Math.max(score.getPrologHeight(), missiles.getPrologHeight()), level.getPrologHeight());
 		score.setNumberOffset(prolog);
 		level.setNumberOffset(prolog);
 		missiles.setNumberOffset(prolog);
@@ -87,17 +87,20 @@ public class Game extends Element {
 	@Override
 	public boolean draw(Canvas c) {
 		if ( isover ) {
-			if ( location == null ) {
-				location = new Rect(
-					c.getWidth() / 2 - gameover.getMinimumWidth() / 2, c.getHeight() / 2 - gameover.getMinimumHeight(),
-					c.getWidth() / 2 + gameover.getMinimumWidth() / 2, c.getHeight() / 2
-				);
-			}
+			location.left = c.getWidth() / 2 - gameover.getMinimumWidth() / 2;
+			location.top = c.getHeight() / 2 - gameover.getMinimumHeight();
+			location.right = c.getWidth() / 2 + gameover.getMinimumWidth() / 2;
+			location.bottom = c.getHeight() / 2;
 			gameover.setBounds(location);
 			gameover.draw(c);
 		}
 
-		score.draw(c); level.draw(c); missiles.draw(c);
+		score.draw(c);  
+		missiles.setLeft(c.getWidth() - missiles.getWidth());
+		missiles.draw(c);
+		level.setLeft((c.getWidth() - level.getWidth()) / 2);
+		level.setTop(c.getHeight() / 3);
+		level.draw(c);
 
 		opponent.draw(c);
 		player.draw(c);
