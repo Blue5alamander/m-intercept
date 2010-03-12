@@ -24,6 +24,7 @@ package com.kirit.android.mintercept;
 import java.util.Random;
 
 import com.kirit.android.Element;
+import com.kirit.android.NumberPanel;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -36,6 +37,8 @@ public class Game extends Element {
 	private Player player;
 	private Opponent opponent;
 
+	public NumberPanel score, level, missiles;
+
 	private BitmapDrawable gameover;
 	private Rect location;
 
@@ -43,6 +46,16 @@ public class Game extends Element {
 
 	public Game(Context context) {
 		isover = false;
+
+		score = new NumberPanel(context, 8, R.drawable.score_prolog, R.drawable.score_numbers);
+		score.reset(10);
+
+		level = new NumberPanel(context, 3, R.drawable.level_prolog, R.drawable.level_numbers);
+		level.reset(1); level.setLeft(score.getWidth());
+
+		missiles = new NumberPanel(context, 4, R.drawable.missiles_prolog, R.drawable.missiles_numbers);
+		missiles.reset(0); missiles.setLeft(score.getWidth() + level.getWidth());
+
 		player = new Player(context, this);
 		opponent = new Opponent(context, this);
 
@@ -78,6 +91,9 @@ public class Game extends Element {
 			gameover.setBounds(location);
 			gameover.draw(c);
 		}
+
+		score.draw(c); level.draw(c); missiles.draw(c);
+
 		opponent.draw(c);
 		player.draw(c);
 		return true;

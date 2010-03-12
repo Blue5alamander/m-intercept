@@ -70,14 +70,21 @@ public class Opponent extends Element {
 		}
 	};
 	
+	private Game game;
 	private Missile [] missiles;
 	private int timer;
 
 	public Opponent(Context context, Game g) {
+		game = g;
 		missiles = new Missile [20];
 		for ( int i = 0; i != missiles.length; ++i )
 			missiles[i] = new Missile(context);
+		reset();
+	}
+	
+	public void reset() {
 		timer = 0;
+		game.missiles.reset(5 * 1 + 5);
 	}
 
 	@Override

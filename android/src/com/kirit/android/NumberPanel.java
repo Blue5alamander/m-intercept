@@ -28,16 +28,14 @@ import android.graphics.drawable.BitmapDrawable;
 
 
 public class NumberPanel extends Element {
-	private int number, digits;
+	private int number, digits, left;
 	private BitmapDrawable prolog, numbers;
-	private Rect location, source;
+	private Rect location = new Rect(), source = new Rect();
 
 	public NumberPanel(Context context, int d, int p, int n) {
-		number = 0; digits = d;
+		number = 0; digits = d; left = 0;
 		prolog = (BitmapDrawable)context.getResources().getDrawable(p);
 		numbers = (BitmapDrawable)context.getResources().getDrawable(n);
-		location = new Rect();
-		source = new Rect();
 	}
 
 	public void reset(int n) {
@@ -47,13 +45,20 @@ public class NumberPanel extends Element {
 		return number += by;
 	}
 
+	public int getWidth() {
+		return Math.max(numbers.getMinimumWidth() / 10 * digits, prolog.getMinimumWidth());
+	}
+	public void setLeft(int l) {
+		left = l;
+	}
+
 	@Override
 	public boolean draw(Canvas c) {
 		int width = numbers.getMinimumWidth() / 10;
-	
+
 		location.top = 0;
 		location.bottom = prolog.getMinimumHeight();
-		location.left = ( width * digits - prolog.getMinimumWidth() ) / 2;
+		location.left = left + ( getWidth() - prolog.getMinimumWidth() ) / 2;
 		location.right = location.left + prolog.getMinimumWidth();
 		prolog.setBounds(location);
 		prolog.draw(c);
@@ -63,7 +68,7 @@ public class NumberPanel extends Element {
 		location.top = location.bottom;
 		location.bottom *= 2; 
 		for ( int i = digits - 1, n = number > 0 ? number : 0; i >= 0; --i, n = n / 10 ) {
-			location.left = i * width;
+			location.left = left + ( getWidth() - width * digits ) / 2 + i * width;
 			location.right = location.left + width;
 			source.left = (n % 10) * width;
 			source.right = source.left + width;

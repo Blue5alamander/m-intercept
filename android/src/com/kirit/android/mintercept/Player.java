@@ -29,7 +29,6 @@ import com.kirit.android.NumberPanel;
 
 public class Player extends Element {
 	private Game game;
-	private NumberPanel score;
 	private Explosion [] explosions;
 	private int cities;
 
@@ -38,13 +37,11 @@ public class Player extends Element {
 		explosions = new Explosion [10];
 		for ( int i = 0; i != explosions.length; ++i )
 			explosions[i] = new Explosion(35);
-		score = new NumberPanel(context, 8, R.drawable.score_prolog, R.drawable.score_numbers);
 		reset();
 	}
 	
 	public void reset() {
 		cities = 3;
-		score.reset(10);
 	}
 	
 	public int getCities() {
@@ -57,7 +54,7 @@ public class Player extends Element {
 			for ( int i = 0; i != explosions.length-1; ++i )
 				explosions[i] = explosions[i+1];
 			explosions[explosions.length-1] = e;
-			if ( score.alter(-1) == 0 )
+			if ( game.score.alter(-1) == 0 )
 				game.over();
 			return true;
 		}
@@ -69,7 +66,6 @@ public class Player extends Element {
 		for ( int i = 0; i != explosions.length; ++i )
 			if ( explosions[i].draw(c) && !drawn )
 				drawn = true;
-		score.draw(c);
 		return drawn;
 	}
 }
