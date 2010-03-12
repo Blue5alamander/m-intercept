@@ -64,7 +64,7 @@ class Explosion extends Element {
 	 * Returns true if the location is inside the explosion
 	 */
 	public boolean inside(float x, float y) {
-		return draw && ( cx - x ) * ( cx - x ) + ( cy - y ) * ( cy - y ) < outer_radius * outer_radius;
+		return draw && fade == 8 && ( cx - x ) * ( cx - x ) + ( cy - y ) * ( cy - y ) < outer_radius * outer_radius;
 	}
 
 	@Override
