@@ -61,7 +61,7 @@ public class Opponent extends Element {
 					// Initialise the missile
 					dx = 0; dy = 1;
 					sx = Game.randomGenerator.nextInt(c.getWidth());
-					sy = game.score.getTotalHeight() + 1;
+					sy = game.missiles.getTotalHeight() + 1;
 					cx = sx; cy = sy;
 					tx = Game.randomGenerator.nextInt(c.getWidth());
 					dx = ( tx - sx ) / ( view.getHeight() - sy );
@@ -73,6 +73,7 @@ public class Opponent extends Element {
 						dy = 0; dx = 0;
 						exploding = true;
 						explosion.reset(cx, cy);
+						game.award(-3);
 					}
 					return explosion.draw(c);
 				} else {

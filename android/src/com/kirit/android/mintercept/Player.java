@@ -53,8 +53,7 @@ public class Player extends Element {
 			for ( int i = 0; i != explosions.length-1; ++i )
 				explosions[i] = explosions[i+1];
 			explosions[explosions.length-1] = e;
-			if ( game.score.alter(-1) == 0 )
-				game.over();
+			game.award(-1);
 			return true;
 		}
 		return false;

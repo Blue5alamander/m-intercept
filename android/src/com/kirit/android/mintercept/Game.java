@@ -38,7 +38,8 @@ public class Game extends Element {
 	private Player player;
 	private Opponent opponent;
 
-	public NumberPanel score, level, missiles;
+	private NumberPanel score;
+	public NumberPanel level, missiles;
 
 	private BitmapDrawable gameover;
 	private Rect location = new Rect();
@@ -83,6 +84,14 @@ public class Game extends Element {
 	 */
 	public boolean isOver() {
 		return isover;
+	}
+	/**
+	 * Award (or subtract) points from the player
+	 */
+	public boolean award(int points) {
+		if ( score.alter(points) <= 0 )
+			over();
+		return isOver();
 	}
 
 	@Override
