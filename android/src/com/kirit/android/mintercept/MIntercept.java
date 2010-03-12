@@ -26,12 +26,11 @@ import com.kirit.android.mintercept.views.Level;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 
 
 public class MIntercept extends Activity {
 	Game game;
-	View view;
+	Level view;
 	private Handler handler = new Handler();
 	private Runnable runner = new Runnable() {
 		public void run() {
@@ -48,8 +47,9 @@ public class MIntercept extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        game = new Game(this);
-        view = new Level(this, game);
+        view = new Level(this);
+        game = new Game(this, view);
+        view.setGame(this, game);
         view.setPadding(0, 0, 0, 0);
         setContentView(view);
     }

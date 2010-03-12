@@ -24,6 +24,7 @@ package com.kirit.android.mintercept;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.view.View;
 
 import com.kirit.android.Element;
 
@@ -31,16 +32,23 @@ public class Opponent extends Element {
 	private static Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
 	private class Missile extends Element {
-		private boolean inuse;
-		float sx, sy, cx, cy, dx, dy, tx;
-		public Missile(Context context) {
-			inuse = false;
+		private View view;
+		private boolean inuse, exploding;
+		private float sx, sy, cx, cy, dx, dy, tx;
+		private Explosion explosion;
+
+		public Missile(Context context, View v) {
+			view = v;
+			inuse = false; exploding = false;
 			dx = 0; dy = 0;
+			explosion = new Explosion(10);
 		}
 
 		public boolean reset() {
 			if ( !inuse ) {
-				inuse = true; dy = 0;
+				dy = 0; dx = 0;
+				inuse = true;
+				exploding = false;
 				return true;
 			}
 			return false;
@@ -49,24 +57,31 @@ public class Opponent extends Element {
 		@Override
 		public boolean draw(Canvas c) {
 			if ( inuse ) {
-				if ( dy == 0 ) {
+				if ( dy == 0 && !exploding ) {
 					// Initialise the missile
 					dx = 0; dy = 1;
 					sx = Game.randomGenerator.nextInt(c.getWidth());
 					sy = game.score.getTotalHeight() + 1;
 					cx = sx; cy = sy;
 					tx = Game.randomGenerator.nextInt(c.getWidth());
-					dx = ( tx - sx ) / ( c.getHeight() - sy );
+					dx = ( tx - sx ) / ( view.getHeight() - sy );
 				}
 				// Move the missile then draw it
 				cx += dx; cy += dy;
-				if ( cy == c.getHeight() ) {
-					inuse = false;
+				if ( cy >= view.getHeight() ) {
+					if ( !exploding ) {
+						dy = 0; dx = 0;
+						exploding = true;
+						explosion.reset(cx, cy);
+					}
+					return explosion.draw(c);
+				} else {
+					paint.setColor(0xff808080);
+					c.drawLine(sx, sy, cx, cy, paint);
+					paint.setColor(0xffffffff);
+					c.drawCircle(cx, cy, 2, paint);
+					return true;
 				}
-				paint.setColor(0xff808080);
-				c.drawLine(sx, sy, cx, cy, paint);
-				paint.setColor(0xffffffff);
-				c.drawCircle(cx, cy, 2, paint);
 			}
 			return inuse;
 		}
@@ -76,11 +91,11 @@ public class Opponent extends Element {
 	private Missile [] missiles;
 	private int timer;
 
-	public Opponent(Context context, Game g) {
+	public Opponent(Context context, View view, Game g) {
 		game = g;
 		missiles = new Missile [20];
 		for ( int i = 0; i != missiles.length; ++i )
-			missiles[i] = new Missile(context);
+			missiles[i] = new Missile(context, view);
 		reset();
 	}
 	
@@ -95,7 +110,7 @@ public class Opponent extends Element {
 			for ( Missile m : missiles )
 				if ( m.reset() ) {
 					game.missiles.alter(-1);
-					timer = 20;
+					timer = 100;
 					break;
 				}
 		} else

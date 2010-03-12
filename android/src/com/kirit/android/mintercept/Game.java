@@ -30,6 +30,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.view.View;
 
 
 public class Game extends Element {
@@ -44,7 +45,7 @@ public class Game extends Element {
 
 	static public Random randomGenerator = new Random();
 
-	public Game(Context context) {
+	public Game(Context context, View view) {
 		isover = false;
 
 		score = new NumberPanel(context, 8, R.drawable.score_prolog, R.drawable.score_numbers);
@@ -62,7 +63,7 @@ public class Game extends Element {
 		missiles.setNumberOffset(prolog);
 
 		player = new Player(context, this);
-		opponent = new Opponent(context, this);
+		opponent = new Opponent(context, view, this);
 
 		gameover = (BitmapDrawable)context.getResources().getDrawable(R.drawable.gameover); 
 	}
