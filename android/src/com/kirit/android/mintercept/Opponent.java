@@ -84,22 +84,25 @@ public class Opponent extends Element {
 	
 	public void reset() {
 		timer = 0;
-		game.missiles.reset(5 * 1 + 5);
+		game.missiles.reset(5 * game.level.getValue() + 5);
 	}
 
 	@Override
 	public boolean draw(Canvas c) {
-		if ( timer <= 0 ) {
+		if ( timer <= 0 && game.missiles.getValue() > 0 ) {
 			for ( Missile m : missiles )
 				if ( m.reset() ) {
+					game.missiles.alter(-1);
 					timer = 20;
 					break;
 				}
 		} else
 			--timer;
+		boolean inplay = game.missiles.getValue() > 0;
 		for ( Missile m : missiles )
-			m.draw(c);
-		return true;
+			if ( m.draw(c) );
+				inplay = true;
+		return inplay;
 	}
 
 }
