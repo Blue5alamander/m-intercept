@@ -23,9 +23,11 @@ package com.kirit.android.mintercept;
 
 import android.graphics.Canvas;
 import com.kirit.android.Element;
+import com.kirit.android.NumberPanel;
 
 
 public class Player extends Element {
+	private NumberPanel score;
 	private Explosion [] explosions;
 	private int cities;
 
@@ -38,6 +40,7 @@ public class Player extends Element {
 	
 	public void reset() {
 		cities = 3;
+		score.reset(10);
 	}
 	
 	public int getCities() {
@@ -60,6 +63,6 @@ public class Player extends Element {
 		for ( int i = 0; i != explosions.length; ++i )
 			if ( explosions[i].draw(c) && !drawn )
 				drawn = true;
-		return drawn;
+		return score.draw(c) || drawn;
 	}
 }
