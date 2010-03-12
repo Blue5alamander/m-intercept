@@ -21,22 +21,45 @@
 
 package com.kirit.android;
 
+import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 
 
 public class NumberPanel extends Element {
-	private int number;
+	private int number, digits;
+	private Drawable prolog, numbers;
+	private Rect location;
 
-	public NumberPanel() {
+	public NumberPanel(Context context, int d, int p, int n) {
+		number = 0; digits = d;
+		prolog = context.getResources().getDrawable(p);
+		numbers = context.getResources().getDrawable(n);
 	}
 
 	public void reset(int n) {
 		number = n;
 	}
+	public int alter(int by) {
+		return number += by;
+	}
 
 	@Override
 	public boolean draw(Canvas c) {
-		return false;
+		/*for ( int i = 0, n = number; i < digits; ++i ) {
+			int v = n % 10;
+			n = n / 10;
+		}*/
+		if ( location == null ) {
+			location = new Rect(
+					0, 0,
+					prolog.getMinimumWidth(), prolog.getMinimumHeight()
+				);
+		}
+		prolog.setBounds(location);
+		prolog.draw(c);
+		//numbers.draw(c);
+		return true;
 	}
-
 }

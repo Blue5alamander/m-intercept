@@ -21,11 +21,14 @@
 
 package com.kirit.android.mintercept;
 
+import android.content.Context;
+
 
 public class Game extends Object {
-	private Player player = new Player();
+	private Player player;
 
-	public Game() {
+	public Game(Context context) {
+		player = new Player(context);
 	}
 
 	public Player getPlayer() {
