@@ -25,13 +25,20 @@ import com.kirit.android.Element;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 
 
 public class Game extends Element {
+	private boolean isover;
 	private Player player;
+	private BitmapDrawable gameover;
+	private Rect location;
 
 	public Game(Context context) {
+		isover = false;
 		player = new Player(context, this);
+		gameover = (BitmapDrawable)context.getResources().getDrawable(R.drawable.gameover); 
 	}
 
 	public Player getPlayer() {
@@ -42,10 +49,27 @@ public class Game extends Element {
 	 * When called the game is over
 	 */
 	public void over() {
+		isover = true;
+	}
+	/**
+	 * Allows us to determine if the game is over.
+	 */
+	public boolean isOver() {
+		return isover;
 	}
 
 	@Override
 	public boolean draw(Canvas c) {
+		if ( isover ) {
+			if ( location == null ) {
+				location = new Rect(
+					c.getWidth() / 2 - gameover.getMinimumWidth() / 2, c.getHeight() / 2 - gameover.getMinimumHeight(),
+					c.getWidth() / 2 + gameover.getMinimumWidth() / 2, c.getHeight() / 2
+				);
+			}
+			gameover.setBounds(location);
+			gameover.draw(c);
+		}
 		return player.draw(c);
 	}
 }

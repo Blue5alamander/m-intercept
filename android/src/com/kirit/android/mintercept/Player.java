@@ -52,7 +52,7 @@ public class Player extends Element {
 	}
 
 	public boolean tap(float x, float y) {
-		if ( explosions[0].reset(x, y) ) {
+		if ( !game.isOver() && explosions[0].reset(x, y) ) {
 			Explosion e = explosions[0];
 			for ( int i = 0; i != explosions.length-1; ++i )
 				explosions[i] = explosions[i+1];
