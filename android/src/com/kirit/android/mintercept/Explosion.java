@@ -30,9 +30,9 @@ import com.kirit.android.Spectrum;
 
 
 class Explosion extends Element {
+	private static Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private boolean draw = false;
 	private Spectrum colour = new Spectrum(0.0f, 0.75f, 0.75f);
-	private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private float cx, cy, inner_radius, outer_radius;
 	private int size;
 
@@ -47,9 +47,8 @@ class Explosion extends Element {
 			inner_radius = 1;
 			outer_radius = 1;
 			return true;
-		} else {
+		} else
 			return false;
-		}
 	}
 	@Override
 	public boolean draw(Canvas c) {
@@ -66,8 +65,7 @@ class Explosion extends Element {
 			} else
 				draw = false;
 			return true;
-		} else {
+		} else
 			return false;
-		}
 	}
 }
