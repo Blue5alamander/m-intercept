@@ -24,7 +24,6 @@ package com.kirit.android.mintercept;
 import android.content.Context;
 import android.graphics.Canvas;
 import com.kirit.android.Element;
-import com.kirit.android.NumberPanel;
 
 
 public class Player extends Element {

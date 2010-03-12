@@ -55,6 +55,9 @@ public class NumberPanel extends Element {
 	public int getPrologHeight() {
 		return prolog.getMinimumHeight();
 	}
+	public int getTotalHeight() {
+		return numbers_offset + numbers.getIntrinsicHeight(); 
+	}
 	public void setLeft(int l) {
 		left = l;
 	}
@@ -74,9 +77,9 @@ public class NumberPanel extends Element {
 		prolog.draw(c);
 
 		source.top = 0;
-		source.bottom = numbers.getMinimumHeight();
+		source.bottom = numbers.getIntrinsicHeight();
 		location.top = numbers_offset;
-		location.bottom = numbers_offset + getPrologHeight(); 
+		location.bottom = getTotalHeight(); 
 		for ( int i = digits - 1, n = number > 0 ? number : 0; i >= 0; --i, n = n / 10 ) {
 			location.left = left + ( getWidth() - width * digits ) / 2 + i * width;
 			location.right = location.left + width;
