@@ -28,7 +28,7 @@ import android.graphics.drawable.BitmapDrawable;
 
 
 public class NumberPanel extends Element {
-	private int number, digits, left;
+	private int number, digits, left, numbers_offset;
 	private BitmapDrawable prolog, numbers;
 	private Rect location = new Rect(), source = new Rect();
 
@@ -36,10 +36,14 @@ public class NumberPanel extends Element {
 		number = 0; digits = d; left = 0;
 		prolog = (BitmapDrawable)context.getResources().getDrawable(p);
 		numbers = (BitmapDrawable)context.getResources().getDrawable(n);
+		numbers_offset = getPrologHeight();
 	}
 
 	public void reset(int n) {
 		number = n;
+	}
+	public int getValue() {
+		return number;
 	}
 	public int alter(int by) {
 		return number += by;
@@ -48,8 +52,14 @@ public class NumberPanel extends Element {
 	public int getWidth() {
 		return Math.max(numbers.getMinimumWidth() / 10 * digits, prolog.getMinimumWidth());
 	}
+	public int getPrologHeight() {
+		return prolog.getMinimumHeight();
+	}
 	public void setLeft(int l) {
 		left = l;
+	}
+	public void setNumberOffset(int h) {
+		numbers_offset = h;
 	}
 
 	@Override
@@ -57,7 +67,7 @@ public class NumberPanel extends Element {
 		int width = numbers.getMinimumWidth() / 10;
 
 		location.top = 0;
-		location.bottom = prolog.getMinimumHeight();
+		location.bottom = getPrologHeight();
 		location.left = left + ( getWidth() - prolog.getMinimumWidth() ) / 2;
 		location.right = location.left + prolog.getMinimumWidth();
 		prolog.setBounds(location);
@@ -65,8 +75,8 @@ public class NumberPanel extends Element {
 
 		source.top = 0;
 		source.bottom = numbers.getMinimumHeight();
-		location.top = location.bottom;
-		location.bottom *= 2; 
+		location.top = numbers_offset;
+		location.bottom = numbers_offset + getPrologHeight(); 
 		for ( int i = digits - 1, n = number > 0 ? number : 0; i >= 0; --i, n = n / 10 ) {
 			location.left = left + ( getWidth() - width * digits ) / 2 + i * width;
 			location.right = location.left + width;

@@ -56,6 +56,11 @@ public class Game extends Element {
 		missiles = new NumberPanel(context, 4, R.drawable.missiles_prolog, R.drawable.missiles_numbers);
 		missiles.reset(0); missiles.setLeft(score.getWidth() + level.getWidth());
 
+		int prolog = Math.max(Math.max(score.getPrologHeight(), level.getPrologHeight()), missiles.getPrologHeight());
+		score.setNumberOffset(prolog);
+		level.setNumberOffset(prolog);
+		missiles.setNumberOffset(prolog);
+
 		player = new Player(context, this);
 		opponent = new Opponent(context, this);
 
@@ -96,6 +101,7 @@ public class Game extends Element {
 
 		opponent.draw(c);
 		player.draw(c);
+
 		return true;
 	}
 }
