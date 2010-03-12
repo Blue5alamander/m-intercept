@@ -22,7 +22,6 @@
 package com.kirit.android.mintercept;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 
 import com.kirit.android.Element;

@@ -21,6 +21,8 @@
 
 package com.kirit.android.mintercept;
 
+import java.util.Random;
+
 import com.kirit.android.Element;
 
 import android.content.Context;
@@ -32,12 +34,18 @@ import android.graphics.drawable.BitmapDrawable;
 public class Game extends Element {
 	private boolean isover;
 	private Player player;
+	private Opponent opponent;
+
 	private BitmapDrawable gameover;
 	private Rect location;
+
+	static public Random randomGenerator = new Random();
 
 	public Game(Context context) {
 		isover = false;
 		player = new Player(context, this);
+		opponent = new Opponent(context, this);
+
 		gameover = (BitmapDrawable)context.getResources().getDrawable(R.drawable.gameover); 
 	}
 
@@ -70,6 +78,8 @@ public class Game extends Element {
 			gameover.setBounds(location);
 			gameover.draw(c);
 		}
-		return player.draw(c);
+		opponent.draw(c);
+		player.draw(c);
+		return true;
 	}
 }
