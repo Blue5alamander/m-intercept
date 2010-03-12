@@ -34,7 +34,7 @@ class Explosion extends Element {
 	private boolean draw = false;
 	private Spectrum colour = new Spectrum(0.0f, 0.75f, 0.75f);
 	private float cx, cy, inner_radius, outer_radius;
-	private int size;
+	private int size, fade;
 
 	public Explosion(int s) {
 		size = s;
@@ -46,6 +46,7 @@ class Explosion extends Element {
 			cx = x; cy = y;
 			inner_radius = 1;
 			outer_radius = 1;
+			fade = 8;
 			return true;
 		} else
 			return false;
@@ -57,11 +58,15 @@ class Explosion extends Element {
 				paint.setColor(colour.next(size));
 				c.drawCircle(cx, cy, outer_radius, paint);
 				if ( outer_radius > size ) {
-					paint.setColor(Color.BLACK);
+					paint.setColor(0xff404040);
 					c.drawCircle(cx, cy, inner_radius, paint);
 					++inner_radius;
 				} else
 					++outer_radius;
+			} else if ( fade > 0 ) {
+				--fade;
+				paint.setColor(0x404040 + fade * 0x02000000 + fade * 0x20000000);
+				c.drawCircle(cx, cy, inner_radius, paint);
 			} else
 				draw = false;
 			return true;
