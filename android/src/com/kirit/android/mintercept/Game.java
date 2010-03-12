@@ -116,7 +116,11 @@ public class Game extends Element {
 	public boolean tick() {
 		if ( level.alpha > 0 )
 			--level.alpha;
-		opponent.tick();
+		if ( !opponent.tick() && !isOver() ) {
+			level.alpha = 255;
+			level.alter(1);
+			opponent.reset();
+		}
 		player.tick();
 		return !isOver();
 	}

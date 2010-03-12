@@ -62,8 +62,7 @@ public class Opponent extends Element {
 		public boolean tick() {
 			if ( inuse ) {
 				if ( dy == 0 && !exploding ) {
-					// Initialise the missile
-					dx = 0; dy = 1;
+					dx = 0; dy = 1f + game.level.getValue() / 10f;
 					sx = Game.randomGenerator.nextInt(view.getWidth());
 					sy = game.missiles.getTotalHeight() + 1;
 					cx = sx; cy = sy;
@@ -129,7 +128,7 @@ public class Opponent extends Element {
 
 	public void reset() {
 		timer = 0;
-		game.missiles.reset(5 * game.level.getValue() + 5);
+		game.missiles.reset(2 * game.level.getValue() + 8);
 	}
 
 	@Override
@@ -139,7 +138,7 @@ public class Opponent extends Element {
 			for ( Missile m : missiles )
 				if ( m.reset() ) {
 					game.missiles.alter(-1);
-					timer = 100;
+					timer = Math.max(80 - 4 * game.level.getValue(), 2);
 					break;
 				}
 		} else

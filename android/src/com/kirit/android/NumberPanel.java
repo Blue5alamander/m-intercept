@@ -80,7 +80,7 @@ public class NumberPanel extends Element {
 
 	@Override
 	public void draw(Canvas c, Layer l) {
-		if ( layer == l ) {
+		if ( layer == l && alpha > 0 ) {
 			paint.setAlpha(alpha);
 			int width = numbers.getMinimumWidth() / 10;
 	
