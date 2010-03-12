@@ -62,6 +62,13 @@ public class City extends Element {
 	}
 
 	@Override
+	public boolean tick() {
+		if ( drawcity && isdead && explosion.pastZenith() )
+			drawcity = false;
+		return !isdead;
+	}
+
+	@Override
 	public void draw(Canvas c, Layer layer) {
 		if ( layer == Layer.CITIES && drawcity ) {
 			if ( location == null ) {
@@ -77,10 +84,5 @@ public class City extends Element {
 			city.draw(c);
 		}
 		explosion.draw(c, layer);
-	}
-
-	@Override
-	public boolean tick() {
-		return !isdead;
 	}
 }

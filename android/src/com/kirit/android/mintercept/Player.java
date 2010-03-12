@@ -68,7 +68,13 @@ public class Player extends Element {
 
 	@Override
 	public boolean tick() {
-		return true;
+		boolean alldead = true;
+		for ( City city : cities )
+			if ( city.tick() )
+				alldead = false;
+		if ( alldead )
+			game.over();
+		return !alldead;
 	}
 
 	@Override

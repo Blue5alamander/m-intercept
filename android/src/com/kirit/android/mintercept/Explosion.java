@@ -53,6 +53,13 @@ class Explosion extends Element {
 			return false;
 	}
 
+	/**
+	 * Returns true when the explosion has reached it's maximum size
+	 */
+	public boolean pastZenith() {
+		return inner_radius > 1;
+	}
+
 	@Override
 	public boolean tick() {
 		return draw;
