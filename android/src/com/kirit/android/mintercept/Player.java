@@ -47,6 +47,13 @@ public class Player extends Element {
 	public void reset() {
 	}
 
+	public City hasStruck(float x) {
+		for ( City c : cities )
+			if ( c.hasStruck(x) )
+				return c;
+		return null;
+	}
+
 	public boolean tap(float x, float y) {
 		if ( !game.isOver() && explosions[0].reset(x, y) ) {
 			Explosion e = explosions[0];
