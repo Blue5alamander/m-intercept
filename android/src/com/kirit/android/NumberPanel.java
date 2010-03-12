@@ -49,18 +49,21 @@ public class NumberPanel extends Element {
 
 	@Override
 	public boolean draw(Canvas c) {
-		location.left =0;
+		int width = numbers.getMinimumWidth() / 10;
+	
 		location.top = 0;
-		location.right = prolog.getMinimumWidth();
 		location.bottom = prolog.getMinimumHeight();
+		location.left = ( width * digits - prolog.getMinimumWidth() ) / 2;
+		location.right = location.left + prolog.getMinimumWidth();
 		prolog.setBounds(location);
 		prolog.draw(c);
 
 		source.top = 0;
 		source.bottom = numbers.getMinimumHeight();
-		int width = numbers.getMinimumWidth() / 10;
+		location.top = location.bottom;
+		location.bottom *= 2; 
 		for ( int i = digits - 1, n = number > 0 ? number : 0; i >= 0; --i, n = n / 10 ) {
-			location.left = prolog.getMinimumWidth() + i * width;
+			location.left = i * width;
 			location.right = location.left + width;
 			source.left = (n % 10) * width;
 			source.right = source.left + width;
