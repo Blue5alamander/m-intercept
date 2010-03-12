@@ -41,7 +41,7 @@ public class Opponent extends Element {
 			view = v;
 			inuse = false; exploding = false;
 			dx = 0; dy = 0;
-			explosion = new Explosion(10);
+			explosion = new Explosion(10, Layer.EXPLOSIONS);
 		}
 
 		public boolean reset() {
@@ -55,18 +55,17 @@ public class Opponent extends Element {
 		}
 
 		@Override
-		public boolean draw(Canvas c) {
+		public boolean tick() {
 			if ( inuse ) {
 				if ( dy == 0 && !exploding ) {
 					// Initialise the missile
 					dx = 0; dy = 1;
-					sx = Game.randomGenerator.nextInt(c.getWidth());
+					sx = Game.randomGenerator.nextInt(view.getWidth());
 					sy = game.missiles.getTotalHeight() + 1;
 					cx = sx; cy = sy;
-					tx = Game.randomGenerator.nextInt(c.getWidth());
+					tx = Game.randomGenerator.nextInt(view.getWidth());
 					dx = ( tx - sx ) / ( view.getHeight() - sy );
 				}
-				// Move the missile then draw it
 				cx += dx; cy += dy;
 				if ( cy >= view.getHeight() ) {
 					if ( !exploding ) {
@@ -75,19 +74,28 @@ public class Opponent extends Element {
 						explosion.reset(cx, cy);
 						game.award(-3);
 					}
-					return explosion.draw(c);
-				} else {
+				}
+				if ( exploding )
+					inuse = explosion.tick();
+			}
+			return inuse;
+		}
+
+		@Override
+		public void draw(Canvas c, Layer layer) {
+			if ( inuse ) {
+				// Move the missile then draw it
+				if (layer == Layer.TRAILS) {
 					paint.setColor(0xff808080);
 					c.drawLine(sx, sy, cx, cy, paint);
 					paint.setColor(0xffffffff);
 					c.drawCircle(cx, cy, 2, paint);
-					return true;
-				}
+				} else if ( layer == Layer.EXPLOSIONS )
+					explosion.draw(c, layer);
 			}
-			return inuse;
 		}
 	};
-	
+
 	private Game game;
 	private Missile [] missiles;
 	private int timer;
@@ -99,15 +107,16 @@ public class Opponent extends Element {
 			missiles[i] = new Missile(context, view);
 		reset();
 	}
-	
+
 	public void reset() {
 		timer = 0;
 		game.missiles.reset(5 * game.level.getValue() + 5);
 	}
 
 	@Override
-	public boolean draw(Canvas c) {
-		if ( timer <= 0 && game.missiles.getValue() > 0 ) {
+	public boolean tick() {
+		boolean inplay = game.missiles.getValue() > 0;
+		if ( timer <= 0 && inplay ) {
 			for ( Missile m : missiles )
 				if ( m.reset() ) {
 					game.missiles.alter(-1);
@@ -116,11 +125,15 @@ public class Opponent extends Element {
 				}
 		} else
 			--timer;
-		boolean inplay = game.missiles.getValue() > 0;
-		for ( Missile m : missiles )
-			if ( m.draw(c) );
+		for ( Missile missile : missiles )
+			if ( missile.tick() )
 				inplay = true;
 		return inplay;
 	}
 
+	@Override
+	public void draw(Canvas c, Layer layer) {
+		for ( Missile m : missiles )
+			m.draw(c, layer);
+	}
 }

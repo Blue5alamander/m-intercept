@@ -49,13 +49,13 @@ public class Game extends Element {
 	public Game(Context context, View view) {
 		isover = false;
 
-		score = new NumberPanel(context, 8, R.drawable.score_prolog, R.drawable.score_numbers);
+		score = new NumberPanel(context, 8, R.drawable.score_prolog, R.drawable.score_numbers, Layer.CHROME);
 		score.reset(10);
 
-		level = new NumberPanel(context, 3, R.drawable.level_prolog, R.drawable.level_numbers);
+		level = new NumberPanel(context, 3, R.drawable.level_prolog, R.drawable.level_numbers, Layer.CHROME);
 		level.reset(1); level.setLeft(score.getWidth());
 
-		missiles = new NumberPanel(context, 4, R.drawable.missiles_prolog, R.drawable.missiles_numbers);
+		missiles = new NumberPanel(context, 4, R.drawable.missiles_prolog, R.drawable.missiles_numbers, Layer.CHROME);
 		missiles.reset(0);
 
 		int prolog = Math.max(Math.max(score.getPrologHeight(), missiles.getPrologHeight()), level.getPrologHeight());
@@ -95,8 +95,15 @@ public class Game extends Element {
 	}
 
 	@Override
-	public boolean draw(Canvas c) {
-		if ( isover ) {
+	public boolean tick() {
+		opponent.tick();
+		player.tick();
+		return !isOver();
+	}
+
+	@Override
+	public void draw(Canvas c, Layer layer) {
+		if ( isover && layer == Layer.BACKGROUND ) {
 			location.left = c.getWidth() / 2 - gameover.getMinimumWidth() / 2;
 			location.top = c.getHeight() / 2 - gameover.getMinimumHeight();
 			location.right = c.getWidth() / 2 + gameover.getMinimumWidth() / 2;
@@ -105,16 +112,14 @@ public class Game extends Element {
 			gameover.draw(c);
 		}
 
-		score.draw(c);  
+		score.draw(c, layer);
 		missiles.setLeft(c.getWidth() - missiles.getWidth());
-		missiles.draw(c);
+		missiles.draw(c, layer);
 		level.setLeft((c.getWidth() - level.getWidth()) / 2);
 		level.setTop(c.getHeight() / 3);
-		level.draw(c);
+		level.draw(c, layer);
 
-		opponent.draw(c);
-		player.draw(c);
-
-		return true;
+		opponent.draw(c, layer);
+		player.draw(c, layer);
 	}
 }

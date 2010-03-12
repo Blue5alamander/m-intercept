@@ -29,13 +29,15 @@ import com.kirit.android.Spectrum;
 
 
 class Explosion extends Element {
+	private Layer layer;
 	private static Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private boolean draw = false;
 	private Spectrum colour = new Spectrum(0.0f, 0.75f, 0.75f);
 	private float cx, cy, inner_radius, outer_radius;
 	private int size, fade;
 
-	public Explosion(int s) {
+	public Explosion(int s, Layer l) {
+		layer = l;
 		size = s;
 	}
 
@@ -50,26 +52,32 @@ class Explosion extends Element {
 		} else
 			return false;
 	}
+
 	@Override
-	public boolean draw(Canvas c) {
-		if ( draw ) {
-			if (inner_radius < size) {
-				paint.setColor(colour.next(size));
-				c.drawCircle(cx, cy, outer_radius, paint);
-				if ( outer_radius > size ) {
-					paint.setColor(0xff404040);
+	public boolean tick() {
+		return draw;
+	}
+
+	@Override
+	public void draw(Canvas c, Layer l) {
+		if (layer == l) {
+			if ( draw ) {
+				if (inner_radius < size) {
+					paint.setColor(colour.next(size));
+					c.drawCircle(cx, cy, outer_radius, paint);
+					if ( outer_radius > size ) {
+						paint.setColor(0xff404040);
+						c.drawCircle(cx, cy, inner_radius, paint);
+						++inner_radius;
+					} else
+						++outer_radius;
+				} else if ( fade > 0 ) {
+					--fade;
+					paint.setColor(0x404040 + fade * 0x02000000 + fade * 0x20000000);
 					c.drawCircle(cx, cy, inner_radius, paint);
-					++inner_radius;
 				} else
-					++outer_radius;
-			} else if ( fade > 0 ) {
-				--fade;
-				paint.setColor(0x404040 + fade * 0x02000000 + fade * 0x20000000);
-				c.drawCircle(cx, cy, inner_radius, paint);
-			} else
-				draw = false;
-			return true;
-		} else
-			return false;
+					draw = false;
+			}
+		}
 	}
 }

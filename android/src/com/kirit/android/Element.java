@@ -25,5 +25,8 @@ import android.graphics.Canvas;
 
 
 public abstract class Element {
-	abstract public boolean draw(Canvas c);
+	public enum Layer {BACKGROUND, CITIES, TRAILS, EXPLOSIONS, MISSILES, CHROME};
+
+	abstract public boolean tick();
+	abstract public void draw(Canvas c, Layer layer);
 }

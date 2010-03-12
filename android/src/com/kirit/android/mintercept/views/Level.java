@@ -26,6 +26,7 @@ import android.graphics.Canvas;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.kirit.android.Element.Layer;
 import com.kirit.android.mintercept.Game;
 
 
@@ -44,7 +45,13 @@ public class Level extends View {
 	@Override
 	protected void onDraw(Canvas c) {
 		c.drawARGB(255, 0, 0, 0);
-		game.draw(c);
+		game.tick();
+		game.draw(c, Layer.BACKGROUND);
+		game.draw(c, Layer.CITIES);
+		game.draw(c, Layer.TRAILS);
+		game.draw(c, Layer.EXPLOSIONS);
+		game.draw(c, Layer.MISSILES);
+		game.draw(c, Layer.CHROME);
 	}
 
     @Override

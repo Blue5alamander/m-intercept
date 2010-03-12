@@ -43,18 +43,24 @@ public class City extends Element {
 	}
 
 	@Override
-	public boolean draw(Canvas c) {
-		if ( location == null ) {
-			int w = city.getMinimumWidth();
-			int spacing = view.getWidth() / outof;
-			int left = spacing * number + (spacing - w) / 2;
-			location = new Rect(
-					left, view.getHeight() - city.getMinimumHeight(),
-					left + w, view.getHeight()
-				);
+	public void draw(Canvas c, Layer layer) {
+		if ( layer == Layer.CITIES ) {
+			if ( location == null ) {
+				int w = city.getMinimumWidth();
+				int spacing = view.getWidth() / outof;
+				int left = spacing * number + (spacing - w) / 2;
+				location = new Rect(
+						left, view.getHeight() - city.getMinimumHeight(),
+						left + w, view.getHeight()
+					);
+			}
+			city.setBounds(location);
+			city.draw(c);
 		}
-		city.setBounds(location);
-		city.draw(c);
-		return true;
+	}
+
+	@Override
+	public boolean tick() {
+		return false;
 	}
 }

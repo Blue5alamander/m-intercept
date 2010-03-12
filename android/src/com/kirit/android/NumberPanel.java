@@ -28,11 +28,13 @@ import android.graphics.drawable.BitmapDrawable;
 
 
 public class NumberPanel extends Element {
+	private Layer layer;
 	private int number, digits, left, top, numbers_offset;
 	private BitmapDrawable prolog, numbers;
 	private Rect location = new Rect(), source = new Rect();
 
-	public NumberPanel(Context context, int d, int p, int n) {
+	public NumberPanel(Context context, int d, int p, int n, Layer l) {
+		layer = l;
 		number = 0; digits = d; left = 0; top = 0;
 		prolog = (BitmapDrawable)context.getResources().getDrawable(p);
 		numbers = (BitmapDrawable)context.getResources().getDrawable(n);
@@ -69,28 +71,33 @@ public class NumberPanel extends Element {
 	}
 
 	@Override
-	public boolean draw(Canvas c) {
-		int width = numbers.getMinimumWidth() / 10;
-
-		location.top = top;
-		location.bottom = top + getPrologHeight();
-		location.left = left + ( getWidth() - prolog.getMinimumWidth() ) / 2;
-		location.right = location.left + prolog.getMinimumWidth();
-		prolog.setBounds(location);
-		prolog.draw(c);
-
-		source.top = 0;
-		source.bottom = numbers.getIntrinsicHeight();
-		location.top = top + numbers_offset;
-		location.bottom = top + getTotalHeight();
-		for ( int i = digits - 1, n = number > 0 ? number : 0; i >= 0; --i, n = n / 10 ) {
-			location.left = left + ( getWidth() - width * digits ) / 2 + i * width;
-			location.right = location.left + width;
-			source.left = (n % 10) * width;
-			source.right = source.left + width;
-			c.drawBitmap(numbers.getBitmap(), source, location, null);
-		}
-
+	public boolean tick() {
 		return true;
+	}
+
+	@Override
+	public void draw(Canvas c, Layer l) {
+		if ( layer == l ) {
+			int width = numbers.getMinimumWidth() / 10;
+	
+			location.top = top;
+			location.bottom = top + getPrologHeight();
+			location.left = left + ( getWidth() - prolog.getMinimumWidth() ) / 2;
+			location.right = location.left + prolog.getMinimumWidth();
+			prolog.setBounds(location);
+			prolog.draw(c);
+	
+			source.top = 0;
+			source.bottom = numbers.getIntrinsicHeight();
+			location.top = top + numbers_offset;
+			location.bottom = top + getTotalHeight();
+			for ( int i = digits - 1, n = number > 0 ? number : 0; i >= 0; --i, n = n / 10 ) {
+				location.left = left + ( getWidth() - width * digits ) / 2 + i * width;
+				location.right = location.left + width;
+				source.left = (n % 10) * width;
+				source.right = source.left + width;
+				c.drawBitmap(numbers.getBitmap(), source, location, null);
+			}
+		}
 	}
 }

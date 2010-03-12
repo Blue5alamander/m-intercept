@@ -37,7 +37,7 @@ public class Player extends Element {
 		game = g;
 		explosions = new Explosion [10];
 		for ( int i = 0; i != explosions.length; ++i )
-			explosions[i] = new Explosion(35);
+			explosions[i] = new Explosion(35, Layer.EXPLOSIONS);
 		cities = new City [3];
 		for ( int n = 0; n != cities.length; ++n )
 			cities[n] = new City(context, view, n, cities.length);
@@ -59,13 +59,16 @@ public class Player extends Element {
 		return false;
 	}
 
-	public boolean draw(Canvas c) {
-		boolean drawn = false;
+	@Override
+	public boolean tick() {
+		return true;
+	}
+
+	@Override
+	public void draw(Canvas c, Layer layer) {
 		for ( City city : cities )
-			city.draw(c);
-		for ( int i = 0; i != explosions.length; ++i )
-			if ( explosions[i].draw(c) && !drawn )
-				drawn = true;
-		return drawn;
+			city.draw(c, layer);
+		for ( Explosion e : explosions )
+			e.draw(c, layer);
 	}
 }
