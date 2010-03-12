@@ -21,10 +21,12 @@
 
 package com.kirit.android.mintercept;
 
+import java.util.LinkedList;
 import java.util.Random;
 
 import com.kirit.android.Element;
 import com.kirit.android.NumberPanel;
+import com.kirit.android.mintercept.Explosion;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -37,6 +39,7 @@ public class Game extends Element {
 	private boolean isover;
 	private Player player;
 	private Opponent opponent;
+	private LinkedList<Explosion> explosions = new LinkedList<Explosion>();
 
 	private NumberPanel score;
 	public NumberPanel level, missiles;
@@ -73,6 +76,21 @@ public class Game extends Element {
 		return player;
 	}
 
+	/**
+	 * Register an explosion with the game
+	 */
+	public void explosion(Explosion e) {
+		explosions.add(e);
+	}
+	/**
+	 * Return true if the location is inside an explosion
+	 */
+	public boolean inExplosion(float x, float y) {
+		for ( Explosion e : explosions )
+			if ( e.inside(x, y) )
+				return true;
+		return false;
+	}
 	/**
 	 * When called the game is over
 	 */

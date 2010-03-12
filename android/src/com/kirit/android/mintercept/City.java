@@ -39,11 +39,11 @@ public class City extends Element {
 	private Rect location;
 	private Explosion explosion;
 
-	public City(Context context, View v, int n, int o) {
+	public City(Game game, Context context, View v, int n, int o) {
 		drawcity = true; isdead = false;
 		view = v; number = n; outof = o;
 		city = context.getResources().getDrawable(drawable.city);
-		explosion = new Explosion(city.getMinimumWidth(), Layer.EXPLOSIONS);
+		explosion = new Explosion(game, city.getMinimumWidth(), Layer.EXPLOSIONS);
 	}
 
 	public boolean hasStruck(float x) {

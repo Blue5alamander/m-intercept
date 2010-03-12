@@ -36,7 +36,8 @@ class Explosion extends Element {
 	private float cx, cy, inner_radius, outer_radius;
 	private int size, fade;
 
-	public Explosion(int s, Layer l) {
+	public Explosion(Game game, int s, Layer l) {
+		game.explosion(this);
 		layer = l;
 		size = s;
 	}
@@ -58,6 +59,12 @@ class Explosion extends Element {
 	 */
 	public boolean pastZenith() {
 		return inner_radius > 1;
+	}
+	/**
+	 * Returns true if the location is inside the explosion
+	 */
+	public boolean inside(float x, float y) {
+		return draw && ( cx - x ) * ( cx - x ) + ( cy - y ) * ( cy - y ) < outer_radius * outer_radius;
 	}
 
 	@Override

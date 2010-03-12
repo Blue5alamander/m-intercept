@@ -32,16 +32,18 @@ public class Opponent extends Element {
 	private static Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
 	private class Missile extends Element {
+		private Game game;
 		private View view;
 		private boolean inuse, exploding;
 		private float sx, sy, cx, cy, dx, dy, tx;
 		private Explosion explosion;
 
-		public Missile(Context context, View v) {
+		public Missile(Game g, Context context, View v) {
+			game = g;
 			view = v;
 			inuse = false; exploding = false;
 			dx = 0; dy = 0;
-			explosion = new Explosion(10, Layer.EXPLOSIONS);
+			explosion = new Explosion(g, 10, Layer.EXPLOSIONS);
 		}
 
 		public boolean reset() {
@@ -79,6 +81,10 @@ public class Opponent extends Element {
 						explosion.reset(cx, cy);
 						game.award(-3);
 					}
+				} else if ( !exploding && game.inExplosion(cx, cy) ) {
+					exploding = true;
+					explosion.reset(cx, cy);
+					game.award(5);
 				}
 				if ( exploding )
 					inuse = explosion.tick();
@@ -109,7 +115,7 @@ public class Opponent extends Element {
 		game = g;
 		missiles = new Missile [20];
 		for ( int i = 0; i != missiles.length; ++i )
-			missiles[i] = new Missile(context, view);
+			missiles[i] = new Missile(g, context, view);
 		reset();
 	}
 

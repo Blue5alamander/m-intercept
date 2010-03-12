@@ -37,10 +37,10 @@ public class Player extends Element {
 		game = g;
 		explosions = new Explosion [10];
 		for ( int i = 0; i != explosions.length; ++i )
-			explosions[i] = new Explosion(35, Layer.EXPLOSIONS);
+			explosions[i] = new Explosion(g, 35, Layer.EXPLOSIONS);
 		cities = new City [3];
 		for ( int n = 0; n != cities.length; ++n )
-			cities[n] = new City(context, view, n, cities.length);
+			cities[n] = new City(g, context, view, n, cities.length);
 		reset();
 	}
 
