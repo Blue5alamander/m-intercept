@@ -35,6 +35,7 @@ public class Opponent extends Element {
 		private Game game;
 		private View view;
 		private boolean inuse, exploding;
+		private int fade;
 		private float sx, sy, cx, cy, dx, dy, tx;
 		private Explosion explosion;
 
@@ -48,6 +49,7 @@ public class Opponent extends Element {
 
 		public boolean reset() {
 			if ( !inuse ) {
+				fade = 8;
 				dy = 0; dx = 0;
 				inuse = true;
 				exploding = false;
@@ -95,11 +97,16 @@ public class Opponent extends Element {
 		@Override
 		public void draw(Canvas c, Layer layer) {
 			if ( inuse ) {
-				// Move the missile then draw it
 				if (layer == Layer.TRAILS) {
-					paint.setColor(0xff808080);
-					c.drawLine(sx, sy, cx, cy, paint);
-				} else if (layer == Layer.MISSILES) {
+					if ( !exploding || fade-- == 8 ) {
+						paint.setColor(0xff808080);
+						c.drawLine(sx, sy, cx, cy, paint);
+					} else if ( fade > 0 )  {
+						paint.setColor(0x808080 + fade * 0x02000000 + fade * 0x20000000);
+						c.drawLine(sx, sy, cx, cy, paint);
+						--fade;
+					}
+				} else if (layer == Layer.MISSILES && !exploding) {
 					paint.setColor(0xffffffff);
 					c.drawCircle(cx, cy, 2, paint);
 				}
