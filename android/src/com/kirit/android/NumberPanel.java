@@ -59,7 +59,7 @@ public class NumberPanel extends Element {
 		source.top = 0;
 		source.bottom = numbers.getMinimumHeight();
 		int width = numbers.getMinimumWidth() / 10;
-		for ( int i = digits, n = number > 0 ? number : 0; i >= 0; --i, n = n / 10 ) {
+		for ( int i = digits - 1, n = number > 0 ? number : 0; i >= 0; --i, n = n / 10 ) {
 			location.left = prolog.getMinimumWidth() + i * width;
 			location.right = location.left + width;
 			source.left = (n % 10) * width;
