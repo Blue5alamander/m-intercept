@@ -29,6 +29,7 @@ import com.kirit.android.Element;
 
 
 public class Player extends Element {
+	private int hitbonus;
 	private Game game;
 	private Explosion [] explosions;
 	private City cities [];
@@ -53,9 +54,17 @@ public class Player extends Element {
 				return c;
 		return null;
 	}
+	
+	/**
+	 * The player has exploded a missile.
+	 */
+	public void hit() {
+		 game.award(5 * game.level.getValue() * hitbonus++);
+	}
 
 	public boolean tap(float x, float y) {
 		if ( !game.isOver() && explosions[0].reset(x, y) ) {
+			hitbonus = 1;
 			Explosion e = explosions[0];
 			for ( int i = 0; i != explosions.length-1; ++i )
 				explosions[i] = explosions[i+1];

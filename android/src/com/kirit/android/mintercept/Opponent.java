@@ -80,12 +80,12 @@ public class Opponent extends Element {
 						dy = 0; dx = 0;
 						exploding = true;
 						explosion.reset(cx, cy);
-						game.award(-3);
+						game.award(-3 * game.level.getValue());
 					}
 				} else if ( !exploding && game.inExplosion(cx, cy) ) {
 					exploding = true;
 					explosion.reset(cx, cy);
-					game.award(5);
+					game.getPlayer().hit();
 				}
 				if ( exploding )
 					inuse = explosion.tick();
