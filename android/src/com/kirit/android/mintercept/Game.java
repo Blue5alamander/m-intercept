@@ -55,10 +55,10 @@ public class Game extends Element {
 		score = new NumberPanel(context, 8, R.drawable.score_prolog, R.drawable.score_numbers, Layer.CHROME);
 		score.reset(10);
 
-		level = new NumberPanel(context, 3, R.drawable.level_prolog, R.drawable.level_numbers, Layer.BACKGROUND);
+		level = new NumberPanel(context, 4, R.drawable.level_prolog, R.drawable.level_numbers, Layer.BACKGROUND);
 		level.reset(1); level.setLeft(score.getWidth());
 
-		missiles = new NumberPanel(context, 4, R.drawable.missiles_prolog, R.drawable.missiles_numbers, Layer.CHROME);
+		missiles = new NumberPanel(context, 6, R.drawable.missiles_prolog, R.drawable.missiles_numbers, Layer.CHROME);
 		missiles.reset(0);
 
 		int prolog = Math.max(Math.max(score.getPrologHeight(), missiles.getPrologHeight()), level.getPrologHeight());
@@ -107,7 +107,7 @@ public class Game extends Element {
 	 * Award (or subtract) points from the player
 	 */
 	public boolean award(int points) {
-		if ( score.alter(points) <= 0 )
+		if ( !isOver() && score.alter(points) <= 0 )
 			over();
 		return isOver();
 	}
