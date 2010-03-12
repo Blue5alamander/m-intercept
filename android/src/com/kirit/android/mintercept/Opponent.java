@@ -128,7 +128,7 @@ public class Opponent extends Element {
 
 	public void reset() {
 		timer = 0;
-		game.missiles.reset(2 * game.level.getValue() + 8);
+		game.missiles.reset(2 * game.level.getValue() + 3);
 	}
 
 	@Override
