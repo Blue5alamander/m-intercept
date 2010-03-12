@@ -55,7 +55,7 @@ public class Game extends Element {
 		score = new NumberPanel(context, 8, R.drawable.score_prolog, R.drawable.score_numbers, Layer.CHROME);
 		score.reset(10);
 
-		level = new NumberPanel(context, 3, R.drawable.level_prolog, R.drawable.level_numbers, Layer.CHROME);
+		level = new NumberPanel(context, 3, R.drawable.level_prolog, R.drawable.level_numbers, Layer.BACKGROUND);
 		level.reset(1); level.setLeft(score.getWidth());
 
 		missiles = new NumberPanel(context, 4, R.drawable.missiles_prolog, R.drawable.missiles_numbers, Layer.CHROME);

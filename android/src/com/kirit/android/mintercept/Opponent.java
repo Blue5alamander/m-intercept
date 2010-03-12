@@ -43,7 +43,7 @@ public class Opponent extends Element {
 			view = v;
 			inuse = false; exploding = false;
 			dx = 0; dy = 0;
-			explosion = new Explosion(g, 10, Layer.EXPLOSIONS);
+			explosion = new Explosion(g, 10, Layer.MISSILES);
 		}
 
 		public boolean reset() {
@@ -99,10 +99,11 @@ public class Opponent extends Element {
 				if (layer == Layer.TRAILS) {
 					paint.setColor(0xff808080);
 					c.drawLine(sx, sy, cx, cy, paint);
+				} else if (layer == Layer.MISSILES) {
 					paint.setColor(0xffffffff);
 					c.drawCircle(cx, cy, 2, paint);
-				} else if ( layer == Layer.EXPLOSIONS )
-					explosion.draw(c, layer);
+				}
+				explosion.draw(c, layer);
 			}
 		}
 	};
