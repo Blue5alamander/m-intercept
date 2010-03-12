@@ -46,6 +46,7 @@ public class Level extends View {
 
 	@Override
 	protected void onDraw(Canvas c) {
+		c.drawARGB(255, 0, 0, 0);
 		game.getPlayer().draw(c);
 		for ( City city : cities )
 			city.draw(c);
