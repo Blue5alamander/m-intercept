@@ -32,7 +32,7 @@ public class Opponent extends Element {
 
 	private class Missile extends Element {
 		private boolean inuse;
-		float sx, sy, cx, cy, dx, dy;
+		float sx, sy, cx, cy, dx, dy, tx;
 		public Missile(Context context) {
 			inuse = false;
 			dx = 0; dy = 0;
@@ -53,8 +53,10 @@ public class Opponent extends Element {
 					// Initialise the missile
 					dx = 0; dy = 1;
 					sx = Game.randomGenerator.nextInt(c.getWidth());
-					sy = 40;
+					sy = game.score.getTotalHeight() + 1;
 					cx = sx; cy = sy;
+					tx = Game.randomGenerator.nextInt(c.getWidth());
+					dx = ( tx - sx ) / ( c.getHeight() - sy );
 				}
 				// Move the missile then draw it
 				cx += dx; cy += dy;
