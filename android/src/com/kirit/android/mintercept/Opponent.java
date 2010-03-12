@@ -32,6 +32,7 @@ public class Opponent extends Element {
 	private static Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
 	private class Missile extends Element {
+		private Opponent opponent;
 		private Game game;
 		private View view;
 		private boolean inuse, exploding;
@@ -39,7 +40,8 @@ public class Opponent extends Element {
 		private float sx, sy, cx, cy, dx, dy, tx;
 		private Explosion explosion;
 
-		public Missile(Game g, Context context, View v) {
+		public Missile(Opponent o, Game g, Context context, View v) {
+			opponent = o;
 			game = g;
 			view = v;
 			inuse = false; exploding = false;
@@ -65,6 +67,13 @@ public class Opponent extends Element {
 					dx = 0; dy = 1f + game.level.getValue() / 10f;
 					sx = Game.randomGenerator.nextInt(view.getWidth());
 					sy = game.missiles.getTotalHeight() + 1;
+					if ( Game.randomGenerator.nextInt(6) == 1 ) {
+						for ( Missile m : opponent.getMissiles() )
+							if ( m != this && m.inuse && !m.exploding ) {
+								sx = m.cx; sy = m.cy;
+								break;
+							}
+					}
 					cx = sx; cy = sy;
 					tx = Game.randomGenerator.nextInt(view.getWidth());
 					dx = ( tx - sx ) / ( view.getHeight() - sy );
@@ -122,8 +131,12 @@ public class Opponent extends Element {
 		game = g;
 		missiles = new Missile [20];
 		for ( int i = 0; i != missiles.length; ++i )
-			missiles[i] = new Missile(g, context, view);
+			missiles[i] = new Missile(this, g, context, view);
 		reset();
+	}
+
+	public Missile [] getMissiles() {
+		return missiles;
 	}
 
 	public void reset() {
