@@ -21,18 +21,31 @@
 
 package com.kirit.android.mintercept;
 
+import com.kirit.android.Element;
+
 import android.content.Context;
+import android.graphics.Canvas;
 
 
-public class Game extends Object {
+public class Game extends Element {
 	private Player player;
 
 	public Game(Context context) {
-		player = new Player(context);
+		player = new Player(context, this);
 	}
 
 	public Player getPlayer() {
 		return player;
 	}
 
+	/**
+	 * When called the game is over
+	 */
+	public void over() {
+	}
+
+	@Override
+	public boolean draw(Canvas c) {
+		return player.draw(c);
+	}
 }

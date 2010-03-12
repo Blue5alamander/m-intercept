@@ -28,11 +28,13 @@ import com.kirit.android.NumberPanel;
 
 
 public class Player extends Element {
+	private Game game;
 	private NumberPanel score;
 	private Explosion [] explosions;
 	private int cities;
 
-	public 	Player(Context context) {
+	public 	Player(Context context, Game g) {
+		game = g;
 		explosions = new Explosion [10];
 		for ( int i = 0; i != explosions.length; ++i )
 			explosions[i] = new Explosion(35);
@@ -56,7 +58,7 @@ public class Player extends Element {
 				explosions[i] = explosions[i+1];
 			explosions[explosions.length-1] = e;
 			if ( score.alter(-1) == 0 )
-				; // Game over
+				game.over();
 			return true;
 		}
 		return false;

@@ -43,13 +43,12 @@ public class Level extends View {
 			cities[n] = new City(context, this, n, cities.length);
 	}
 
-
 	@Override
 	protected void onDraw(Canvas c) {
 		c.drawARGB(255, 0, 0, 0);
-		game.getPlayer().draw(c);
 		for ( City city : cities )
 			city.draw(c);
+		game.draw(c);
 	}
 
     @Override
