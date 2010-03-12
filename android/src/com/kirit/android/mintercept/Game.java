@@ -114,6 +114,8 @@ public class Game extends Element {
 
 	@Override
 	public boolean tick() {
+		if ( level.alpha > 0 )
+			--level.alpha;
 		opponent.tick();
 		player.tick();
 		return !isOver();
