@@ -24,18 +24,20 @@ package com.kirit.android;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
+import android.graphics.drawable.BitmapDrawable;
 
 
 public class NumberPanel extends Element {
 	private int number, digits;
-	private Drawable prolog, numbers;
-	private Rect location;
+	private BitmapDrawable prolog, numbers;
+	private Rect location, source;
 
 	public NumberPanel(Context context, int d, int p, int n) {
 		number = 0; digits = d;
-		prolog = context.getResources().getDrawable(p);
-		numbers = context.getResources().getDrawable(n);
+		prolog = (BitmapDrawable)context.getResources().getDrawable(p);
+		numbers = (BitmapDrawable)context.getResources().getDrawable(n);
+		location = new Rect();
+		source = new Rect();
 	}
 
 	public void reset(int n) {
@@ -47,19 +49,24 @@ public class NumberPanel extends Element {
 
 	@Override
 	public boolean draw(Canvas c) {
-		/*for ( int i = 0, n = number; i < digits; ++i ) {
-			int v = n % 10;
-			n = n / 10;
-		}*/
-		if ( location == null ) {
-			location = new Rect(
-					0, 0,
-					prolog.getMinimumWidth(), prolog.getMinimumHeight()
-				);
-		}
+		location.left =0;
+		location.top = 0;
+		location.right = prolog.getMinimumWidth();
+		location.bottom = prolog.getMinimumHeight();
 		prolog.setBounds(location);
 		prolog.draw(c);
-		//numbers.draw(c);
+
+		source.top = 0;
+		source.bottom = numbers.getMinimumHeight();
+		int width = numbers.getMinimumWidth() / 10;
+		for ( int i = digits, n = number > 0 ? number : 0; i >= 0; --i, n = n / 10 ) {
+			location.left = prolog.getMinimumWidth() + i * width;
+			location.right = location.left + width;
+			source.left = (n % 10) * width;
+			source.right = source.left + width;
+			c.drawBitmap(numbers.getBitmap(), source, location, null);
+		}
+
 		return true;
 	}
 }
