@@ -63,7 +63,7 @@ public class Game extends Element {
 		level.setNumberOffset(prolog);
 		missiles.setNumberOffset(prolog);
 
-		player = new Player(context, this);
+		player = new Player(context, view, this);
 		opponent = new Opponent(context, view, this);
 
 		gameover = (BitmapDrawable)context.getResources().getDrawable(R.drawable.gameover); 

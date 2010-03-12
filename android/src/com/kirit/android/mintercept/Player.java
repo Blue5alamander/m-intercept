@@ -23,28 +23,28 @@ package com.kirit.android.mintercept;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.view.View;
+
 import com.kirit.android.Element;
 
 
 public class Player extends Element {
 	private Game game;
 	private Explosion [] explosions;
-	private int cities;
+	private City cities [];
 
-	public 	Player(Context context, Game g) {
+	public 	Player(Context context, View view, Game g) {
 		game = g;
 		explosions = new Explosion [10];
 		for ( int i = 0; i != explosions.length; ++i )
 			explosions[i] = new Explosion(35);
+		cities = new City [3];
+		for ( int n = 0; n != cities.length; ++n )
+			cities[n] = new City(context, view, n, cities.length);
 		reset();
 	}
-	
+
 	public void reset() {
-		cities = 3;
-	}
-	
-	public int getCities() {
-		return cities;
 	}
 
 	public boolean tap(float x, float y) {
@@ -61,6 +61,8 @@ public class Player extends Element {
 
 	public boolean draw(Canvas c) {
 		boolean drawn = false;
+		for ( City city : cities )
+			city.draw(c);
 		for ( int i = 0; i != explosions.length; ++i )
 			if ( explosions[i].draw(c) && !drawn )
 				drawn = true;

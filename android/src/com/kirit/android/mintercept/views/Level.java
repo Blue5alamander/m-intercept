@@ -26,13 +26,11 @@ import android.graphics.Canvas;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.kirit.android.mintercept.City;
 import com.kirit.android.mintercept.Game;
 
 
 public class Level extends View {
 	private Game game;
-	private City cities [];
 
 
 	public Level(Context context) {
@@ -41,16 +39,11 @@ public class Level extends View {
 
 	public void setGame(Context context, Game g) {
 		game = g;
-		cities = new City [game.getPlayer().getCities()];
-		for ( int n = 0; n != cities.length; ++n )
-			cities[n] = new City(context, this, n, cities.length);
 	}
 
 	@Override
 	protected void onDraw(Canvas c) {
 		c.drawARGB(255, 0, 0, 0);
-		for ( City city : cities )
-			city.draw(c);
 		game.draw(c);
 	}
 
