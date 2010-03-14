@@ -71,12 +71,13 @@ public class Opponent extends Element {
 						for ( Missile m : opponent.getMissiles() )
 							if ( m != this && m.inuse && !m.exploding ) {
 								sx = m.cx; sy = m.cy;
+								dy *= 1.5;
 								break;
 							}
 					}
 					cx = sx; cy = sy;
 					tx = Game.randomGenerator.nextInt(view.getWidth());
-					dx = ( tx - sx ) / ( view.getHeight() - sy );
+					dx = ( tx - sx ) / ( view.getHeight() - sy ) / dy;
 				}
 				cx += dx; cy += dy;
 				if ( !exploding && cy >= view.getHeight() - 20 ) {
