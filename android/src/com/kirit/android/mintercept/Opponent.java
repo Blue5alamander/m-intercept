@@ -140,7 +140,7 @@ public class Opponent extends Element {
 	}
 
 	public void reset() {
-		timer = 0;
+		timer = 5;
 		game.missiles.reset(2 * game.level.getValue() + 3);
 	}
 

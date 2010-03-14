@@ -53,23 +53,25 @@ public class Game extends Element {
 		isover = false;
 
 		score = new NumberPanel(context, 8, R.drawable.score_prolog, R.drawable.score_numbers, Layer.CHROME);
-		score.reset(10);
+		missiles = new NumberPanel(context, 6, R.drawable.missiles_prolog, R.drawable.missiles_numbers, Layer.CHROME);
+
+		int prolog = Math.max(score.getPrologHeight(), missiles.getPrologHeight());
+		score.setNumberOffset(prolog);
+		missiles.setNumberOffset(prolog);
 
 		level = new NumberPanel(context, 4, R.drawable.level_prolog, R.drawable.level_numbers, Layer.BACKGROUND);
-		level.reset(1); level.setLeft(score.getWidth());
-
-		missiles = new NumberPanel(context, 6, R.drawable.missiles_prolog, R.drawable.missiles_numbers, Layer.CHROME);
-		missiles.reset(0);
-
-		int prolog = Math.max(Math.max(score.getPrologHeight(), missiles.getPrologHeight()), level.getPrologHeight());
-		score.setNumberOffset(prolog);
-		level.setNumberOffset(prolog);
-		missiles.setNumberOffset(prolog);
 
 		player = new Player(context, view, this);
 		opponent = new Opponent(context, view, this);
 
 		gameover = (BitmapDrawable)context.getResources().getDrawable(R.drawable.gameover); 
+	}
+
+	public void reset() {
+		score.reset(10);
+		level.reset(1);
+		player.reset();
+		opponent.reset();
 	}
 
 	public Player getPlayer() {

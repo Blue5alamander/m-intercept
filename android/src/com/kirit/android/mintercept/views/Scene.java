@@ -29,7 +29,7 @@ import android.graphics.Canvas;
 import android.view.View;
 
 
-public class Scene extends View {
+public abstract class Scene extends View {
 	private Element todraw;
 
 
@@ -52,4 +52,6 @@ public class Scene extends View {
 		todraw.draw(c, Layer.MISSILES);
 		todraw.draw(c, Layer.CHROME);
 	}
+	
+	public abstract void reset();
 }

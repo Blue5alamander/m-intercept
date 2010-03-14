@@ -45,4 +45,9 @@ public class Level extends Scene {
     	}
     	return false;
     }
+    
+    @Override
+    public void reset() {
+    	game.reset();
+    }
 }

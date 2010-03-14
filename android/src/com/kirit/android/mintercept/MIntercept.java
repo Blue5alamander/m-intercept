@@ -22,6 +22,7 @@
 package com.kirit.android.mintercept;
 
 import com.kirit.android.mintercept.views.Level;
+import com.kirit.android.mintercept.views.Scene;
 import com.kirit.android.mintercept.views.Title;
 
 import android.app.Activity;
@@ -47,8 +48,13 @@ public class MIntercept extends Activity {
     }
 
     public void startGame() {
-    	setContentView(level);
-    	view = level;
+    	setView(level);
+    }
+
+    private void setView(Scene scene) {
+    	scene.reset();
+    	view = scene;
+    	setContentView(scene);
     }
 
     @Override
@@ -57,8 +63,7 @@ public class MIntercept extends Activity {
         title = new Title(this);
         level = new Level(this);
         level.setPadding(0, 0, 0, 0);
-        setContentView(title);
-        view = title;
+        setView(title);
     }
 
     @Override
