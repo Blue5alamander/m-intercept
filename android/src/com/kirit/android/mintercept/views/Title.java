@@ -22,6 +22,8 @@
 package com.kirit.android.mintercept.views;
 
 import com.kirit.android.Element;
+import com.kirit.android.mintercept.Explosion;
+import com.kirit.android.mintercept.Game;
 import com.kirit.android.mintercept.MIntercept;
 import com.kirit.android.mintercept.R;
 
@@ -38,15 +40,23 @@ public class Title extends Scene {
 		View view;
 		BitmapDrawable felspar, logo;
 		Rect location = new Rect();
+		Explosion explosion;
 
 		public Demo(Context context, View v) {
 			view = v;
 			felspar = (BitmapDrawable)context.getResources().getDrawable(R.drawable.felspar);
 			logo = (BitmapDrawable)context.getResources().getDrawable(R.drawable.logo);
+			explosion = new Explosion(25, Layer.EXPLOSIONS);
 		}
 
 		@Override
 		public boolean tick() {
+			if ( !explosion.tick() ) {
+				explosion.reset(
+					Game.randomGenerator.nextInt(view.getWidth()),
+					Game.randomGenerator.nextInt(view.getHeight())
+				);
+			}
 			return true;
 		}
 
@@ -67,6 +77,7 @@ public class Title extends Scene {
 				logo.setBounds(location);
 				logo.draw(c);
 			}
+			explosion.draw(c, layer);
 		}
 	};
 	Demo demo;
