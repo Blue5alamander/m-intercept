@@ -31,15 +31,13 @@ import com.kirit.android.Element;
 public class Player extends Element {
 	private int hitbonus;
 	private Game game;
-	private Explosion [] explosions;
+	private Explosions explosions;
 	private City cities [];
 
 	public 	Player(Context context, View view, Game g) {
 		game = g;
-		explosions = new Explosion [10];
-		for ( int i = 0; i != explosions.length; ++i )
-			explosions[i] = new Explosion(g, 35, Layer.EXPLOSIONS);
 		cities = new City [3];
+		explosions = new Explosions(10);
 		for ( int n = 0; n != cities.length; ++n )
 			cities[n] = new City(g, context, view, n, cities.length);
 		reset();
@@ -63,12 +61,8 @@ public class Player extends Element {
 	}
 
 	public boolean tap(float x, float y) {
-		if ( !game.isOver() && explosions[0].reset(x, y) ) {
+		if ( !game.isOver() && explosions.reset(x, y) != null ) {
 			hitbonus = 1;
-			Explosion e = explosions[0];
-			for ( int i = 0; i != explosions.length-1; ++i )
-				explosions[i] = explosions[i+1];
-			explosions[explosions.length-1] = e;
 			game.award(-1);
 			return true;
 		}
@@ -83,6 +77,7 @@ public class Player extends Element {
 				alldead = false;
 		if ( alldead )
 			game.over();
+		explosions.tick();
 		return !alldead;
 	}
 
@@ -90,7 +85,6 @@ public class Player extends Element {
 	public void draw(Canvas c, Layer layer) {
 		for ( City city : cities )
 			city.draw(c, layer);
-		for ( Explosion e : explosions )
-			e.draw(c, layer);
+		explosions.draw(c, layer);
 	}
 }

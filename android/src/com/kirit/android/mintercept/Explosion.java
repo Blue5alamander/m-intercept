@@ -46,6 +46,9 @@ public class Explosion extends Element {
 		size = s;
 	}
 
+	public void setSize(int s) {
+		size = s;
+	}
 	public boolean reset(float x, float y) {
 		if ( !draw ) {
 			draw = true;
