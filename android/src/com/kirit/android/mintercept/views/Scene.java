@@ -52,5 +52,4 @@ public class Scene extends View {
 		todraw.draw(c, Layer.MISSILES);
 		todraw.draw(c, Layer.CHROME);
 	}
-
 }

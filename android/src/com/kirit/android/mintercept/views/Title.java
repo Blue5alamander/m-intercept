@@ -22,7 +22,6 @@
 package com.kirit.android.mintercept.views;
 
 import com.kirit.android.Element;
-import com.kirit.android.mintercept.Explosion;
 import com.kirit.android.mintercept.Explosions;
 import com.kirit.android.mintercept.Game;
 import com.kirit.android.mintercept.MIntercept;
@@ -32,6 +31,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -39,24 +39,30 @@ import android.view.View;
 public class Title extends Scene {
 	private class Demo extends Element {
 		View view;
-		BitmapDrawable felspar, logo;
+		BitmapDrawable felspar, instructions, logo;
+		int instruction_pos;
 		Rect location = new Rect();
 		Explosions explosions;
 
 		public Demo(Context context, View v) {
 			view = v;
 			felspar = (BitmapDrawable)context.getResources().getDrawable(R.drawable.felspar);
+			instructions = (BitmapDrawable)context.getResources().getDrawable(R.drawable.instructions);
+			instruction_pos = -instructions.getMinimumWidth();
 			logo = (BitmapDrawable)context.getResources().getDrawable(R.drawable.logo);
 			explosions = new Explosions(35);
 		}
 
 		@Override
 		public boolean tick() {
-			if ( Game.randomGenerator.nextInt(50) == 1 )
+			if ( Game.randomGenerator.nextInt(35) == 1 )
 				explosions.reset(
 					Game.randomGenerator.nextInt(view.getWidth()),
 					Game.randomGenerator.nextInt(view.getHeight())
 				);
+			instruction_pos -= 2;
+			if ( instruction_pos <= -instructions.getMinimumWidth() )
+				instruction_pos = view.getWidth() + 5;
 			return true;
 		}
 
@@ -69,6 +75,13 @@ public class Title extends Scene {
 				location.bottom = view.getHeight();
 				felspar.setBounds(location);
 				felspar.draw(c);
+				
+				location.left = instruction_pos;
+				location.right = location.left + instructions.getMinimumWidth();
+				location.top = view.getHeight() / 2;
+				location.bottom = location.top + instructions.getMinimumHeight();
+				instructions.setBounds(location);
+				instructions.draw(c);
 			} else if ( layer == Layer.CHROME ) {
 				location.left = (view.getWidth() - logo.getMinimumWidth() ) /2;
 				location.right = view.getWidth() - location.left;
@@ -90,6 +103,15 @@ public class Title extends Scene {
 		demo = new Demo(m, this);
 		draw(demo);
 	}
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+    	if ( keyCode == KeyEvent.KEYCODE_DPAD_UP ) {
+    		mintercept.startGame();
+    		return true;
+    	}
+        return super.onKeyUp(keyCode, event);
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
