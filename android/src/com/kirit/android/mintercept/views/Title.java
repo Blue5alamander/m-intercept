@@ -22,24 +22,27 @@
 package com.kirit.android.mintercept.views;
 
 import com.kirit.android.Element;
+import com.kirit.android.mintercept.MIntercept;
 import com.kirit.android.mintercept.R;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.view.MotionEvent;
 import android.view.View;
 
 
 public class Title extends Scene {
 	private class Demo extends Element {
 		View view;
-		BitmapDrawable felspar;
+		BitmapDrawable felspar, logo;
 		Rect location = new Rect();
 
 		public Demo(Context context, View v) {
 			view = v;
 			felspar = (BitmapDrawable)context.getResources().getDrawable(R.drawable.felspar);
+			logo = (BitmapDrawable)context.getResources().getDrawable(R.drawable.logo);
 		}
 
 		@Override
@@ -56,17 +59,30 @@ public class Title extends Scene {
 				location.bottom = view.getHeight();
 				felspar.setBounds(location);
 				felspar.draw(c);
+			} else if ( layer == Layer.CHROME ) {
+				location.left = (view.getWidth() - logo.getMinimumWidth() ) /2;
+				location.right = view.getWidth() - location.left;
+				location.bottom = view.getHeight() / 3;
+				location.top = location.bottom - logo.getMinimumHeight();
+				logo.setBounds(location);
+				logo.draw(c);
 			}
 		}
 	};
 	Demo demo;
 
 
-	Context context;
-	public Title(Context c) {
-		super(c);
-		context = c;
-		demo = new Demo(context, this);
+	MIntercept mintercept;
+	public Title(MIntercept m) {
+		super(m);
+		mintercept = m;
+		demo = new Demo(m, this);
 		draw(demo);
 	}
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+    	mintercept.startGame();
+    	return true;
+    }
 }

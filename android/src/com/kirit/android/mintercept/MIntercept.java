@@ -45,6 +45,10 @@ public class MIntercept extends Activity {
     public MIntercept() {
     }
 
+    public void startGame() {
+    	setContentView(level);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
