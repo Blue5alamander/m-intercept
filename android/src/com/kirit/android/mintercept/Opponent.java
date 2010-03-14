@@ -79,13 +79,13 @@ public class Opponent extends Element {
 					dx = ( tx - sx ) / ( view.getHeight() - sy );
 				}
 				cx += dx; cy += dy;
-				if ( cy >= view.getHeight() - 20 ) {
+				if ( !exploding && cy >= view.getHeight() - 20 ) {
 					City struck = game.getPlayer().hasStruck(cx);
 					if ( struck != null ) {
 						exploding = true;
 						explosion.reset(cx, cy);
 						struck.explode();
-					} else if ( !exploding && cy >= view.getHeight() - 3 ) {
+					} else if ( cy >= view.getHeight() - 3 ) {
 						dy = 0; dx = 0;
 						exploding = true;
 						explosion.reset(cx, cy);
