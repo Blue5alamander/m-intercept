@@ -21,31 +21,36 @@
 
 package com.kirit.android.mintercept.views;
 
+import com.kirit.android.Element;
+import com.kirit.android.Element.Layer;
+
 import android.content.Context;
-import android.view.MotionEvent;
-
-import com.kirit.android.mintercept.Game;
-
-
-public class Level extends Scene {
-	private Game game;
+import android.graphics.Canvas;
+import android.view.View;
 
 
-	public Level(Context context) {
+public class Scene extends View {
+	private Element todraw;
+
+
+	public Scene(Context context) {
 		super(context);
 	}
 
-	public void setGame(Game g) {
-		draw(g);
-		game = g;
+	public void draw(Element e) {
+		todraw = e;
 	}
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-    	if ( event.getAction() == MotionEvent.ACTION_DOWN ) {
-    		game.getPlayer().tap(event.getX(), event.getY());
-    		return true;
-    	}
-    	return false;
-    }
+	@Override
+	protected void onDraw(Canvas c) {
+		c.drawARGB(255, 0, 0, 0);
+		todraw.tick();
+		todraw.draw(c, Layer.BACKGROUND);
+		todraw.draw(c, Layer.CITIES);
+		todraw.draw(c, Layer.TRAILS);
+		todraw.draw(c, Layer.EXPLOSIONS);
+		todraw.draw(c, Layer.MISSILES);
+		todraw.draw(c, Layer.CHROME);
+	}
+
 }

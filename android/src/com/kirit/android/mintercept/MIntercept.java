@@ -22,6 +22,7 @@
 package com.kirit.android.mintercept;
 
 import com.kirit.android.mintercept.views.Level;
+import com.kirit.android.mintercept.views.Title;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -29,17 +30,17 @@ import android.os.Handler;
 
 
 public class MIntercept extends Activity {
-	Game game;
-	Level view;
 	private Handler handler = new Handler();
 	private Runnable runner = new Runnable() {
 		public void run() {
-			// do drawing etc
-			view.invalidate();
-			// reschedule
+			level.invalidate();
 			handler.postDelayed(runner, 50);
 		}
 	};
+
+	Game game;
+	Title title;
+	Level level;
 
     public MIntercept() {
     }
@@ -47,11 +48,12 @@ public class MIntercept extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        view = new Level(this);
-        game = new Game(this, view);
-        view.setGame(this, game);
-        view.setPadding(0, 0, 0, 0);
-        setContentView(view);
+        title = new Title(this);
+        level = new Level(this);
+        game = new Game(this, level);
+        level.setGame(game);
+        level.setPadding(0, 0, 0, 0);
+        setContentView(title);
     }
 
     @Override
