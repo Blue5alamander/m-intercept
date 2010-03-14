@@ -39,7 +39,6 @@ public class MIntercept extends Activity {
 		}
 	};
 
-	Game game;
 	Title title;
 	Level level;
 	View view;
@@ -57,8 +56,6 @@ public class MIntercept extends Activity {
         super.onCreate(savedInstanceState);
         title = new Title(this);
         level = new Level(this);
-        game = new Game(this, level);
-        level.setGame(game);
         level.setPadding(0, 0, 0, 0);
         setContentView(title);
         view = title;
