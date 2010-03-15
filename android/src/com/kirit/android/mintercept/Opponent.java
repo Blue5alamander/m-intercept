@@ -64,7 +64,7 @@ public class Opponent extends Element {
 		public boolean tick() {
 			if ( inuse ) {
 				if ( dy == 0 && !exploding ) {
-					dx = 0; dy = 1f + game.level.getValue() / 10f;
+					dx = 0; dy = 2f + game.level.getValue() / 5f;
 					sx = Game.randomGenerator.nextInt(view.getWidth());
 					sy = game.missiles.getTotalHeight() + 1;
 					if ( Game.randomGenerator.nextInt(6) == 1 ) {
@@ -77,7 +77,7 @@ public class Opponent extends Element {
 					}
 					cx = sx; cy = sy;
 					tx = Game.randomGenerator.nextInt(view.getWidth());
-					dx = ( tx - sx ) / ( view.getHeight() - sy ) / dy;
+					dx = dy * ( tx - sx ) / ( view.getHeight() - sy );
 				}
 				cx += dx; cy += dy;
 				if ( !exploding && cy >= view.getHeight() - 20 ) {
@@ -130,7 +130,7 @@ public class Opponent extends Element {
 
 	public Opponent(Context context, View view, Game g) {
 		game = g;
-		missiles = new Missile [20];
+		missiles = new Missile [10];
 		for ( int i = 0; i != missiles.length; ++i )
 			missiles[i] = new Missile(this, g, context, view);
 		reset();
