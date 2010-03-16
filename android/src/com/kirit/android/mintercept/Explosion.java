@@ -41,9 +41,8 @@ public class Explosion extends Element {
 		size = s;
 	}
 	public Explosion(Game game, int s, Layer l) {
+		this(s, l);
 		game.explosion(this);
-		layer = l;
-		size = s;
 	}
 
 	public void setSize(int s) {
