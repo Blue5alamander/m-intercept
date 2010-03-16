@@ -108,6 +108,7 @@ public class Title extends Scene {
 	public void reset() {
 	}
 
+
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
     	if ( keyCode == KeyEvent.KEYCODE_DPAD_UP ) {

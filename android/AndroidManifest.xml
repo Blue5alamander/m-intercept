@@ -20,7 +20,7 @@
 -->
 
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.kirit.android.mintercept">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.kirit.android.mintercept" android:versionName="0.1" android:versionCode="1">
 
     <!-- This package contains an application...  The 'label' is the name
          to display to the user for the overall application, and provides
@@ -32,7 +32,7 @@
              can launch and interact with.  The "name" attribute is the
              name of the class within your package that implements this
              activity. -->
-        <activity android:name="MIntercept">
+        <activity android:name="MIntercept" android:configChanges="orientation">
 
             <!-- An IntentFilter tells the system when it should use your
                  activity.  This allows the user to get to your activity
