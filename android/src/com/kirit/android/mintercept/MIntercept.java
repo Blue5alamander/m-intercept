@@ -26,7 +26,7 @@ import com.kirit.android.mintercept.views.Scene;
 import com.kirit.android.mintercept.views.Title;
 
 import android.app.Activity;
-import android.content.res.Configuration;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -55,9 +55,16 @@ public class MIntercept extends Activity {
     }
 
     private void setView(Scene scene) {
-    	scene.reset();
-    	view = scene;
-    	setContentView(scene);
+		scene.reset();
+	    if (scene == level) {
+	        if (view.getHeight() > view.getWidth())
+	        	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	        else
+	        	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+	    } else
+	    	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+	 	view = scene;
+		setContentView(scene);
     }
 
     @Override
@@ -82,11 +89,5 @@ public class MIntercept extends Activity {
     protected void onPause() {
     	super.onPause();
     	handler.removeCallbacks(runner);
-    }
-	 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-    	if ( view == title )
-    		setRequestedOrientation(newConfig.orientation);
     }
 }

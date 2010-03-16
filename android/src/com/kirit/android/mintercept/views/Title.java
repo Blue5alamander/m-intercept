@@ -120,7 +120,10 @@ public class Title extends Scene {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-    	mintercept.startGame();
-    	return true;
+    	 if (event.getAction() == MotionEvent.ACTION_DOWN) {
+    		 mintercept.startGame();
+    		 return true;
+    	 }
+    	 return false;
     }
 }
