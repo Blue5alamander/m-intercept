@@ -29,6 +29,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 
 public class MIntercept extends Activity {
@@ -63,6 +65,10 @@ public class MIntercept extends Activity {
         title = new Title(this);
         level = new Level(this);
         level.setPadding(0, 0, 0, 0);
+        // Make full screen without title
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setView(title);
     }
 
