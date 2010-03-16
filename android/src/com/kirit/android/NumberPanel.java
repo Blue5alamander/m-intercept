@@ -61,7 +61,7 @@ public class NumberPanel extends Element {
 		return prolog.getMinimumHeight();
 	}
 	public int getTotalHeight() {
-		return numbers_offset + numbers.getIntrinsicHeight(); 
+		return numbers_offset + numbers.getIntrinsicHeight();
 	}
 	public void setLeft(int l) {
 		left = l;

@@ -37,7 +37,7 @@ public class Player extends Element {
 	public 	Player(Context context, View view, Game g) {
 		game = g;
 		cities = new City [3];
-		explosions = new Explosions(g, 10);
+		explosions = new Explosions(g, 10, 35);
 		for ( int n = 0; n != cities.length; ++n )
 			cities[n] = new City(g, context, view, n, cities.length);
 		reset();

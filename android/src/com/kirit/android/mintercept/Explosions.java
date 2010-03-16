@@ -29,16 +29,16 @@ import com.kirit.android.Element;
 public class Explosions extends Element {
 	private Explosion[] explosions;
 
-	public Explosions(int number) {
+	public Explosions(int number, int size) {
 		explosions = new Explosion [number];
 		for ( int i = 0; i != explosions.length; ++i )
-			explosions[i] = new Explosion(35, Layer.EXPLOSIONS);
+			explosions[i] = new Explosion(size, Layer.EXPLOSIONS);
 	}
 
-	public Explosions(Game game, int number) {
+	public Explosions(Game game, int number, int size) {
 		explosions = new Explosion [number];
 		for ( int i = 0; i != explosions.length; ++i )
-			explosions[i] = new Explosion(game, 35, Layer.EXPLOSIONS);
+			explosions[i] = new Explosion(game, size, Layer.EXPLOSIONS);
 	}
 	
 	public Explosion reset(float x, float y) {
