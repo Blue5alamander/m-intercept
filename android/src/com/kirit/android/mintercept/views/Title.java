@@ -50,7 +50,7 @@ public class Title extends Scene {
 			instructions = (BitmapDrawable)context.getResources().getDrawable(R.drawable.instructions);
 			instruction_pos = -instructions.getMinimumWidth();
 			logo = (BitmapDrawable)context.getResources().getDrawable(R.drawable.logo);
-			explosions = new Explosions(35);
+			explosions = new Explosions(35, 35);
 		}
 
 		@Override
