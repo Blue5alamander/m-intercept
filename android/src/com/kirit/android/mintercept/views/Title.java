@@ -85,7 +85,7 @@ public class Title extends Scene {
 			} else if ( layer == Layer.CHROME ) {
 				location.left = (view.getWidth() - logo.getMinimumWidth() ) /2;
 				location.right = view.getWidth() - location.left;
-				location.bottom = view.getHeight() / 3;
+				location.bottom = Math.max(view.getHeight() / 3, logo.getMinimumHeight());
 				location.top = location.bottom - logo.getMinimumHeight();
 				logo.setBounds(location);
 				logo.draw(c);
