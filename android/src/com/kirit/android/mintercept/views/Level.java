@@ -47,14 +47,14 @@ public class Level extends Scene {
     	}
     	return false;
     }
-    @Override
+    /*@Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
     	if ( keyCode == KeyEvent.KEYCODE_DPAD_UP && event.getAction() == MotionEvent.ACTION_DOWN ) {
     		togglePause();
     		return true;
     	} else
     		return super.onKeyDown(keyCode, event);
-    }
+    }*/
 
     @Override
     public void reset() {
