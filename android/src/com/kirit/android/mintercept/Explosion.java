@@ -33,6 +33,7 @@ public class Explosion extends Element {
 	private static Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private boolean draw = false;
 	private Spectrum colour = new Spectrum(0.0f, 0.75f, 0.75f);
+	private int paint_color;
 	private float cx, cy, inner_radius, outer_radius;
 	private int size, fade;
 
@@ -52,8 +53,8 @@ public class Explosion extends Element {
 		if ( !draw ) {
 			draw = true;
 			cx = x; cy = y;
-			inner_radius = 1;
-			outer_radius = 1;
+			inner_radius = 0;
+			outer_radius = 0;
 			fade = 8;
 			return true;
 		} else
@@ -75,6 +76,18 @@ public class Explosion extends Element {
 
 	@Override
 	public boolean tick() {
+		if ( draw ) {
+			if (inner_radius < size) {
+				paint_color = colour.next(size);
+				if ( outer_radius > size )
+					++inner_radius;
+				else
+					++outer_radius;
+			} else if ( fade > 0 )
+				--fade;
+			else
+				draw = false;
+		}
 		return draw;
 	}
 
@@ -82,20 +95,16 @@ public class Explosion extends Element {
 	public void draw(Canvas c, Layer l) {
 		if (layer == l && draw ) {
 			if (inner_radius < size) {
-				paint.setColor(colour.next(size));
+				paint.setColor(paint_color);
 				c.drawCircle(cx, cy, outer_radius, paint);
 				if ( outer_radius > size ) {
 					paint.setColor(0xff404040);
 					c.drawCircle(cx, cy, inner_radius, paint);
-					++inner_radius;
-				} else
-					++outer_radius;
+				}
 			} else if ( fade > 0 ) {
-				--fade;
 				paint.setColor(0x404040 + fade * 0x02000000 + fade * 0x20000000);
 				c.drawCircle(cx, cy, inner_radius, paint);
-			} else
-				draw = false;
+			}
 		}
 	}
 }

@@ -63,6 +63,7 @@ public class City extends Element {
 
 	@Override
 	public boolean tick() {
+		explosion.tick();
 		if ( drawcity && isdead && explosion.pastZenith() )
 			drawcity = false;
 		return !isdead;
