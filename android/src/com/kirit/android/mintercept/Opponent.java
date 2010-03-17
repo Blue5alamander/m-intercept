@@ -152,7 +152,7 @@ public class Opponent extends Element {
 			for ( Missile m : missiles )
 				if ( m.reset() ) {
 					game.missiles.alter(-1);
-					timer = Math.max(80 - 4 * game.level.getValue(), 2);
+					timer = Game.randomGenerator.nextInt(Math.max(80 - 8 * game.level.getValue(), 5)) + 2;
 					break;
 				}
 		} else
