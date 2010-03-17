@@ -20,7 +20,7 @@
 -->
 
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.kirit.android.mintercept" android:versionName="0.2" android:versionCode="2">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.kirit.android.mintercept" android:versionName="0.3" android:versionCode="3">
 
     <!-- This package contains an application...  The 'label' is the name
          to display to the user for the overall application, and provides
