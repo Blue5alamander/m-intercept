@@ -22,7 +22,6 @@
 package com.kirit.android.mintercept.views;
 
 import android.content.Context;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 
 import com.kirit.android.mintercept.Game;
