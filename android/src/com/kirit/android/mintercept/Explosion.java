@@ -102,7 +102,7 @@ public class Explosion extends Element {
 					c.drawCircle(cx, cy, inner_radius, paint);
 				}
 			} else if ( fade > 0 ) {
-				paint.setColor(0x404040 + fade * 0x02000000 + fade * 0x20000000);
+				paint.setColor(0x404040 + fade * 0x02000000 + (fade-1) * 0x20000000);
 				c.drawCircle(cx, cy, inner_radius, paint);
 			}
 		}
