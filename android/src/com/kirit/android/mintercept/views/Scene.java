@@ -35,16 +35,35 @@ public abstract class Scene extends View {
 
 	public Scene(Context context) {
 		super(context);
+		setFocusable(true);
+		runstate = Pause.RUNNING;
 	}
 
 	public void draw(Element e) {
 		todraw = e;
 	}
 
+	private enum Pause { PAUSED, RUNNING };
+	private Pause runstate;
+	public void togglePause() {
+		switch ( runstate ) {
+		case PAUSED:
+			runstate = Pause.RUNNING;
+			break;
+		case RUNNING:
+			runstate = Pause.PAUSED;
+			break;
+		}
+	}
+	public void resume() {
+		runstate = Pause.RUNNING;
+	}
+
 	@Override
 	protected void onDraw(Canvas c) {
 		c.drawARGB(255, 0, 0, 0);
-		todraw.tick();
+		if ( runstate == Pause.RUNNING )
+			todraw.tick();
 		todraw.draw(c, Layer.BACKGROUND);
 		todraw.draw(c, Layer.CITIES);
 		todraw.draw(c, Layer.TRAILS);
@@ -55,3 +74,4 @@ public abstract class Scene extends View {
 	
 	public abstract void reset();
 }
+

@@ -22,6 +22,7 @@
 package com.kirit.android.mintercept.views;
 
 import android.content.Context;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 
 import com.kirit.android.mintercept.Game;
@@ -40,12 +41,21 @@ public class Level extends Scene {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
     	if ( event.getAction() == MotionEvent.ACTION_DOWN ) {
+    		resume(); // Make sure we don't stay paused
     		game.getPlayer().tap(event.getX(), event.getY());
     		return true;
     	}
     	return false;
     }
-    
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    	if ( keyCode == KeyEvent.KEYCODE_DPAD_UP && event.getAction() == MotionEvent.ACTION_DOWN ) {
+    		togglePause();
+    		return true;
+    	} else
+    		return super.onKeyDown(keyCode, event);
+    }
+
     @Override
     public void reset() {
     	game.reset();
