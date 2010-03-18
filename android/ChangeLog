@@ -1,0 +1,23 @@
+2010-03-18  Kirit Saelensminde <kirit@felspar.com>
+ ChangeLog & GPLv3
+ - Added ChangeLog and GPL license text
+ Title page
+ - Improved instructions and split out copyright notice.
+
+2010-03-17  Kirit Saelensminde <kirit@felspar.com>
+ Marketplace release
+ - 0.3 released on Android Market
+ Game play
+ - Tweaked missile intervals
+ - Implemented all hooks to enable the game to be paused.
+   This will be turned off for Market releases, but enables
+   screen shots to be taken much more easily.
+
+2010-03-16  Kirit Saelensminde <kirit@felspar.com>
+ Marketplace release
+ - 0.2 released on Android Market
+ Orientation support
+ - The game now locks orientation when started, at least on one
+   phone. Thanks Adam Nyback.
+ Marketplace release
+ - First and second releases (0.1 and 0.2) to Android Market 
