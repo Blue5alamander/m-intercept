@@ -39,13 +39,15 @@ import android.view.View;
 public class Title extends Scene {
 	private class Demo extends Element {
 		View view;
-		BitmapDrawable felspar, instructions, logo;
-		int instruction_pos;
+		BitmapDrawable copyright, felspar, instructions, logo;
+		int instruction_pos, copyright_pos;
 		Rect location = new Rect();
 		Explosions explosions;
 
 		public Demo(Context context, View v) {
 			view = v;
+			copyright = (BitmapDrawable)context.getResources().getDrawable(R.drawable.copyright);
+			copyright_pos = -copyright.getMinimumWidth();
 			felspar = (BitmapDrawable)context.getResources().getDrawable(R.drawable.felspar);
 			instructions = (BitmapDrawable)context.getResources().getDrawable(R.drawable.instructions);
 			instruction_pos = -instructions.getMinimumWidth();
@@ -60,9 +62,13 @@ public class Title extends Scene {
 					Game.randomGenerator.nextInt(view.getWidth()),
 					Game.randomGenerator.nextInt(view.getHeight())
 				);
-			instruction_pos -= 2;
+			explosions.tick();
+			instruction_pos -= 1;
 			if ( instruction_pos <= -instructions.getMinimumWidth() )
 				instruction_pos = view.getWidth() + 5;
+			copyright_pos -= 2;
+			if ( copyright_pos <= -copyright.getMinimumWidth() )
+				copyright_pos = view.getWidth() + 5;
 			return true;
 		}
 
@@ -76,12 +82,12 @@ public class Title extends Scene {
 				felspar.setBounds(location);
 				felspar.draw(c);
 				
-				location.left = instruction_pos;
-				location.right = location.left + instructions.getMinimumWidth();
-				location.top = view.getHeight() / 2;
-				location.bottom = location.top + instructions.getMinimumHeight();
-				instructions.setBounds(location);
-				instructions.draw(c);
+				location.left = copyright_pos;
+				location.right = location.left + copyright.getMinimumWidth();
+				location.top = view.getHeight() - felspar.getMinimumHeight() - copyright.getMinimumHeight();
+				location.bottom = location.top + copyright.getMinimumHeight();
+				copyright.setBounds(location);
+				copyright.draw(c);
 			} else if ( layer == Layer.CHROME ) {
 				location.left = (view.getWidth() - logo.getMinimumWidth() ) /2;
 				location.right = view.getWidth() - location.left;
@@ -89,6 +95,13 @@ public class Title extends Scene {
 				location.top = location.bottom - logo.getMinimumHeight();
 				logo.setBounds(location);
 				logo.draw(c);
+				
+				location.left = instruction_pos;
+				location.right = location.left + instructions.getMinimumWidth();
+				location.top = view.getHeight() / 2;
+				location.bottom = location.top + instructions.getMinimumHeight();
+				instructions.setBounds(location);
+				instructions.draw(c);
 			}
 			explosions.draw(c, layer);
 		}
