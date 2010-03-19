@@ -29,15 +29,18 @@ import com.kirit.android.Element;
 
 
 public class Player extends Element {
+    private static final int BASE_EXPLOSION_SIZE = 35;
+    private View view;
 	private int hitbonus;
 	private Game game;
 	private Explosions explosions;
 	private City cities [];
 
-	public 	Player(Context context, View view, Game g) {
+    public 	Player(Context context, View v, Game g) {
+        view = v;
 		game = g;
 		cities = new City [3];
-		explosions = new Explosions(g, 10, 35);
+		explosions = new Explosions(g, 10, BASE_EXPLOSION_SIZE);
 		for ( int n = 0; n != cities.length; ++n )
 			cities[n] = new City(g, context, view, n, cities.length);
 		reset();
@@ -60,11 +63,20 @@ public class Player extends Element {
 		 game.award(5 * game.level.getValue() * hitbonus++);
 	}
 
-	public boolean tap(float x, float y) {
-		if ( !game.isOver() && explosions.reset(x, y) != null ) {
-			hitbonus = 1;
-			game.award(-1);
-			return true;
+    public boolean tap(float x, float y) {
+        int height = view.getHeight();
+        if ( !game.isOver() && y < height - 40 ) {
+            Explosion explosion = explosions.reset(x, y);
+            if ( explosion != null ) {
+                int scale_height = height * 2 / 3 - 40;
+                if ( y > view.getHeight() / 3 )
+                    explosion.setSize(BASE_EXPLOSION_SIZE - ((int)y - scale_height) * BASE_EXPLOSION_SIZE / (scale_height));
+                else
+                    explosion.setSize(BASE_EXPLOSION_SIZE);
+                hitbonus = 1;
+                game.award(-1);
+                return true;
+            }
 		}
 		return false;
 	}
