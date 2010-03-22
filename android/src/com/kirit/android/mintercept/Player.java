@@ -71,7 +71,7 @@ public class Player extends Element {
             Explosion explosion = explosions.reset(x, y);
             if ( explosion != null ) {
                 int scale_height = height * 2 / 3 - 40;
-                if ( y > view.getHeight() / 3 )
+                if ( y > view.getHeight() * 2 / 3 )
                     explosion.setSize(BASE_EXPLOSION_SIZE - ((int)y - scale_height) * BASE_EXPLOSION_SIZE / (scale_height));
                 else
                     explosion.setSize(BASE_EXPLOSION_SIZE);

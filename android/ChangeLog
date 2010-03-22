@@ -1,4 +1,11 @@
 2010-03-18  Kirit Saelensminde  <kirit@felspar.com>
+ Difficulty
+ - Corrected the algorithm for the player explosion sizes
+   near the bottom of the screen.
+ Game restart
+ - Implemented restarting of the game after game over.
+
+2010-03-18  Kirit Saelensminde  <kirit@felspar.com>
  ChangeLog & GPLv3
  - Added ChangeLog and GPL license text
  Title page
