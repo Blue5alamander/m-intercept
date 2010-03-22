@@ -40,12 +40,16 @@ public class City extends Element {
 	private Explosion explosion;
 
 	public City(Game game, Context context, View v, int n, int o) {
-		drawcity = true; isdead = false;
 		view = v; number = n; outof = o;
 		city = context.getResources().getDrawable(drawable.city);
 		explosion = new Explosion(game, city.getMinimumWidth(), Layer.EXPLOSIONS);
+        reset();
 	}
 
+    public void reset() {
+        drawcity = true;
+        isdead = false;
+    }
 	public boolean hasStruck(float x) {
 		if ( isdead )
 			return false;

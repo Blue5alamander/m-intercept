@@ -53,6 +53,9 @@ public class MIntercept extends Activity {
     public void startGame() {
     	setView(level);
     }
+    public void endGame() {
+        setView(title);
+    }
 
     private void setView(Scene scene) {
 		scene.reset();

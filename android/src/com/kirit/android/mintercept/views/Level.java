@@ -21,18 +21,18 @@
 
 package com.kirit.android.mintercept.views;
 
-import android.content.Context;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 
 import com.kirit.android.mintercept.Game;
+import com.kirit.android.mintercept.MIntercept;
 
 
 public class Level extends Scene {
 	private Game game;
 
 
-	public Level(Context context) {
+	public Level(MIntercept context) {
 		super(context);
 		game = new Game(context, this);
 		draw(game);

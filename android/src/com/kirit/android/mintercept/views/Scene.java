@@ -23,18 +23,20 @@ package com.kirit.android.mintercept.views;
 
 import com.kirit.android.Element;
 import com.kirit.android.Element.Layer;
+import com.kirit.android.mintercept.MIntercept;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.view.View;
 
 
 public abstract class Scene extends View {
-	private Element todraw;
+    private MIntercept mintercept;
+    private Element todraw;
 
 
-	public Scene(Context context) {
+	public Scene(MIntercept context) {
 		super(context);
+        mintercept = context;
 		setFocusable(true);
 		runstate = Pause.RUNNING;
 	}
@@ -62,8 +64,10 @@ public abstract class Scene extends View {
 	@Override
 	protected void onDraw(Canvas c) {
 		c.drawARGB(255, 0, 0, 0);
-		if ( runstate == Pause.RUNNING )
-			todraw.tick();
+        if ( runstate == Pause.RUNNING ) {
+            if ( !todraw.tick() )
+                mintercept.endGame();
+        }
 		todraw.draw(c, Layer.BACKGROUND);
 		todraw.draw(c, Layer.CITIES);
 		todraw.draw(c, Layer.TRAILS);

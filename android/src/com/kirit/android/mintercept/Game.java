@@ -36,6 +36,8 @@ import android.view.View;
 
 
 public class Game extends Element {
+    private View view;
+
 	private boolean isover;
 	private Player player;
 	private Opponent opponent;
@@ -46,11 +48,12 @@ public class Game extends Element {
 
 	private BitmapDrawable gameover;
 	private Rect location = new Rect();
+	private Explosion bigbang;
 
 	static public Random randomGenerator = new Random();
 
-	public Game(Context context, View view) {
-		isover = false;
+	public Game(Context context, View v) {
+	    view = v;
 
 		score = new NumberPanel(context, 8, R.drawable.score_prolog, R.drawable.score_numbers, Layer.CHROME);
 		missiles = new NumberPanel(context, 6, R.drawable.missiles_prolog, R.drawable.missiles_numbers, Layer.CHROME);
@@ -64,15 +67,17 @@ public class Game extends Element {
 		player = new Player(context, view, this);
 		opponent = new Opponent(context, view, this);
 
-		gameover = (BitmapDrawable)context.getResources().getDrawable(R.drawable.gameover); 
+		gameover = (BitmapDrawable)context.getResources().getDrawable(R.drawable.gameover);
+        bigbang = new Explosion(120, Layer.CHROME);
 	}
 
-	public void reset() {
-		score.reset(10);
-		level.reset(1);
-		player.reset();
-		opponent.reset();
-	}
+    public void reset() {
+        isover = false;
+        score.reset(10);
+        level.reset(1);
+        player.reset();
+        opponent.reset();
+    }
 
 	public Player getPlayer() {
 		return player;
@@ -118,34 +123,41 @@ public class Game extends Element {
 	public boolean tick() {
 		if ( level.alpha > 0 )
 			--level.alpha;
-		if ( !opponent.tick() && !isOver() ) {
-			level.alpha = 255;
-			level.alter(1);
-			opponent.reset();
+        boolean opponent_running = opponent.tick();
+        if ( !opponent_running ) {
+			if ( isOver() )
+				bigbang.reset(view.getWidth()/2, view.getHeight()/2);
+			else {
+				level.alpha = 255;
+				level.alter(1);
+				opponent.reset();
+			}
 		}
 		player.tick();
-		return !isOver();
+		return !isOver() || opponent_running || bigbang.tick();
 	}
 
 	@Override
 	public void draw(Canvas c, Layer layer) {
-		if ( isover && layer == Layer.BACKGROUND ) {
-			location.left = c.getWidth() / 2 - gameover.getMinimumWidth() / 2;
-			location.top = c.getHeight() / 2 - gameover.getMinimumHeight();
-			location.right = c.getWidth() / 2 + gameover.getMinimumWidth() / 2;
-			location.bottom = c.getHeight() / 2;
+		if ( isover && !bigbang.pastZenith() && layer == Layer.BACKGROUND ) {
+            location.left = view.getWidth() / 2 - gameover.getMinimumWidth() / 2;
+            location.top = view.getHeight() / 2 - gameover.getMinimumHeight();
+            location.right = view.getWidth() / 2 + gameover.getMinimumWidth() / 2;
+            location.bottom = view.getHeight() / 2;
 			gameover.setBounds(location);
 			gameover.draw(c);
 		}
 
-		score.draw(c, layer);
-		missiles.setLeft(c.getWidth() - missiles.getWidth());
-		missiles.draw(c, layer);
-		level.setLeft((c.getWidth() - level.getWidth()) / 2);
-		level.setTop(c.getHeight() / 3);
-		level.draw(c, layer);
+        score.draw(c, layer);
+        missiles.setLeft(view.getWidth() - missiles.getWidth());
+        missiles.draw(c, layer);
+        level.setLeft((view.getWidth() - level.getWidth()) / 2);
+        level.setTop(view.getHeight() / 3);
+        level.draw(c, layer);
 
 		opponent.draw(c, layer);
 		player.draw(c, layer);
-	}
+
+        bigbang.draw(c, layer);
+    }
 }

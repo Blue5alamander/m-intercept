@@ -39,15 +39,17 @@ public class Player extends Element {
     public 	Player(Context context, View v, Game g) {
         view = v;
 		game = g;
-		cities = new City [3];
-		explosions = new Explosions(g, 10, BASE_EXPLOSION_SIZE);
+        explosions = new Explosions(g, 10, 35);
+        cities = new City [3];
 		for ( int n = 0; n != cities.length; ++n )
 			cities[n] = new City(g, context, view, n, cities.length);
 		reset();
 	}
 
-	public void reset() {
-	}
+    public void reset() {
+        for ( City c : cities )
+            c.reset();
+    }
 
 	public City hasStruck(float x) {
 		for ( City c : cities )

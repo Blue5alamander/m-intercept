@@ -49,12 +49,16 @@ public class Explosion extends Element {
 	public void setSize(int s) {
 		size = s;
 	}
+    private void reset() {
+        draw = false;
+        inner_radius = 0;
+        outer_radius = 0;
+    }
 	public boolean reset(float x, float y) {
 		if ( !draw ) {
-			draw = true;
+            reset();
+            draw = true;
 			cx = x; cy = y;
-			inner_radius = 0;
-			outer_radius = 0;
 			fade = 8;
 			return true;
 		} else
@@ -86,7 +90,7 @@ public class Explosion extends Element {
 			} else if ( fade > 0 )
 				--fade;
 			else
-				draw = false;
+				reset();
 		}
 		return draw;
 	}
