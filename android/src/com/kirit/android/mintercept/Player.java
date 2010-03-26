@@ -23,6 +23,7 @@ package com.kirit.android.mintercept;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.os.Vibrator;
 import android.view.View;
 
 import com.kirit.android.Element;
@@ -30,13 +31,15 @@ import com.kirit.android.Element;
 
 public class Player extends Element {
     private static final int BASE_EXPLOSION_SIZE = 35;
+	private Context context;
     private View view;
 	private int hitbonus;
 	private Game game;
 	private Explosions explosions;
 	private City cities [];
 
-    public 	Player(Context context, View v, Game g) {
+    public 	Player(Context c, View v, Game g) {
+    	context = c;
         view = v;
 		game = g;
         explosions = new Explosions(g, 10, 35);
@@ -62,7 +65,12 @@ public class Player extends Element {
 	 * The player has exploded a missile.
 	 */
 	public void hit() {
-		 game.award(5 * game.level.getValue() * hitbonus++);
+        if ( !game.isOver() ) {
+			game.award(5 * game.level.getValue() * hitbonus++);
+			Vibrator vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE); 
+			if ( vibrator != null )
+				vibrator.vibrate(20 * hitbonus);
+        }
 	}
 
     public boolean tap(float x, float y) {

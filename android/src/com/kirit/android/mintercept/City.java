@@ -25,6 +25,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Vibrator;
 import android.view.View;
 
 import com.kirit.android.Element;
@@ -35,15 +36,19 @@ public class City extends Element {
 	private boolean drawcity, isdead;
 	private Drawable city;
 	private View view;
+	private Context context;
 	private int number, outof;
 	private Rect location;
 	private Explosion explosion;
 
-	public City(Game game, Context context, View v, int n, int o) {
-		view = v; number = n; outof = o;
+	public City(Game game, Context c, View v, int n, int o) {
+		view = v;
+		context = c;
+		number = n;
+		outof = o;
 		city = context.getResources().getDrawable(drawable.city);
 		explosion = new Explosion(game, city.getMinimumWidth(), Layer.EXPLOSIONS);
-        reset();
+		reset();
 	}
 
     public void reset() {
@@ -63,6 +68,9 @@ public class City extends Element {
 			location.left + (location.right - location.left) / 2,
 			location.top + (location.bottom - location.top) / 2
 		);
+		Vibrator vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE); 
+		if ( vibrator != null )
+			vibrator.vibrate(500);
 	}
 
 	@Override
