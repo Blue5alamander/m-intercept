@@ -21,10 +21,13 @@
 
 package com.kirit.android.mintercept;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.kirit.android.Element;
@@ -38,16 +41,23 @@ public class Overlay extends Element {
     private boolean allowBackground;
     private boolean active;
     private Rect location = new Rect();
+    
+    private BitmapDrawable vibrate_on, vibrate_off;
 
-    public Overlay(Title title) {
-        view = title;
-        allowBackground = true;
+
+    private Overlay(Context context, View v, boolean allowbg) {
+        view = v;
+        allowBackground = allowbg;
         deactivate();
+        
+        vibrate_on = (BitmapDrawable)context.getResources().getDrawable(R.drawable.vibrate_on);
+        vibrate_off = (BitmapDrawable)context.getResources().getDrawable(R.drawable.vibrate_off);
     }
-    public Overlay(Level level) {
-        view = level;
-        allowBackground = false;
-        deactivate();
+    public Overlay(Context context, Title title) {
+        this(context, title, true);
+    }
+    public Overlay(Context context, Level level) {
+        this(context, level, false);
     }
 
     public void activate() {
@@ -59,7 +69,19 @@ public class Overlay extends Element {
     public boolean isActive() {
         return active;
     }
- 
+
+    /**
+     * Pass on touch events to the overlay when it is active
+     * @param event
+     * @return
+     */
+    public boolean onTouchEvent(MotionEvent event) {
+        if ( active ) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public void draw(Canvas c, Layer layer) {
         if ( active ) {
@@ -68,6 +90,14 @@ public class Overlay extends Element {
             paint.setColor(Color.BLACK);
             paint.setAlpha(180);
             c.drawRect(location, paint);
+
+            location.top = view.getHeight() / 3;
+            location.bottom = location.top + vibrate_on.getMinimumHeight();
+            location.left = ( view.getWidth() - vibrate_on.getMinimumWidth() ) / 2;
+            location.right = location.left +vibrate_on.getMinimumWidth();
+            paint.setAlpha(255);
+            vibrate_on.setBounds(location);
+            vibrate_on.draw(c);
         }
     }
 

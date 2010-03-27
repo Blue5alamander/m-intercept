@@ -116,7 +116,7 @@ public class Title extends Scene {
         mintercept = m;
         demo = new Demo(m, this);
         draw(demo);
-        setOverlay(new Overlay(this));
+        setOverlay(new Overlay(m, this));
     }
 
     @Override
@@ -127,6 +127,7 @@ public class Title extends Scene {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ( keyCode == KeyEvent.KEYCODE_DPAD_UP ) {
+            overlay.deactivate();
             mintercept.startGame();
             return true;
         } else if ( keyCode == KeyEvent.KEYCODE_MENU ) {
@@ -138,10 +139,14 @@ public class Title extends Scene {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-             mintercept.startGame();
-             return true;
-         }
-         return false;
+        if ( !overlay.onTouchEvent(event) ) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                 mintercept.startGame();
+                 return true;
+            } else
+                return false;
+        } else
+            // The overlay handled the event
+            return true;
     }
 }

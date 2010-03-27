@@ -33,7 +33,7 @@ import android.view.View;
 public abstract class Scene extends View {
     private MIntercept mintercept;
     private Element todraw;
-    private Overlay overlay;
+    protected Overlay overlay;
 
 
     public Scene(MIntercept context) {
