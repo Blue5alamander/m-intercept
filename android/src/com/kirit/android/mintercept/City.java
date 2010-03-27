@@ -33,7 +33,7 @@ import com.kirit.android.mintercept.R.drawable;
 
 
 public class City extends Element {
-    private boolean drawcity, isdead;
+    private boolean drawcity;
     private Drawable city;
     private View view;
     private Context context;
@@ -47,23 +47,26 @@ public class City extends Element {
         number = n;
         outof = o;
         city = context.getResources().getDrawable(drawable.city);
-        explosion = new Explosion(game, city.getMinimumWidth(), Layer.EXPLOSIONS);
         reset();
     }
 
     public void reset() {
+        explosion = null;
         drawcity = true;
-        isdead = false;
+    }
+    private boolean isdead() {
+        return explosion != null;
     }
     public boolean hasStruck(float x) {
-        if ( isdead )
+        if ( isdead() )
             return false;
         else
             return x >= location.left && x <= location.right;
     }
 
-    public void explode() {
-        isdead = true;
+    public void explode(Explosion e) {
+        explosion = e;
+        explosion.setSize(city.getMinimumWidth());
         explosion.reset(
             location.left + (location.right - location.left) / 2,
             location.top + (location.bottom - location.top) / 2
@@ -75,10 +78,9 @@ public class City extends Element {
 
     @Override
     public boolean tick() {
-        explosion.tick();
-        if ( drawcity && isdead && explosion.pastZenith() )
+        if ( drawcity && isdead() && explosion.pastZenith() )
             drawcity = false;
-        return !isdead;
+        return !isdead();
     }
 
     @Override
@@ -96,6 +98,5 @@ public class City extends Element {
             city.setBounds(location);
             city.draw(c);
         }
-        explosion.draw(c, layer);
     }
 }

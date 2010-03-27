@@ -30,11 +30,13 @@ import com.kirit.android.Element;
 
 public class Cities extends Element {
     private City [] cities;
+    private Explosions explosions;
 
     public Cities(Game game, Context context, View view) {
         cities = new City [3];
         for ( int n = 0; n != cities.length; ++n )
             cities[n] = new City(game, context, view, n, cities.length);
+        explosions = new Explosions(game, cities.length, 0);
     }
 
     public void reset() {
@@ -42,10 +44,12 @@ public class Cities extends Element {
             c.reset();
     }
 
-    public City hasStruck(float x) {
+    public City hasStruck(float x, float y) {
         for ( City c : cities )
-            if ( c.hasStruck(x) )
+            if ( c.hasStruck(x) ) {
+                c.explode(explosions.reset(x, y));
                 return c;
+            }
         return null;
     }
 
@@ -55,6 +59,7 @@ public class Cities extends Element {
         for ( City city : cities )
             if ( city.tick() )
                 alldead = false;
+        explosions.tick();
         return alldead;
     }
 
@@ -62,5 +67,6 @@ public class Cities extends Element {
     public void draw(Canvas c, Layer layer) {
         for ( City city : cities )
             city.draw(c, layer);
+        explosions.draw(c, layer);
     }
 }

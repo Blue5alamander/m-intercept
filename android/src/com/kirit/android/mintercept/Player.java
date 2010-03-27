@@ -51,8 +51,8 @@ public class Player extends Element {
         cities.reset();
     }
 
-    public City hasStruck(float x) {
-        return cities.hasStruck(x);
+    public City struckCity(float x, float y) {
+        return cities.hasStruck(x, y);
     }
     
     /**
