@@ -1,4 +1,13 @@
 2010-03-19  Kirit Saelensminde  <kirit@felspar.com>
+ Game play
+ - Added vibrate to missile explosions. Bonus explosions
+   make longer vibrations.
+ - Added vibrate to the city explosions.
+ - Refactored city explosions so that they layer properly.
+ Licenses
+ - Added a new COPYING file.
+
+2010-03-19  Kirit Saelensminde  <kirit@felspar.com>
  Marketplace release
  - 0.4 released on Android Market
 
