@@ -25,6 +25,7 @@ import com.kirit.android.Element;
 import com.kirit.android.mintercept.Explosions;
 import com.kirit.android.mintercept.Game;
 import com.kirit.android.mintercept.MIntercept;
+import com.kirit.android.mintercept.Overlay;
 import com.kirit.android.mintercept.R;
 
 import android.content.Context;
@@ -115,6 +116,7 @@ public class Title extends Scene {
         mintercept = m;
         demo = new Demo(m, this);
         draw(demo);
+        setOverlay(new Overlay(this));
     }
 
     @Override
@@ -126,6 +128,9 @@ public class Title extends Scene {
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if ( keyCode == KeyEvent.KEYCODE_DPAD_UP ) {
             mintercept.startGame();
+            return true;
+        } else if ( keyCode == KeyEvent.KEYCODE_MENU ) {
+            toggleOverlay();
             return true;
         }
         return super.onKeyUp(keyCode, event);

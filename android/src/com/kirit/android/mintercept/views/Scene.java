@@ -24,6 +24,7 @@ package com.kirit.android.mintercept.views;
 import com.kirit.android.Element;
 import com.kirit.android.Element.Layer;
 import com.kirit.android.mintercept.MIntercept;
+import com.kirit.android.mintercept.Overlay;
 
 import android.graphics.Canvas;
 import android.view.View;
@@ -32,49 +33,46 @@ import android.view.View;
 public abstract class Scene extends View {
     private MIntercept mintercept;
     private Element todraw;
+    private Overlay overlay;
 
 
     public Scene(MIntercept context) {
         super(context);
         mintercept = context;
         setFocusable(true);
-        setFocusableInTouchMode(true);
-        runstate = Pause.RUNNING;
+        setFocusableInTouchMode(true);;
     }
 
-    public void draw(Element e) {
+    protected void draw(Element e) {
         todraw = e;
     }
+    protected void setOverlay(Overlay o) {
+        overlay = o;
+    }
 
-    private enum Pause { PAUSED, RUNNING };
-    private Pause runstate;
-    public void togglePause() {
-        switch ( runstate ) {
-        case PAUSED:
-            runstate = Pause.RUNNING;
-            break;
-        case RUNNING:
-            runstate = Pause.PAUSED;
-            break;
-        }
+    public void toggleOverlay() {
+        if ( overlay.isActive() )
+            overlay.deactivate();
+        else
+            overlay.activate();
     }
     public void resume() {
-        runstate = Pause.RUNNING;
+        overlay.deactivate();
     }
 
     @Override
     protected void onDraw(Canvas c) {
         c.drawARGB(255, 0, 0, 0);
-        if ( runstate == Pause.RUNNING ) {
+        if ( overlay.tick() )
             if ( !todraw.tick() )
                 mintercept.endGame();
-        }
         todraw.draw(c, Layer.BACKGROUND);
         todraw.draw(c, Layer.CITIES);
         todraw.draw(c, Layer.TRAILS);
         todraw.draw(c, Layer.EXPLOSIONS);
         todraw.draw(c, Layer.MISSILES);
         todraw.draw(c, Layer.CHROME);
+        overlay.draw(c, Layer.CHROME);
     }
     
     public abstract void reset();

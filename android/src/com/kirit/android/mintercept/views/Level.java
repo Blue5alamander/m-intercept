@@ -26,6 +26,7 @@ import android.view.MotionEvent;
 
 import com.kirit.android.mintercept.Game;
 import com.kirit.android.mintercept.MIntercept;
+import com.kirit.android.mintercept.Overlay;
 
 
 public class Level extends Scene {
@@ -36,6 +37,7 @@ public class Level extends Scene {
         super(context);
         game = new Game(context, this);
         draw(game);
+        setOverlay(new Overlay(this));
     }
 
     @Override
@@ -53,7 +55,7 @@ public class Level extends Scene {
                 keyCode == KeyEvent.KEYCODE_DPAD_UP ||
                 keyCode == KeyEvent.KEYCODE_MENU
         ) ) {
-            togglePause();
+            toggleOverlay();
             return true;
         } else
             return super.onKeyDown(keyCode, event);
