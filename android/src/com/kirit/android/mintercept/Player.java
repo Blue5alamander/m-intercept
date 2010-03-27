@@ -36,29 +36,23 @@ public class Player extends Element {
     private int hitbonus;
     private Game game;
     private Explosions explosions;
-    private City cities [];
+    private Cities cities;
 
-    public     Player(Context c, View v, Game g) {
+    public Player(Context c, View v, Game g) {
         context = c;
         view = v;
         game = g;
         explosions = new Explosions(g, 10, 35);
-        cities = new City [3];
-        for ( int n = 0; n != cities.length; ++n )
-            cities[n] = new City(g, context, view, n, cities.length);
+        cities = new Cities(game, context, view);
         reset();
     }
 
     public void reset() {
-        for ( City c : cities )
-            c.reset();
+        cities.reset();
     }
 
     public City hasStruck(float x) {
-        for ( City c : cities )
-            if ( c.hasStruck(x) )
-                return c;
-        return null;
+        return cities.hasStruck(x);
     }
     
     /**
@@ -93,20 +87,15 @@ public class Player extends Element {
 
     @Override
     public boolean tick() {
-        boolean alldead = true;
-        for ( City city : cities )
-            if ( city.tick() )
-                alldead = false;
-        if ( alldead )
+        if ( cities.tick() )
             game.over();
         explosions.tick();
-        return !alldead;
+        return !game.isOver();
     }
 
     @Override
     public void draw(Canvas c, Layer layer) {
-        for ( City city : cities )
-            city.draw(c, layer);
+        cities.draw(c, layer);
         explosions.draw(c, layer);
     }
 }
