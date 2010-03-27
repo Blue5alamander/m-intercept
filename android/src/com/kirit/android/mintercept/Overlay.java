@@ -22,6 +22,10 @@
 package com.kirit.android.mintercept;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.view.View;
 
 import com.kirit.android.Element;
 import com.kirit.android.mintercept.views.Level;
@@ -29,14 +33,19 @@ import com.kirit.android.mintercept.views.Title;
 
 
 public class Overlay extends Element {
+    private static Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private View view;
     private boolean allowBackground;
     private boolean active;
+    private Rect location = new Rect();
 
     public Overlay(Title title) {
+        view = title;
         allowBackground = true;
         deactivate();
     }
     public Overlay(Level level) {
+        view = level;
         allowBackground = false;
         deactivate();
     }
@@ -53,6 +62,13 @@ public class Overlay extends Element {
  
     @Override
     public void draw(Canvas c, Layer layer) {
+        if ( active ) {
+            location.top = 0; location.bottom = view.getHeight();
+            location.left = 0; location.right = view.getWidth();
+            paint.setColor(Color.BLACK);
+            paint.setAlpha(180);
+            c.drawRect(location, paint);
+        }
     }
 
     @Override
