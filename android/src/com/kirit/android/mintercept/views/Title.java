@@ -125,7 +125,7 @@ public class Title extends Scene {
 
 
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ( keyCode == KeyEvent.KEYCODE_DPAD_UP ) {
             mintercept.startGame();
             return true;

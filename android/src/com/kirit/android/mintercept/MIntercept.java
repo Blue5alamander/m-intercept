@@ -80,6 +80,7 @@ public class MIntercept extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        // Set the view to title, but don't use the setView API for this as it does too much
         setView(title);
     }
 
