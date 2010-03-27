@@ -37,106 +37,106 @@ import android.view.View;
 
 
 public class Title extends Scene {
-	private class Demo extends Element {
-		View view;
-		BitmapDrawable copyright, felspar, instructions, logo;
-		int instruction_pos, copyright_pos;
-		Rect location = new Rect();
-		Explosions explosions;
+    private class Demo extends Element {
+        View view;
+        BitmapDrawable copyright, felspar, instructions, logo;
+        int instruction_pos, copyright_pos;
+        Rect location = new Rect();
+        Explosions explosions;
 
-		public Demo(Context context, View v) {
-			view = v;
-			copyright = (BitmapDrawable)context.getResources().getDrawable(R.drawable.copyright);
-			copyright_pos = -copyright.getMinimumWidth();
-			felspar = (BitmapDrawable)context.getResources().getDrawable(R.drawable.felspar);
-			instructions = (BitmapDrawable)context.getResources().getDrawable(R.drawable.instructions);
-			instruction_pos = -instructions.getMinimumWidth();
-			logo = (BitmapDrawable)context.getResources().getDrawable(R.drawable.logo);
-			explosions = new Explosions(35, 35);
-		}
+        public Demo(Context context, View v) {
+            view = v;
+            copyright = (BitmapDrawable)context.getResources().getDrawable(R.drawable.copyright);
+            copyright_pos = -copyright.getMinimumWidth();
+            felspar = (BitmapDrawable)context.getResources().getDrawable(R.drawable.felspar);
+            instructions = (BitmapDrawable)context.getResources().getDrawable(R.drawable.instructions);
+            instruction_pos = -instructions.getMinimumWidth();
+            logo = (BitmapDrawable)context.getResources().getDrawable(R.drawable.logo);
+            explosions = new Explosions(35, 35);
+        }
 
-		@Override
-		public boolean tick() {
-			if ( Game.randomGenerator.nextInt(35) == 1 )
-				explosions.reset(
-					Game.randomGenerator.nextInt(view.getWidth()),
-					Game.randomGenerator.nextInt(view.getHeight())
-				);
-			explosions.tick();
-			instruction_pos -= 1;
-			if ( instruction_pos <= -instructions.getMinimumWidth() )
-				instruction_pos = view.getWidth() + 5;
-			copyright_pos -= 2;
-			if ( copyright_pos <= -copyright.getMinimumWidth() )
-				copyright_pos = view.getWidth() + 5;
-			return true;
-		}
+        @Override
+        public boolean tick() {
+            if ( Game.randomGenerator.nextInt(35) == 1 )
+                explosions.reset(
+                    Game.randomGenerator.nextInt(view.getWidth()),
+                    Game.randomGenerator.nextInt(view.getHeight())
+                );
+            explosions.tick();
+            instruction_pos -= 1;
+            if ( instruction_pos <= -instructions.getMinimumWidth() )
+                instruction_pos = view.getWidth() + 5;
+            copyright_pos -= 2;
+            if ( copyright_pos <= -copyright.getMinimumWidth() )
+                copyright_pos = view.getWidth() + 5;
+            return true;
+        }
 
-		@Override
-		public void draw(Canvas c, Layer layer) {
-			if ( layer == Layer.BACKGROUND ) {
-				location.left = (view.getWidth() - felspar.getMinimumWidth() ) /2;
-				location.right = view.getWidth() - location.left;
-				location.top = view.getHeight() - felspar.getMinimumHeight();
-				location.bottom = view.getHeight();
-				felspar.setBounds(location);
-				felspar.draw(c);
-				
-				location.left = copyright_pos;
-				location.right = location.left + copyright.getMinimumWidth();
-				location.top = view.getHeight() - felspar.getMinimumHeight() - copyright.getMinimumHeight();
-				location.bottom = location.top + copyright.getMinimumHeight();
-				copyright.setBounds(location);
-				copyright.draw(c);
-			} else if ( layer == Layer.CHROME ) {
-				location.left = (view.getWidth() - logo.getMinimumWidth() ) /2;
-				location.right = view.getWidth() - location.left;
-				location.bottom = Math.max(view.getHeight() / 3, logo.getMinimumHeight());
-				location.top = location.bottom - logo.getMinimumHeight();
-				logo.setBounds(location);
-				logo.draw(c);
-				
-				location.left = instruction_pos;
-				location.right = location.left + instructions.getMinimumWidth();
-				location.top = view.getHeight() / 2;
-				location.bottom = location.top + instructions.getMinimumHeight();
-				instructions.setBounds(location);
-				instructions.draw(c);
-			}
-			explosions.draw(c, layer);
-		}
-	};
-	Demo demo;
+        @Override
+        public void draw(Canvas c, Layer layer) {
+            if ( layer == Layer.BACKGROUND ) {
+                location.left = (view.getWidth() - felspar.getMinimumWidth() ) /2;
+                location.right = view.getWidth() - location.left;
+                location.top = view.getHeight() - felspar.getMinimumHeight();
+                location.bottom = view.getHeight();
+                felspar.setBounds(location);
+                felspar.draw(c);
+                
+                location.left = copyright_pos;
+                location.right = location.left + copyright.getMinimumWidth();
+                location.top = view.getHeight() - felspar.getMinimumHeight() - copyright.getMinimumHeight();
+                location.bottom = location.top + copyright.getMinimumHeight();
+                copyright.setBounds(location);
+                copyright.draw(c);
+            } else if ( layer == Layer.CHROME ) {
+                location.left = (view.getWidth() - logo.getMinimumWidth() ) /2;
+                location.right = view.getWidth() - location.left;
+                location.bottom = Math.max(view.getHeight() / 3, logo.getMinimumHeight());
+                location.top = location.bottom - logo.getMinimumHeight();
+                logo.setBounds(location);
+                logo.draw(c);
+                
+                location.left = instruction_pos;
+                location.right = location.left + instructions.getMinimumWidth();
+                location.top = view.getHeight() / 2;
+                location.bottom = location.top + instructions.getMinimumHeight();
+                instructions.setBounds(location);
+                instructions.draw(c);
+            }
+            explosions.draw(c, layer);
+        }
+    };
+    Demo demo;
 
 
-	MIntercept mintercept;
-	public Title(MIntercept m) {
-		super(m);
-		mintercept = m;
-		demo = new Demo(m, this);
-		draw(demo);
-	}
+    MIntercept mintercept;
+    public Title(MIntercept m) {
+        super(m);
+        mintercept = m;
+        demo = new Demo(m, this);
+        draw(demo);
+    }
 
-	@Override
-	public void reset() {
-	}
+    @Override
+    public void reset() {
+    }
 
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-    	if ( keyCode == KeyEvent.KEYCODE_DPAD_UP ) {
-    		mintercept.startGame();
-    		return true;
-    	}
+        if ( keyCode == KeyEvent.KEYCODE_DPAD_UP ) {
+            mintercept.startGame();
+            return true;
+        }
         return super.onKeyUp(keyCode, event);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-    	 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-    		 mintercept.startGame();
-    		 return true;
-    	 }
-    	 return false;
+         if (event.getAction() == MotionEvent.ACTION_DOWN) {
+             mintercept.startGame();
+             return true;
+         }
+         return false;
     }
 }

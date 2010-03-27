@@ -29,35 +29,35 @@ import com.kirit.android.mintercept.MIntercept;
 
 
 public class Level extends Scene {
-	private Game game;
+    private Game game;
 
 
-	public Level(MIntercept context) {
-		super(context);
-		game = new Game(context, this);
-		draw(game);
-	}
+    public Level(MIntercept context) {
+        super(context);
+        game = new Game(context, this);
+        draw(game);
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-    	if ( event.getAction() == MotionEvent.ACTION_DOWN ) {
-    		resume(); // Make sure we don't stay paused
-    		game.getPlayer().tap(event.getX(), event.getY());
-    		return true;
-    	}
-    	return false;
+        if ( event.getAction() == MotionEvent.ACTION_DOWN ) {
+            resume(); // Make sure we don't stay paused
+            game.getPlayer().tap(event.getX(), event.getY());
+            return true;
+        }
+        return false;
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-    	if ( keyCode == KeyEvent.KEYCODE_DPAD_UP && event.getAction() == MotionEvent.ACTION_DOWN ) {
-    		togglePause();
-    		return true;
-    	} else
-    		return super.onKeyDown(keyCode, event);
+        if ( keyCode == KeyEvent.KEYCODE_DPAD_UP && event.getAction() == MotionEvent.ACTION_DOWN ) {
+            togglePause();
+            return true;
+        } else
+            return super.onKeyDown(keyCode, event);
     }
 
     @Override
     public void reset() {
-    	game.reset();
+        game.reset();
     }
 }

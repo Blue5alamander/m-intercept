@@ -34,48 +34,48 @@ public abstract class Scene extends View {
     private Element todraw;
 
 
-	public Scene(MIntercept context) {
-		super(context);
+    public Scene(MIntercept context) {
+        super(context);
         mintercept = context;
-		setFocusable(true);
-		runstate = Pause.RUNNING;
-	}
+        setFocusable(true);
+        runstate = Pause.RUNNING;
+    }
 
-	public void draw(Element e) {
-		todraw = e;
-	}
+    public void draw(Element e) {
+        todraw = e;
+    }
 
-	private enum Pause { PAUSED, RUNNING };
-	private Pause runstate;
-	public void togglePause() {
-		switch ( runstate ) {
-		case PAUSED:
-			runstate = Pause.RUNNING;
-			break;
-		case RUNNING:
-			runstate = Pause.PAUSED;
-			break;
-		}
-	}
-	public void resume() {
-		runstate = Pause.RUNNING;
-	}
+    private enum Pause { PAUSED, RUNNING };
+    private Pause runstate;
+    public void togglePause() {
+        switch ( runstate ) {
+        case PAUSED:
+            runstate = Pause.RUNNING;
+            break;
+        case RUNNING:
+            runstate = Pause.PAUSED;
+            break;
+        }
+    }
+    public void resume() {
+        runstate = Pause.RUNNING;
+    }
 
-	@Override
-	protected void onDraw(Canvas c) {
-		c.drawARGB(255, 0, 0, 0);
+    @Override
+    protected void onDraw(Canvas c) {
+        c.drawARGB(255, 0, 0, 0);
         if ( runstate == Pause.RUNNING ) {
             if ( !todraw.tick() )
                 mintercept.endGame();
         }
-		todraw.draw(c, Layer.BACKGROUND);
-		todraw.draw(c, Layer.CITIES);
-		todraw.draw(c, Layer.TRAILS);
-		todraw.draw(c, Layer.EXPLOSIONS);
-		todraw.draw(c, Layer.MISSILES);
-		todraw.draw(c, Layer.CHROME);
-	}
-	
-	public abstract void reset();
+        todraw.draw(c, Layer.BACKGROUND);
+        todraw.draw(c, Layer.CITIES);
+        todraw.draw(c, Layer.TRAILS);
+        todraw.draw(c, Layer.EXPLOSIONS);
+        todraw.draw(c, Layer.MISSILES);
+        todraw.draw(c, Layer.CHROME);
+    }
+    
+    public abstract void reset();
 }
 

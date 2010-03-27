@@ -35,39 +35,39 @@ import android.view.WindowManager;
 
 
 public class MIntercept extends Activity {
-	private Handler handler = new Handler();
-	private Runnable runner = new Runnable() {
-		public void run() {
-			view.invalidate();
-			handler.postDelayed(runner, 50);
-		}
-	};
+    private Handler handler = new Handler();
+    private Runnable runner = new Runnable() {
+        public void run() {
+            view.invalidate();
+            handler.postDelayed(runner, 50);
+        }
+    };
 
-	Title title;
-	Level level;
-	View view;
+    Title title;
+    Level level;
+    View view;
 
     public MIntercept() {
     }
 
     public void startGame() {
-    	setView(level);
+        setView(level);
     }
     public void endGame() {
         setView(title);
     }
 
     private void setView(Scene scene) {
-		scene.reset();
-	    if (scene == level) {
-	        if (view.getHeight() > view.getWidth())
-	        	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-	        else
-	        	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-	    } else
-	    	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-	 	view = scene;
-		setContentView(scene);
+        scene.reset();
+        if (scene == level) {
+            if (view.getHeight() > view.getWidth())
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            else
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        } else
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+         view = scene;
+        setContentView(scene);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class MIntercept extends Activity {
     }
     @Override
     protected void onPause() {
-    	super.onPause();
-    	handler.removeCallbacks(runner);
+        super.onPause();
+        handler.removeCallbacks(runner);
     }
 }

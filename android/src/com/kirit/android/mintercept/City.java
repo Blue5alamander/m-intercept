@@ -33,69 +33,69 @@ import com.kirit.android.mintercept.R.drawable;
 
 
 public class City extends Element {
-	private boolean drawcity, isdead;
-	private Drawable city;
-	private View view;
-	private Context context;
-	private int number, outof;
-	private Rect location;
-	private Explosion explosion;
+    private boolean drawcity, isdead;
+    private Drawable city;
+    private View view;
+    private Context context;
+    private int number, outof;
+    private Rect location;
+    private Explosion explosion;
 
-	public City(Game game, Context c, View v, int n, int o) {
-		view = v;
-		context = c;
-		number = n;
-		outof = o;
-		city = context.getResources().getDrawable(drawable.city);
-		explosion = new Explosion(game, city.getMinimumWidth(), Layer.EXPLOSIONS);
-		reset();
-	}
+    public City(Game game, Context c, View v, int n, int o) {
+        view = v;
+        context = c;
+        number = n;
+        outof = o;
+        city = context.getResources().getDrawable(drawable.city);
+        explosion = new Explosion(game, city.getMinimumWidth(), Layer.EXPLOSIONS);
+        reset();
+    }
 
     public void reset() {
         drawcity = true;
         isdead = false;
     }
-	public boolean hasStruck(float x) {
-		if ( isdead )
-			return false;
-		else
-			return x >= location.left && x <= location.right;
-	}
+    public boolean hasStruck(float x) {
+        if ( isdead )
+            return false;
+        else
+            return x >= location.left && x <= location.right;
+    }
 
-	public void explode() {
-		isdead = true;
-		explosion.reset(
-			location.left + (location.right - location.left) / 2,
-			location.top + (location.bottom - location.top) / 2
-		);
-		Vibrator vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE); 
-		if ( vibrator != null )
-			vibrator.vibrate(500);
-	}
+    public void explode() {
+        isdead = true;
+        explosion.reset(
+            location.left + (location.right - location.left) / 2,
+            location.top + (location.bottom - location.top) / 2
+        );
+        Vibrator vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE); 
+        if ( vibrator != null )
+            vibrator.vibrate(500);
+    }
 
-	@Override
-	public boolean tick() {
-		explosion.tick();
-		if ( drawcity && isdead && explosion.pastZenith() )
-			drawcity = false;
-		return !isdead;
-	}
+    @Override
+    public boolean tick() {
+        explosion.tick();
+        if ( drawcity && isdead && explosion.pastZenith() )
+            drawcity = false;
+        return !isdead;
+    }
 
-	@Override
-	public void draw(Canvas c, Layer layer) {
-		if ( layer == Layer.CITIES && drawcity ) {
-			if ( location == null ) {
-				int w = city.getMinimumWidth();
-				int spacing = view.getWidth() / outof;
-				int left = spacing * number + (spacing - w) / 2;
-				location = new Rect(
-						left, view.getHeight() - city.getMinimumHeight(),
-						left + w, view.getHeight()
-					);
-			}
-			city.setBounds(location);
-			city.draw(c);
-		}
-		explosion.draw(c, layer);
-	}
+    @Override
+    public void draw(Canvas c, Layer layer) {
+        if ( layer == Layer.CITIES && drawcity ) {
+            if ( location == null ) {
+                int w = city.getMinimumWidth();
+                int spacing = view.getWidth() / outof;
+                int left = spacing * number + (spacing - w) / 2;
+                location = new Rect(
+                        left, view.getHeight() - city.getMinimumHeight(),
+                        left + w, view.getHeight()
+                    );
+            }
+            city.setBounds(location);
+            city.draw(c);
+        }
+        explosion.draw(c, layer);
+    }
 }

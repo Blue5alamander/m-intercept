@@ -31,47 +31,47 @@ import com.kirit.android.Element;
 
 public class Player extends Element {
     private static final int BASE_EXPLOSION_SIZE = 35;
-	private Context context;
+    private Context context;
     private View view;
-	private int hitbonus;
-	private Game game;
-	private Explosions explosions;
-	private City cities [];
+    private int hitbonus;
+    private Game game;
+    private Explosions explosions;
+    private City cities [];
 
-    public 	Player(Context c, View v, Game g) {
-    	context = c;
+    public     Player(Context c, View v, Game g) {
+        context = c;
         view = v;
-		game = g;
+        game = g;
         explosions = new Explosions(g, 10, 35);
         cities = new City [3];
-		for ( int n = 0; n != cities.length; ++n )
-			cities[n] = new City(g, context, view, n, cities.length);
-		reset();
-	}
+        for ( int n = 0; n != cities.length; ++n )
+            cities[n] = new City(g, context, view, n, cities.length);
+        reset();
+    }
 
     public void reset() {
         for ( City c : cities )
             c.reset();
     }
 
-	public City hasStruck(float x) {
-		for ( City c : cities )
-			if ( c.hasStruck(x) )
-				return c;
-		return null;
-	}
-	
-	/**
-	 * The player has exploded a missile.
-	 */
-	public void hit() {
+    public City hasStruck(float x) {
+        for ( City c : cities )
+            if ( c.hasStruck(x) )
+                return c;
+        return null;
+    }
+    
+    /**
+     * The player has exploded a missile.
+     */
+    public void hit() {
         if ( !game.isOver() ) {
-			game.award(5 * game.level.getValue() * hitbonus++);
-			Vibrator vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE); 
-			if ( vibrator != null )
-				vibrator.vibrate(20 * hitbonus);
+            game.award(5 * game.level.getValue() * hitbonus++);
+            Vibrator vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE); 
+            if ( vibrator != null )
+                vibrator.vibrate(20 * hitbonus);
         }
-	}
+    }
 
     public boolean tap(float x, float y) {
         int height = view.getHeight();
@@ -87,26 +87,26 @@ public class Player extends Element {
                 game.award(-1);
                 return true;
             }
-		}
-		return false;
-	}
+        }
+        return false;
+    }
 
-	@Override
-	public boolean tick() {
-		boolean alldead = true;
-		for ( City city : cities )
-			if ( city.tick() )
-				alldead = false;
-		if ( alldead )
-			game.over();
-		explosions.tick();
-		return !alldead;
-	}
+    @Override
+    public boolean tick() {
+        boolean alldead = true;
+        for ( City city : cities )
+            if ( city.tick() )
+                alldead = false;
+        if ( alldead )
+            game.over();
+        explosions.tick();
+        return !alldead;
+    }
 
-	@Override
-	public void draw(Canvas c, Layer layer) {
-		for ( City city : cities )
-			city.draw(c, layer);
-		explosions.draw(c, layer);
-	}
+    @Override
+    public void draw(Canvas c, Layer layer) {
+        for ( City city : cities )
+            city.draw(c, layer);
+        explosions.draw(c, layer);
+    }
 }
