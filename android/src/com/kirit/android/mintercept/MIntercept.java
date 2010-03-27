@@ -68,6 +68,7 @@ public class MIntercept extends Activity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
          view = scene;
         setContentView(scene);
+        view.requestFocus();
     }
 
     @Override
@@ -75,7 +76,6 @@ public class MIntercept extends Activity {
         super.onCreate(savedInstanceState);
         title = new Title(this);
         level = new Level(this);
-        level.setPadding(0, 0, 0, 0);
         // Make full screen without title
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,

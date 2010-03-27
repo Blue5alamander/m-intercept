@@ -6,6 +6,9 @@
  - Refactored city explosions so that they layer properly.
  Licenses
  - Added a new COPYING file.
+ GUI
+ - Focus now works properly so the up key and menu key pause
+   the game straight away.
 
 2010-03-19  Kirit Saelensminde  <kirit@felspar.com>
  Marketplace release

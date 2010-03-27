@@ -38,6 +38,7 @@ public abstract class Scene extends View {
         super(context);
         mintercept = context;
         setFocusable(true);
+        setFocusableInTouchMode(true);
         runstate = Pause.RUNNING;
     }
 

@@ -49,7 +49,10 @@ public class Level extends Scene {
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ( keyCode == KeyEvent.KEYCODE_DPAD_UP && event.getAction() == MotionEvent.ACTION_DOWN ) {
+        if ( event.getAction() == MotionEvent.ACTION_DOWN && (
+                keyCode == KeyEvent.KEYCODE_DPAD_UP ||
+                keyCode == KeyEvent.KEYCODE_MENU
+        ) ) {
             togglePause();
             return true;
         } else
