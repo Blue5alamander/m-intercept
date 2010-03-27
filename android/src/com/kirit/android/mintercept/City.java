@@ -25,7 +25,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.os.Vibrator;
 import android.view.View;
 
 import com.kirit.android.Element;
@@ -33,17 +32,20 @@ import com.kirit.android.mintercept.R.drawable;
 
 
 public class City extends Element {
+    private Context context;
+    private View view;
+    private Game game;
+
     private boolean drawcity;
     private Drawable city;
-    private View view;
-    private Context context;
     private int number, outof;
     private Rect location;
     private Explosion explosion;
 
-    public City(Game game, Context c, View v, int n, int o) {
-        view = v;
+    public City(Game g, Context c, View v, int n, int o) {
         context = c;
+        view = v;
+        game = g;
         number = n;
         outof = o;
         city = context.getResources().getDrawable(drawable.city);
@@ -71,9 +73,7 @@ public class City extends Element {
             location.left + (location.right - location.left) / 2,
             location.top + (location.bottom - location.top) / 2
         );
-        Vibrator vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE); 
-        if ( vibrator != null )
-            vibrator.vibrate(500);
+        game.vibrate(500);
     }
 
     @Override

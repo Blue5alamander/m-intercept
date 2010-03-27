@@ -32,10 +32,12 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Vibrator;
 import android.view.View;
 
 
 public class Game extends Element {
+    private Context context;
     private View view;
 
     private boolean isover;
@@ -52,7 +54,8 @@ public class Game extends Element {
 
     static public Random randomGenerator = new Random();
 
-    public Game(Context context, View v) {
+    public Game(Context c, View v) {
+        context = c;
         view = v;
 
         score = new NumberPanel(context, 8, R.drawable.score_prolog, R.drawable.score_numbers, Layer.CHROME);
@@ -117,6 +120,15 @@ public class Game extends Element {
         if ( !isOver() && score.alter(points) <= 0 )
             over();
         return isOver();
+    }
+
+    public boolean vibrate(int length) {
+        Vibrator vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE); 
+        if ( vibrator != null ) {
+            vibrator.vibrate(length);
+            return true;
+        } else
+            return false;
     }
 
     @Override

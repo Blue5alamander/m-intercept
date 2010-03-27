@@ -23,7 +23,6 @@ package com.kirit.android.mintercept;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.os.Vibrator;
 import android.view.View;
 
 import com.kirit.android.Element;
@@ -60,10 +59,8 @@ public class Player extends Element {
      */
     public void hit() {
         if ( !game.isOver() ) {
+            game.vibrate(40 * hitbonus);
             game.award(5 * game.level.getValue() * hitbonus++);
-            Vibrator vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE); 
-            if ( vibrator != null )
-                vibrator.vibrate(20 * hitbonus);
         }
     }
 

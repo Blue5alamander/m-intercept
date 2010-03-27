@@ -72,8 +72,6 @@ public class Overlay extends Element {
 
     /**
      * Pass on touch events to the overlay when it is active
-     * @param event
-     * @return
      */
     public boolean onTouchEvent(MotionEvent event) {
         if ( active ) {
