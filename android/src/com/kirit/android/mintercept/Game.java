@@ -126,9 +126,10 @@ public class Game extends Element {
             --level.alpha;
         boolean opponent_running = opponent.tick();
         if ( !opponent_running ) {
-            if ( isOver() )
-                bigbang.reset(view.getWidth()/2, view.getHeight()/2);
-            else {
+            if ( isOver() ) {
+                if ( bigbang.reset(view.getWidth()/2, view.getHeight()/2) )
+                    context.sounds.play(R.raw.city_destroyed);
+            } else {
                 level.alpha = 255;
                 level.alter(1);
                 opponent.reset();

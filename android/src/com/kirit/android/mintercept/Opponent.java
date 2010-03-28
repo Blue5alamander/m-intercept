@@ -92,7 +92,7 @@ public class Opponent extends Element {
                         exploding = true;
                         explosion.reset(cx, cy);
                         game.award(-3 * game.level.getValue());
-                        context.sounds.play(R.raw.missile_ground);
+                        context.sounds.play(R.raw.missile_destroyed);
                     }
                 } else if ( !exploding && game.inExplosion(cx, cy) ) {
                     exploding = true;

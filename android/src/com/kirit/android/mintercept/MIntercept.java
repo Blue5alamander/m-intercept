@@ -87,7 +87,6 @@ public class MIntercept extends Activity {
         sounds.load(R.raw.blip); // This first sound is used for the toggle noise
         sounds.load(R.raw.city_destroyed);
         sounds.load(R.raw.missile_destroyed);
-        sounds.load(R.raw.missile_ground);
         sounds.load(R.raw.missile_launch);
         sounds.load(R.raw.player_error);
         sounds.load(R.raw.player_launch);
