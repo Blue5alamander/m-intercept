@@ -58,6 +58,7 @@ public class MIntercept extends Activity {
     }
 
     public void startGame() {
+        sounds.play(R.raw.blip);
         setView(level);
     }
     public void endGame() {
