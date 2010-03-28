@@ -42,7 +42,7 @@ public class Overlay extends Element {
     private boolean active;
     private Rect location = new Rect();
     
-    private BitmapDrawable vibrate_on, vibrate_off;
+    private BitmapDrawable vibrate_on, vibrate_off, sound_on, sound_off;
 
 
     private Overlay(Context context, View v, boolean allowbg) {
@@ -52,6 +52,8 @@ public class Overlay extends Element {
         
         vibrate_on = (BitmapDrawable)context.getResources().getDrawable(R.drawable.vibrate_on);
         vibrate_off = (BitmapDrawable)context.getResources().getDrawable(R.drawable.vibrate_off);
+        sound_on = (BitmapDrawable)context.getResources().getDrawable(R.drawable.sound_on);
+        sound_off = (BitmapDrawable)context.getResources().getDrawable(R.drawable.sound_off);
     }
     public Overlay(Context context, Title title) {
         this(context, title, true);
@@ -88,14 +90,19 @@ public class Overlay extends Element {
             paint.setColor(Color.BLACK);
             paint.setAlpha(180);
             c.drawRect(location, paint);
+            paint.setAlpha(255);
 
             location.top = view.getHeight() / 3;
             location.bottom = location.top + vibrate_on.getMinimumHeight();
             location.left = ( view.getWidth() - vibrate_on.getMinimumWidth() ) / 2;
             location.right = location.left +vibrate_on.getMinimumWidth();
-            paint.setAlpha(255);
             vibrate_on.setBounds(location);
             vibrate_on.draw(c);
+            
+            location.top += sound_off.getMinimumHeight() * 2;
+            location.bottom += sound_off.getMinimumHeight() * 2;
+            sound_off.setBounds(location);
+            sound_off.draw(c);
         }
     }
 
