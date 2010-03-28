@@ -21,6 +21,7 @@
 
 package com.kirit.android.mintercept;
 
+import com.kirit.android.Vibrator;
 import com.kirit.android.mintercept.views.Level;
 import com.kirit.android.mintercept.views.Scene;
 import com.kirit.android.mintercept.views.Title;
@@ -47,7 +48,10 @@ public class MIntercept extends Activity {
     Level level;
     View view;
 
+    public Vibrator vibrator;
+
     public MIntercept() {
+        vibrator = new Vibrator(this);
     }
 
     public void startGame() {

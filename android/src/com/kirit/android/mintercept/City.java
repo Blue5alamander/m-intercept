@@ -21,7 +21,6 @@
 
 package com.kirit.android.mintercept;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -32,9 +31,8 @@ import com.kirit.android.mintercept.R.drawable;
 
 
 public class City extends Element {
-    private Context context;
+    private MIntercept context;
     private View view;
-    private Game game;
 
     private boolean drawcity;
     private Drawable city;
@@ -42,10 +40,9 @@ public class City extends Element {
     private Rect location;
     private Explosion explosion;
 
-    public City(Game g, Context c, View v, int n, int o) {
+    public City(Game g, MIntercept c, View v, int n, int o) {
         context = c;
         view = v;
-        game = g;
         number = n;
         outof = o;
         city = context.getResources().getDrawable(drawable.city);
@@ -73,7 +70,7 @@ public class City extends Element {
             location.left + (location.right - location.left) / 2,
             location.top + (location.bottom - location.top) / 2
         );
-        game.vibrate(500);
+        context.vibrator.vibrate(500);
     }
 
     @Override

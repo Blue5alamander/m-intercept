@@ -21,7 +21,6 @@
 
 package com.kirit.android.mintercept;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.view.View;
 
@@ -30,14 +29,14 @@ import com.kirit.android.Element;
 
 public class Player extends Element {
     private static final int BASE_EXPLOSION_SIZE = 35;
-    private Context context;
+    private MIntercept context;
     private View view;
     private int hitbonus;
     private Game game;
     private Explosions explosions;
     private Cities cities;
 
-    public Player(Context c, View v, Game g) {
+    public Player(MIntercept c, View v, Game g) {
         context = c;
         view = v;
         game = g;
@@ -53,13 +52,13 @@ public class Player extends Element {
     public City struckCity(float x, float y) {
         return cities.hasStruck(x, y);
     }
-    
+
     /**
      * The player has exploded a missile.
      */
     public void hit() {
         if ( !game.isOver() ) {
-            game.vibrate(40 * hitbonus);
+            context.vibrator.vibrate(40 * hitbonus);
             game.award(5 * game.level.getValue() * hitbonus++);
         }
     }

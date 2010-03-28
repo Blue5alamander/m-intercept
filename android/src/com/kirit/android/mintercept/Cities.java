@@ -21,7 +21,6 @@
 
 package com.kirit.android.mintercept;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.view.View;
 
@@ -32,7 +31,7 @@ public class Cities extends Element {
     private City [] cities;
     private Explosions explosions;
 
-    public Cities(Game game, Context context, View view) {
+    public Cities(Game game, MIntercept context, View view) {
         cities = new City [3];
         for ( int n = 0; n != cities.length; ++n )
             cities[n] = new City(game, context, view, n, cities.length);

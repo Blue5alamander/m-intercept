@@ -31,34 +31,72 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.kirit.android.Element;
+import com.kirit.android.Setting;
 import com.kirit.android.mintercept.views.Level;
 import com.kirit.android.mintercept.views.Title;
 
 
 public class Overlay extends Element {
+    private class OnOff extends Element {
+        private Setting setting;
+        private int offset;
+        private BitmapDrawable on, off;
+        private Rect location;
+        public OnOff(Context context, View v, Setting s, int on_res, int off_res, int o) {
+            setting = s;
+            offset = o;
+            on = (BitmapDrawable)context.getResources().getDrawable(on_res);
+            off = (BitmapDrawable)context.getResources().getDrawable(off_res);
+        }
+        @Override
+        public boolean tick() {
+            return false;
+        }
+        @Override
+        public void draw(Canvas c, Layer layer) {
+            if ( location == null ) {
+                location = new Rect();
+                location.top = view.getHeight() / 3 + on.getMinimumHeight() * offset * 2;
+                location.bottom = location.top + on.getMinimumHeight();
+                location.left = ( view.getWidth() - on.getMinimumWidth() ) / 2;
+                location.right = location.left +on.getMinimumWidth();
+                on.setBounds(location);
+                off.setBounds(location);
+            }
+            if ( setting.get() )
+                on.draw(c);
+            else
+                off.draw(c);
+        }
+        public boolean onTouchEvent(MotionEvent event) {
+            if ( location != null && event.getAction() == MotionEvent.ACTION_DOWN &&
+                    event.getY() >= location.top && event.getY() <= location.bottom
+            ) setting.toggle();
+            return false;
+        }
+    };
+
     private static Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private View view;
     private boolean allowBackground;
     private boolean active;
     private Rect location = new Rect();
     
-    private BitmapDrawable vibrate_on, vibrate_off, sound_on, sound_off;
+    private OnOff vibrate, sound;
 
 
-    private Overlay(Context context, View v, boolean allowbg) {
+    private Overlay(MIntercept context, View v, boolean allowbg) {
         view = v;
         allowBackground = allowbg;
         deactivate();
-        
-        vibrate_on = (BitmapDrawable)context.getResources().getDrawable(R.drawable.vibrate_on);
-        vibrate_off = (BitmapDrawable)context.getResources().getDrawable(R.drawable.vibrate_off);
-        sound_on = (BitmapDrawable)context.getResources().getDrawable(R.drawable.sound_on);
-        sound_off = (BitmapDrawable)context.getResources().getDrawable(R.drawable.sound_off);
+
+        vibrate = new OnOff(context, view, context.vibrator, R.drawable.vibrate_on, R.drawable.vibrate_off, 0);
+        sound = new OnOff(context, view, context.vibrator, R.drawable.sound_on, R.drawable.sound_off, 1);
     }
-    public Overlay(Context context, Title title) {
+    public Overlay(MIntercept context, Title title) {
         this(context, title, true);
     }
-    public Overlay(Context context, Level level) {
+    public Overlay(MIntercept context, Level level) {
         this(context, level, false);
     }
 
@@ -77,6 +115,8 @@ public class Overlay extends Element {
      */
     public boolean onTouchEvent(MotionEvent event) {
         if ( active ) {
+            vibrate.onTouchEvent(event);
+            sound.onTouchEvent(event);
             return true;
         }
         return false;
@@ -92,22 +132,15 @@ public class Overlay extends Element {
             c.drawRect(location, paint);
             paint.setAlpha(255);
 
-            location.top = view.getHeight() / 3;
-            location.bottom = location.top + vibrate_on.getMinimumHeight();
-            location.left = ( view.getWidth() - vibrate_on.getMinimumWidth() ) / 2;
-            location.right = location.left +vibrate_on.getMinimumWidth();
-            vibrate_on.setBounds(location);
-            vibrate_on.draw(c);
-            
-            location.top += sound_off.getMinimumHeight() * 2;
-            location.bottom += sound_off.getMinimumHeight() * 2;
-            sound_off.setBounds(location);
-            sound_off.draw(c);
+            vibrate.draw(c, layer);
+            sound.draw(c, layer);
         }
     }
 
     @Override
     public boolean tick() {
+        vibrate.tick();
+        sound.tick();
         return allowBackground || !active;
     }
 }
