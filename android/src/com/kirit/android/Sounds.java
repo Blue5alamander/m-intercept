@@ -55,6 +55,10 @@ public class Sounds implements Setting {
         if ( on && sounds.containsKey(resid) )
             pool.play(sounds.get(resid), 1f, 1f, 0, 0, 1f);
     }
+    public void play(int resid, int loop) {
+        if ( on && sounds.containsKey(resid) )
+            pool.play(sounds.get(resid), 1f, 1f, 0, loop, 1f);
+    }
 
     @Override
     public boolean get() {

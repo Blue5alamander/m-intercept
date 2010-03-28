@@ -77,7 +77,8 @@ public class Player extends Element {
                 game.award(-1);
                 context.sounds.play(R.raw.player_launch);
                 return true;
-            }
+            } else
+                context.sounds.play(R.raw.player_error, 20);
         }
         return false;
     }
