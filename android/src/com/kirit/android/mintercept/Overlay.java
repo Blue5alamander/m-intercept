@@ -91,7 +91,7 @@ public class Overlay extends Element {
         deactivate();
 
         vibrate = new OnOff(context, view, context.vibrator, R.drawable.vibrate_on, R.drawable.vibrate_off, 0);
-        sound = new OnOff(context, view, context.vibrator, R.drawable.sound_on, R.drawable.sound_off, 1);
+        sound = new OnOff(context, view, context.sounds, R.drawable.sound_on, R.drawable.sound_off, 1);
     }
     public Overlay(MIntercept context, Title title) {
         this(context, title, true);

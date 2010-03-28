@@ -21,6 +21,7 @@
 
 package com.kirit.android.mintercept;
 
+import com.kirit.android.Sounds;
 import com.kirit.android.Vibrator;
 import com.kirit.android.mintercept.views.Level;
 import com.kirit.android.mintercept.views.Scene;
@@ -49,9 +50,11 @@ public class MIntercept extends Activity {
     View view;
 
     public Vibrator vibrator;
+    public Sounds sounds;
 
     public MIntercept() {
         vibrator = new Vibrator(this);
+        sounds = new Sounds(this);
     }
 
     public void startGame() {
@@ -70,7 +73,7 @@ public class MIntercept extends Activity {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         } else
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-         view = scene;
+        view = scene;
         setContentView(scene);
         view.requestFocus();
     }
@@ -80,6 +83,10 @@ public class MIntercept extends Activity {
         super.onCreate(savedInstanceState);
         title = new Title(this);
         level = new Level(this);
+        // Load the sounds
+        sounds.load(R.raw.blip); // This first sound is used for the toggle noise
+        sounds.load(R.raw.missile_destroyed);
+        sounds.load(R.raw.missile_ground);
         // Make full screen without title
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,

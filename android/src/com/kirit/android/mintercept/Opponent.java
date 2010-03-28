@@ -21,7 +21,6 @@
 
 package com.kirit.android.mintercept;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.View;
@@ -32,6 +31,7 @@ public class Opponent extends Element {
     private static Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     private class Missile extends Element {
+        private MIntercept context;
         private Opponent opponent;
         private Game game;
         private View view;
@@ -40,7 +40,8 @@ public class Opponent extends Element {
         private float sx, sy, cx, cy, dx, dy, tx;
         private Explosion explosion;
 
-        public Missile(Opponent o, Game g, Context context, View v) {
+        public Missile(Opponent o, Game g, MIntercept c, View v) {
+            context = c;
             opponent = o;
             game = g;
             view = v;
@@ -90,11 +91,13 @@ public class Opponent extends Element {
                         exploding = true;
                         explosion.reset(cx, cy);
                         game.award(-3 * game.level.getValue());
+                        context.sounds.play(R.raw.missile_ground);
                     }
                 } else if ( !exploding && game.inExplosion(cx, cy) ) {
                     exploding = true;
                     explosion.reset(cx, cy);
                     game.getPlayer().hit();
+                    context.sounds.play(R.raw.missile_destroyed);
                 }
                 if ( exploding )
                     inuse = explosion.tick();
@@ -127,7 +130,7 @@ public class Opponent extends Element {
     private Missile [] missiles;
     private int timer;
 
-    public Opponent(Context context, View view, Game g) {
+    public Opponent(MIntercept context, View view, Game g) {
         game = g;
         missiles = new Missile [10];
         for ( int i = 0; i != missiles.length; ++i )
