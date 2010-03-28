@@ -75,6 +75,7 @@ public class Player extends Element {
                     explosion.setSize(BASE_EXPLOSION_SIZE);
                 hitbonus = 1;
                 game.award(-1);
+                context.sounds.play(R.raw.player_launch);
                 return true;
             }
         }

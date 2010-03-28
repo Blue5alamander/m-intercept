@@ -89,6 +89,7 @@ public class MIntercept extends Activity {
         sounds.load(R.raw.missile_destroyed);
         sounds.load(R.raw.missile_ground);
         sounds.load(R.raw.missile_launch);
+        sounds.load(R.raw.player_launch);
         // Make full screen without title
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
