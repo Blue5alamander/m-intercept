@@ -78,7 +78,7 @@ public class Player extends Element {
                 context.sounds.play(R.raw.player_launch);
                 return true;
             } else
-                context.sounds.play(R.raw.player_error, 20);
+                context.sounds.play(R.raw.player_error);
         }
         return false;
     }

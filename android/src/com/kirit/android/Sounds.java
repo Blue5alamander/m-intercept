@@ -37,7 +37,7 @@ public class Sounds implements Setting {
 
     public Sounds(Context c) {
         context = c;
-        pool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+        pool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
         toggle = 0;
         set(true);
     }
