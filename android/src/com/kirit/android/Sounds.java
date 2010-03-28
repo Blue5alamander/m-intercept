@@ -29,15 +29,24 @@ import android.media.SoundPool;
 
 
 public class Sounds implements Setting {
-    private boolean on;
+    private class Effect {
+        private SoundPool pool;
+        private int sound;
+        public Effect(Context context, int resid) {
+            pool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+            sound = pool.load(context, resid, 1);
+        }
+        void play(int loop) {
+            pool.play(sound, 1f, 1f, 0, loop, 1f);
+        }
+    };
     private Context context;
-    private SoundPool pool;
+    private boolean on;
     private int toggle;
-    private HashMap<Integer,Integer> sounds = new HashMap<Integer, Integer>();
+    private HashMap<Integer, Effect> sounds = new HashMap<Integer, Effect>();
 
     public Sounds(Context c) {
         context = c;
-        pool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
         toggle = 0;
         set(true);
     }
@@ -46,18 +55,17 @@ public class Sounds implements Setting {
      * Load a sound at the default priority
      */
     public void load(int resid) {
-        sounds.put(resid, pool.load(context, resid, 1));
+        sounds.put(resid, new Effect(context, resid));
         if ( toggle == 0 )
             toggle = resid;
     }
 
     public void play(int resid) {
-        if ( on && sounds.containsKey(resid) )
-            pool.play(sounds.get(resid), 1f, 1f, 0, 0, 1f);
+        play(resid, 0);
     }
     public void play(int resid, int loop) {
         if ( on && sounds.containsKey(resid) )
-            pool.play(sounds.get(resid), 1f, 1f, 0, loop, 1f);
+            sounds.get(resid).play(loop);
     }
 
     @Override
