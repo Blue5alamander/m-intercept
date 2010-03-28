@@ -85,6 +85,7 @@ public class MIntercept extends Activity {
         level = new Level(this);
         // Load the sounds
         sounds.load(R.raw.blip); // This first sound is used for the toggle noise
+        sounds.load(R.raw.city_destroyed);
         sounds.load(R.raw.missile_destroyed);
         sounds.load(R.raw.missile_ground);
         // Make full screen without title

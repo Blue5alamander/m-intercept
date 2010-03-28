@@ -28,10 +28,12 @@ import com.kirit.android.Element;
 
 
 public class Cities extends Element {
+    private MIntercept context;
     private City [] cities;
     private Explosions explosions;
 
-    public Cities(Game game, MIntercept context, View view) {
+    public Cities(Game game, MIntercept c, View view) {
+        context = c;
         cities = new City [3];
         for ( int n = 0; n != cities.length; ++n )
             cities[n] = new City(game, context, view, n, cities.length);
@@ -47,6 +49,7 @@ public class Cities extends Element {
         for ( City c : cities )
             if ( c.hasStruck(x) ) {
                 c.explode(explosions.reset(x, y));
+                context.sounds.play(R.raw.city_destroyed);
                 return c;
             }
         return null;
