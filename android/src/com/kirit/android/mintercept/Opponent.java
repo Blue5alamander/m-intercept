@@ -79,6 +79,7 @@ public class Opponent extends Element {
                     cx = sx; cy = sy;
                     tx = Game.randomGenerator.nextInt(view.getWidth());
                     dx = dy * ( tx - sx ) / ( view.getHeight() - sy );
+                    context.sounds.play(R.raw.missile_launch);
                 }
                 cx += dx; cy += dy;
                 if ( !exploding && cy >= view.getHeight() - 20 ) {

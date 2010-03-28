@@ -1,3 +1,10 @@
+2010-03-28  Kirit Saelensminde  <kirit@felspar.com>
+ GUI
+ - Implemented an options screen for turning vibrate and sounds
+   on and off
+ Sounds
+ - Added sounds for various game events.
+
 2010-03-27  Kirit Saelensminde  <kirit@felspar.com>
  Game play
  - Added vibrate to missile explosions. Bonus explosions
