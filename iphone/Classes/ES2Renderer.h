@@ -42,7 +42,7 @@
 	
 	GLuint program;
     
-    Explosion *explosion;
+	mintercept::Explosion *explosion;
 }
 
 - (id)init;

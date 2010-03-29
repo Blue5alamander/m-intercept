@@ -47,8 +47,8 @@ namespace  {
 }
 
 
-mintercept::Explosion::Explosion()
-: inuse(false), spectrum(0, 0, 0, 0), max_size( 50.0f ) {
+mintercept::Explosion::Explosion( GLfloat ms )
+: inuse(false), spectrum(0, 0, 0, 0), max_size( ms ) {
 	vertices();
 	reset(0, 0);
 }

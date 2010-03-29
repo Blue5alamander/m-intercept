@@ -49,6 +49,8 @@ enum {
 {
 	if (self = [super init])
 	{
+		explosion = new mintercept::Explosion;
+		
 		context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
         
         if (!context || ![EAGLContext setCurrentContext:context] || ![self loadShaders])
@@ -66,6 +68,10 @@ enum {
 	}
 	
 	return self;
+}
+
+- (void) tap: (CGPoint) location {
+    explosion->reset(location.x, location.y);
 }
 
 - (void) render
@@ -126,7 +132,8 @@ enum {
     // Draw
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     
-    [explosion draw];
+	explosion->tick();
+    explosion->draw();
 	
 	// This application only creates a single color renderbuffer which is already bound at this point.
 	// This call is redundant, but needed if dealing with multiple renderbuffers.
@@ -291,6 +298,8 @@ enum {
 
 - (void) dealloc
 {
+	delete explosion;
+	
 	// Tear down GL
 	if (defaultFramebuffer)
 	{

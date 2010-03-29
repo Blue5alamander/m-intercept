@@ -32,7 +32,7 @@ namespace mintercept {
 		Spectrum spectrum;
 		
 	public:
-		Explosion();
+		Explosion( GLfloat max_size = 50.0f );
 		
 		bool reset(int x, int y);
 		bool tick();
