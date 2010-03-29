@@ -23,6 +23,24 @@
 #import "element.h"
 #include "spectrum.h"
 
+
+namespace mintercept {
+	class Explosion {
+		bool inuse;
+		CGPoint pos;
+		GLfloat radius, max_size;
+		Spectrum spectrum;
+		
+	public:
+		Explosion();
+		
+		bool reset(int x, int y);
+		bool tick();
+		void draw();
+	};
+}
+
+
 @interface Explosion : NSObject <Element> {
 @private
     bool inuse;
