@@ -22,23 +22,6 @@
 #pragma once
 
 
-#include <deque>
-#include "explosion.h"
+#include "element.h"
 
 
-namespace mintercept {
-	
-	
-	class Explosions : public Element {
-		std::deque< Explosion > explosions;
-	public:
-		Explosions( std::size_t number, int size );
-        
-        Explosion *reset(int x, int y);
-        
-        bool tick();
-        void draw(Layer);
-	};
-	
-
-}

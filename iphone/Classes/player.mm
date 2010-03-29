@@ -18,27 +18,5 @@
     along with Missile intercept.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "player.h"
 
-#pragma once
-
-
-#include <deque>
-#include "explosion.h"
-
-
-namespace mintercept {
-	
-	
-	class Explosions : public Element {
-		std::deque< Explosion > explosions;
-	public:
-		Explosions( std::size_t number, int size );
-        
-        Explosion *reset(int x, int y);
-        
-        bool tick();
-        void draw(Layer);
-	};
-	
-
-}

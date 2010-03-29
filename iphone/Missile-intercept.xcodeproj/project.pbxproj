@@ -21,6 +21,8 @@
 		7A06A672114A13A100E67D58 /* explosion.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A06A671114A13A100E67D58 /* explosion.mm */; };
 		7A0BE45A1160B7460065B3F1 /* explosions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0BE4591160B7460065B3F1 /* explosions.mm */; };
 		7A0BE51E1160D3080065B3F1 /* game.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0BE51D1160D3080065B3F1 /* game.mm */; };
+		7A0BE5351160DB500065B3F1 /* player.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0BE5341160DB500065B3F1 /* player.mm */; };
+		7A0BE5381160DBC00065B3F1 /* opponent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0BE5371160DBC00065B3F1 /* opponent.mm */; };
 		7A8CF683114E4ED6007A7477 /* spectrum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A8CF682114E4ED6007A7477 /* spectrum.cpp */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +50,10 @@
 		7A0BE4591160B7460065B3F1 /* explosions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = explosions.mm; sourceTree = "<group>"; };
 		7A0BE51C1160D3080065B3F1 /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game.h; sourceTree = "<group>"; };
 		7A0BE51D1160D3080065B3F1 /* game.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = game.mm; sourceTree = "<group>"; };
+		7A0BE5331160DB500065B3F1 /* player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = player.h; sourceTree = "<group>"; };
+		7A0BE5341160DB500065B3F1 /* player.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = player.mm; sourceTree = "<group>"; };
+		7A0BE5361160DBC00065B3F1 /* opponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opponent.h; sourceTree = "<group>"; };
+		7A0BE5371160DBC00065B3F1 /* opponent.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = opponent.mm; sourceTree = "<group>"; };
 		7A8CF678114E4AD5007A7477 /* element.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = element.h; sourceTree = "<group>"; };
 		7A8CF681114E4ED6007A7477 /* spectrum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spectrum.h; sourceTree = "<group>"; };
 		7A8CF682114E4ED6007A7477 /* spectrum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = spectrum.cpp; sourceTree = "<group>"; };
@@ -155,6 +161,10 @@
 				7A0BE4591160B7460065B3F1 /* explosions.mm */,
 				7A0BE51C1160D3080065B3F1 /* game.h */,
 				7A0BE51D1160D3080065B3F1 /* game.mm */,
+				7A0BE5331160DB500065B3F1 /* player.h */,
+				7A0BE5341160DB500065B3F1 /* player.mm */,
+				7A0BE5361160DBC00065B3F1 /* opponent.h */,
+				7A0BE5371160DBC00065B3F1 /* opponent.mm */,
 			);
 			name = Game;
 			sourceTree = "<group>";
@@ -222,6 +232,8 @@
 				7A8CF683114E4ED6007A7477 /* spectrum.cpp in Sources */,
 				7A0BE45A1160B7460065B3F1 /* explosions.mm in Sources */,
 				7A0BE51E1160D3080065B3F1 /* game.mm in Sources */,
+				7A0BE5351160DB500065B3F1 /* player.mm in Sources */,
+				7A0BE5381160DBC00065B3F1 /* opponent.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
