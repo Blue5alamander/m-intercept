@@ -22,15 +22,17 @@
 #pragma once
 
 
-#include "element.h"
+#include "player.h"
 
 
 namespace mintercept {
 
 
     class Game : public Element {
+        Player player;
     public:
-        
+        Game();
+
         bool tick();
         void draw(Layer);
     };

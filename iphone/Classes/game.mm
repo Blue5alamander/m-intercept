@@ -21,6 +21,10 @@
 #include "game.h"
 
 
+mintercept::Game::Game() {
+}
+
+
 bool mintercept::Game::tick() {
     return false;
 }

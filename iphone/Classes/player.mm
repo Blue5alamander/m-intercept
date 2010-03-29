@@ -18,5 +18,57 @@
     along with Missile intercept.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "player.h"
 
+#include "player.h"
+#include <algorithm>
+#include <functional>
+
+
+/*
+    Player
+*/
+
+
+mintercept::Player::Player()
+: shots( 8, 35 ) {
+}
+
+
+bool mintercept::Player::tick() {
+    shots.tick();
+    return cities.tick();
+}
+
+
+void mintercept::Player::draw(Layer layer) {
+    cities.draw(layer);
+    shots.draw(layer);
+}
+
+
+/*
+    Cities
+*/
+
+
+bool mintercept::Player::Cities::tick() {
+    std::for_each( cities, cities + number_of_cities, std::mem_fun_ref(&City::tick));
+    return true;
+}
+
+void mintercept::Player::Cities::draw(Layer layer) {
+    std::for_each( cities, cities + number_of_cities, std::bind2nd(std::mem_fun_ref(&City::draw), layer) );
+}
+
+
+/*
+    City
+*/
+
+
+bool mintercept::Player::Cities::City::tick() {
+    return true;
+}
+
+void mintercept::Player::Cities::City::draw(Layer layer) {
+}

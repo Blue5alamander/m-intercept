@@ -22,6 +22,34 @@
 #pragma once
 
 
-#include "element.h"
+#include "explosions.h"
 
 
+namespace mintercept {
+    
+
+    class Player : public Element {
+        class Cities : public Element {
+            static const std::size_t number_of_cities = 3;
+            class City : public Element {
+            public:
+                bool tick();
+                void draw(Layer);
+            } cities[number_of_cities];
+        public:
+            bool tick();
+            void draw(Layer);
+        } cities;
+        Explosions shots;
+        
+    public:
+        Player();
+
+        bool tap( int x, int y );
+
+        bool tick();
+        void draw(Layer);
+    };
+
+
+}
