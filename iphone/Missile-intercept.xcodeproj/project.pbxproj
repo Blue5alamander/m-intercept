@@ -20,6 +20,7 @@
 		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
 		7A06A672114A13A100E67D58 /* explosion.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A06A671114A13A100E67D58 /* explosion.mm */; };
 		7A0BE45A1160B7460065B3F1 /* explosions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0BE4591160B7460065B3F1 /* explosions.mm */; };
+		7A0BE51E1160D3080065B3F1 /* game.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0BE51D1160D3080065B3F1 /* game.mm */; };
 		7A8CF683114E4ED6007A7477 /* spectrum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A8CF682114E4ED6007A7477 /* spectrum.cpp */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,8 @@
 		7A06A671114A13A100E67D58 /* explosion.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = explosion.mm; sourceTree = "<group>"; };
 		7A0BE4581160B7460065B3F1 /* explosions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = explosions.h; sourceTree = "<group>"; };
 		7A0BE4591160B7460065B3F1 /* explosions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = explosions.mm; sourceTree = "<group>"; };
+		7A0BE51C1160D3080065B3F1 /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game.h; sourceTree = "<group>"; };
+		7A0BE51D1160D3080065B3F1 /* game.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = game.mm; sourceTree = "<group>"; };
 		7A8CF678114E4AD5007A7477 /* element.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = element.h; sourceTree = "<group>"; };
 		7A8CF681114E4ED6007A7477 /* spectrum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spectrum.h; sourceTree = "<group>"; };
 		7A8CF682114E4ED6007A7477 /* spectrum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = spectrum.cpp; sourceTree = "<group>"; };
@@ -150,6 +153,8 @@
 				7A8CF682114E4ED6007A7477 /* spectrum.cpp */,
 				7A0BE4581160B7460065B3F1 /* explosions.h */,
 				7A0BE4591160B7460065B3F1 /* explosions.mm */,
+				7A0BE51C1160D3080065B3F1 /* game.h */,
+				7A0BE51D1160D3080065B3F1 /* game.mm */,
 			);
 			name = Game;
 			sourceTree = "<group>";
@@ -216,6 +221,7 @@
 				7A06A672114A13A100E67D58 /* explosion.mm in Sources */,
 				7A8CF683114E4ED6007A7477 /* spectrum.cpp in Sources */,
 				7A0BE45A1160B7460065B3F1 /* explosions.mm in Sources */,
+				7A0BE51E1160D3080065B3F1 /* game.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
