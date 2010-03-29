@@ -33,14 +33,14 @@ public class Player extends Element {
     private View view;
     private int hitbonus;
     private Game game;
-    private Explosions explosions;
+    private Explosions shots;
     private Cities cities;
 
     public Player(MIntercept c, View v, Game g) {
         context = c;
         view = v;
         game = g;
-        explosions = new Explosions(g, 10, 35);
+        shots = new Explosions(g, 10, 35);
         cities = new Cities(game, context, view);
         reset();
     }
@@ -66,7 +66,7 @@ public class Player extends Element {
     public boolean tap(float x, float y) {
         int height = view.getHeight();
         if ( !game.isOver() && y < height - 40 ) {
-            Explosion explosion = explosions.reset(x, y);
+            Explosion explosion = shots.reset(x, y);
             if ( explosion != null ) {
                 int scale_height = height * 2 / 3 - 40;
                 if ( y > view.getHeight() * 2 / 3 )
@@ -87,13 +87,13 @@ public class Player extends Element {
     public boolean tick() {
         if ( cities.tick() )
             game.over();
-        explosions.tick();
+        shots.tick();
         return !game.isOver();
     }
 
     @Override
     public void draw(Canvas c, Layer layer) {
         cities.draw(c, layer);
-        explosions.draw(c, layer);
+        shots.draw(c, layer);
     }
 }
