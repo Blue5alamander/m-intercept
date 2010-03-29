@@ -79,8 +79,8 @@ bool mintercept::Explosion::tick() {
 }	
 
 
-void mintercept::Explosion::draw() {
-    if (inuse) {
+void mintercept::Explosion::draw( Layer layer ) {
+    if (inuse && layer == Element::explosions ) {
         GLubyte ellipseColors[c_vertices * 4];
         for ( std::size_t p = 0; p != c_vertices; ++p ) {
             spectrum.fill_rgb(ellipseColors + p * 4);
@@ -97,63 +97,3 @@ void mintercept::Explosion::draw() {
         glDrawArrays(GL_TRIANGLE_FAN, 0, c_vertices);
     }
 }
-
-@implementation Explosion
-
--(id) init {
-    // Force the generation of the vertices now
-    vertices();
-    // Do the normal init stuff
-    self = [super init];
-    if ( self ) {
-        inuse = false;
-        spectrum = new mintercept::Spectrum(0, 0, 0, 0);
-        max_size = 50.0f;
-        [self resetWithX:0 withY:0];
-    }
-    return self;
-}
-
--(bool) resetWithX:(int)x withY:(int)y {
-    if ( !inuse ) {
-        inuse = true;
-        pos.x = x;
-        pos.y = y;
-        (*spectrum) = mintercept::Spectrum(0, 0.75f, 0.75f, int(max_size));
-        radius = 1.0f;
-        return true;
-    } else
-        return false;
-}
-
--(bool) tick {
-    if ( inuse ) {
-        if ( radius < max_size ) {
-            ++(*spectrum);
-            radius += 1.0f;
-        } else
-            inuse = false;
-    }
-    return inuse;
-}
-
--(void) draw {
-    if (inuse) {
-        GLubyte ellipseColors[c_vertices * 4];
-        for ( std::size_t p = 0; p != c_vertices; ++p ) {
-            spectrum->fill_rgb(ellipseColors + p * 4);
-            ellipseColors[p * 4 + 3] = 255;
-        }
-        
-        glLoadIdentity();
-        glTranslatef(pos.x, pos.y, 0.0f);
-        glScalef(radius, radius, 0.0f);
-        glVertexPointer(2, GL_FLOAT, 0, vertices());
-        glColorPointer(4, GL_UNSIGNED_BYTE, 0, ellipseColors);
-        glEnableClientState(GL_VERTEX_ARRAY);
-        glEnableClientState(GL_COLOR_ARRAY);
-        glDrawArrays(GL_TRIANGLE_FAN, 0, c_vertices);
-    }
-}
-
-@end

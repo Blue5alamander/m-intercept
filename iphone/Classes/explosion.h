@@ -19,38 +19,32 @@
 */
 
 
+#pragma once
+
 #import <OpenGLES/ES1/gl.h>
-#import "element.h"
+
+#include "element.h"
 #include "spectrum.h"
 
 
 namespace mintercept {
-	class Explosion {
+    
+    
+	class Explosion : public Element {
 		bool inuse;
 		CGPoint pos;
 		GLfloat radius, max_size;
 		Spectrum spectrum;
 		
-	public:
-		Explosion( GLfloat max_size = 50.0f );
-		
-		bool reset(int x, int y);
-		bool tick();
-		void draw();
+    public:
+        Explosion( GLfloat max_size = 50.0f );
+        
+        bool reset(int x, int y);
+
+        bool tick();
+        void draw( Element::Layer );
 	};
+
+
 }
 
-
-@interface Explosion : NSObject <Element> {
-@private
-    bool inuse;
-    CGPoint pos;
-    GLfloat radius, max_size;
-    mintercept::Spectrum *spectrum;
- }
-
--(bool) resetWithX:(int) x withY:(int) y;
--(bool) tick;
--(void) draw;
-
-@end

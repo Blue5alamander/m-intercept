@@ -74,7 +74,7 @@
     glClear(GL_COLOR_BUFFER_BIT);
 
     explosion->tick();
-    explosion->draw();
+    explosion->draw(mintercept::Element::explosions);
 
 	// This application only creates a single color renderbuffer which is already bound at this point.
 	// This call is redundant, but needed if dealing with multiple renderbuffers.
