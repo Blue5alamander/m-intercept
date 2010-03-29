@@ -32,13 +32,13 @@ mintercept::Spectrum &mintercept::Spectrum::operator ++ () {
 
 
 void mintercept::Spectrum::fill_rgb(unsigned char *rgb) const {
-    float r, g, b;
     const float C = l <= 0.5f ? 2.0f * l * s : ( 2.0f - 2.0f * l ) * s;
     const float H = h / 60.0f;
     float Hmod2 = H;
     while ( Hmod2 > 2.0f )
         Hmod2 -= 2.0f;
-    const float X = C * ( 1.0f - (Hmod2 - 1.0f) );
+    const float X = C * ( 1.0f - std::abs(Hmod2 - 1.0f) );
+    float r, g, b;
     if ( H < 1.0f ) {
         r = C; g = X; b = 0.0f;
     } else if ( H < 2.0f ) {
@@ -52,7 +52,8 @@ void mintercept::Spectrum::fill_rgb(unsigned char *rgb) const {
     } else {
         r = C; g = 0.0f; b = X;
     }
-    rgb[0] = static_cast<unsigned char>( 255.0f * r );
-    rgb[1] = static_cast<unsigned char>( 255.0f * g );
-    rgb[2] = static_cast<unsigned char>( 255.0f * b );
+    const float m = l - 0.5f * C;
+    rgb[0] = static_cast<unsigned char>( 255.0f * (r + m) );
+    rgb[1] = static_cast<unsigned char>( 255.0f * (g + m) );
+    rgb[2] = static_cast<unsigned char>( 255.0f * (b + m) );
 }
