@@ -62,7 +62,7 @@
         
 		animating = FALSE;
 		displayLinkSupported = FALSE;
-		animationFrameInterval = 2;
+		animationFrameInterval = 3;
 		displayLink = nil;
 		animationTimer = nil;
 		
