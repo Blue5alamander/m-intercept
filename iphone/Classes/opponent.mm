@@ -20,3 +20,12 @@
 
 #include "opponent.h"
 
+
+bool mintercept::Opponent::tick() {
+    return false;
+}
+
+
+void mintercept::Opponent::draw(Layer) {
+}
+

@@ -25,3 +25,15 @@
 #include "element.h"
 
 
+namespace mintercept {
+    
+    
+    class Opponent : public Element {
+    public:
+        bool tick();
+        void draw(Layer);
+    };
+    
+
+}
+
