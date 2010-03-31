@@ -20,32 +20,47 @@
 
 
 #include "explosions.h"
+#include "game.h"
 #include <algorithm>
 #include <functional>
 
 
-mintercept::Explosions::Explosions( std::size_t number, int size )
-: explosions( number, size ) {
+namespace {
+    void fill_in( mintercept::Explosions::collection_type &collection, const mintercept::Explosion &with, std::size_t number ) {
+        for ( std::size_t n = 0; n != number; ++n )
+            collection.push_back( mintercept::Explosions::explosion_ptr( new mintercept::Explosion( with ) ) );
+    }
 }
 
 
-mintercept::Explosion *mintercept::Explosions::reset( int x, int y ) {
-    if ( explosions[0].reset(x, y) ) {
-        Explosion head = explosions.front();
+mintercept::Explosions::Explosions( std::size_t number, int size ) {
+    fill_in( explosions, size, number );
+}
+mintercept::Explosions::Explosions( Game &game, std::size_t number, int size ) {
+    fill_in( explosions, size, number );
+    for ( iterator e( explosions.begin() ); e != explosions.end(); ++e )
+        game( *e );
+}
+
+
+mintercept::Explosions::explosion_ptr mintercept::Explosions::reset( int x, int y ) {
+    if ( explosions[0]->reset(x, y) ) {
+        explosion_ptr head = explosions.front();
         explosions.pop_front();
-        std::deque<Explosion>::iterator moved = explosions.insert(explosions.end(), head);
-        return &*moved;
+        return  *explosions.insert(explosions.end(), head);
     } else
-        return NULL;
+        return explosion_ptr();
 }
 
 
 bool mintercept::Explosions::tick() {
-    std::for_each( explosions.begin(), explosions.end(), std::mem_fun_ref(&Explosion::tick) );
+    for ( iterator i( explosions.begin() ); i != explosions.end(); ++i )
+        (*i)->tick();
     return true;
 }
 
 
 void mintercept::Explosions::draw( Layer layer ) {
-    std::for_each( explosions.begin(), explosions.end(), std::bind2nd(std::mem_fun_ref(&Explosion::draw), layer) );
+    for ( iterator i( explosions.begin() ); i != explosions.end(); ++i )
+        (*i)->draw(layer);
 }

@@ -23,6 +23,8 @@
 
 
 #include "player.h"
+#include "opponent.h"
+#include <vector>
 
 
 namespace mintercept {
@@ -30,11 +32,15 @@ namespace mintercept {
 
     class Game : public Element {
         Player player;
+        Opponent opponent;
+        std::vector< Explosions::explosion_ptr > explosions;
     public:
         Game();
 
         bool tick();
         void draw(Layer);
+        
+        void operator () ( Explosions::explosion_ptr explosion );
     };
 
 

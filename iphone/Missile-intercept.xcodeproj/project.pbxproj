@@ -19,10 +19,10 @@
 		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
 		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
 		7A06A672114A13A100E67D58 /* explosion.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A06A671114A13A100E67D58 /* explosion.mm */; };
-		7A0BE45A1160B7460065B3F1 /* explosions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0BE4591160B7460065B3F1 /* explosions.mm */; };
 		7A0BE51E1160D3080065B3F1 /* game.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0BE51D1160D3080065B3F1 /* game.mm */; };
 		7A0BE5351160DB500065B3F1 /* player.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0BE5341160DB500065B3F1 /* player.mm */; };
 		7A0BE5381160DBC00065B3F1 /* opponent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0BE5371160DBC00065B3F1 /* opponent.mm */; };
+		7A0BE5D81163227A0065B3F1 /* explosions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0BE5D71163227A0065B3F1 /* explosions.mm */; };
 		7A8CF683114E4ED6007A7477 /* spectrum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A8CF682114E4ED6007A7477 /* spectrum.cpp */; };
 /* End PBXBuildFile section */
 
@@ -47,13 +47,13 @@
 		7A06A670114A13A100E67D58 /* explosion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = explosion.h; sourceTree = "<group>"; };
 		7A06A671114A13A100E67D58 /* explosion.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = explosion.mm; sourceTree = "<group>"; };
 		7A0BE4581160B7460065B3F1 /* explosions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = explosions.h; sourceTree = "<group>"; };
-		7A0BE4591160B7460065B3F1 /* explosions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = explosions.mm; sourceTree = "<group>"; };
 		7A0BE51C1160D3080065B3F1 /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game.h; sourceTree = "<group>"; };
 		7A0BE51D1160D3080065B3F1 /* game.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = game.mm; sourceTree = "<group>"; };
 		7A0BE5331160DB500065B3F1 /* player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = player.h; sourceTree = "<group>"; };
 		7A0BE5341160DB500065B3F1 /* player.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = player.mm; sourceTree = "<group>"; };
 		7A0BE5361160DBC00065B3F1 /* opponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opponent.h; sourceTree = "<group>"; };
 		7A0BE5371160DBC00065B3F1 /* opponent.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = opponent.mm; sourceTree = "<group>"; };
+		7A0BE5D71163227A0065B3F1 /* explosions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = explosions.mm; sourceTree = "<group>"; };
 		7A8CF678114E4AD5007A7477 /* element.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = element.h; sourceTree = "<group>"; };
 		7A8CF681114E4ED6007A7477 /* spectrum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spectrum.h; sourceTree = "<group>"; };
 		7A8CF682114E4ED6007A7477 /* spectrum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = spectrum.cpp; sourceTree = "<group>"; };
@@ -152,13 +152,13 @@
 		7A8CF677114E4A8C007A7477 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				7A0BE5D71163227A0065B3F1 /* explosions.mm */,
 				7A06A670114A13A100E67D58 /* explosion.h */,
 				7A06A671114A13A100E67D58 /* explosion.mm */,
 				7A8CF678114E4AD5007A7477 /* element.h */,
 				7A8CF681114E4ED6007A7477 /* spectrum.h */,
 				7A8CF682114E4ED6007A7477 /* spectrum.cpp */,
 				7A0BE4581160B7460065B3F1 /* explosions.h */,
-				7A0BE4591160B7460065B3F1 /* explosions.mm */,
 				7A0BE51C1160D3080065B3F1 /* game.h */,
 				7A0BE51D1160D3080065B3F1 /* game.mm */,
 				7A0BE5331160DB500065B3F1 /* player.h */,
@@ -230,10 +230,10 @@
 				2514C27210084DB100A42282 /* ES1Renderer.mm in Sources */,
 				7A06A672114A13A100E67D58 /* explosion.mm in Sources */,
 				7A8CF683114E4ED6007A7477 /* spectrum.cpp in Sources */,
-				7A0BE45A1160B7460065B3F1 /* explosions.mm in Sources */,
 				7A0BE51E1160D3080065B3F1 /* game.mm in Sources */,
 				7A0BE5351160DB500065B3F1 /* player.mm in Sources */,
 				7A0BE5381160DBC00065B3F1 /* opponent.mm in Sources */,
+				7A0BE5D81163227A0065B3F1 /* explosions.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

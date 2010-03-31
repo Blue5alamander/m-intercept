@@ -32,3 +32,6 @@ bool mintercept::Game::tick() {
 void mintercept::Game::draw(Layer layer) {
 }
 
+void mintercept::Game::operator () ( Explosions::explosion_ptr explosion ) {
+    explosions.push_back( explosion );
+}

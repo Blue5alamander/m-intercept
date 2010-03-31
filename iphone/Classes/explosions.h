@@ -23,21 +23,31 @@
 
 
 #include <deque>
+#include <tr1/memory>
 #include "explosion.h"
 
 
 namespace mintercept {
 	
 	
+    class Game;
+
+
 	class Explosions : public Element {
-		std::deque< Explosion > explosions;
 	public:
+        typedef std::tr1::shared_ptr< Explosion > explosion_ptr;
+        typedef std::deque< explosion_ptr > collection_type;
+        typedef collection_type::iterator iterator;
+
 		Explosions( std::size_t number, int size );
+        Explosions( Game &game, std::size_t number, int size );
         
-        Explosion *reset(int x, int y);
+        explosion_ptr reset(int x, int y);
         
         bool tick();
         void draw(Layer);
+    private:
+        collection_type explosions;
 	};
 	
 
