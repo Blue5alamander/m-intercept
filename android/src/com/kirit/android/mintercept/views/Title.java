@@ -45,8 +45,8 @@ public class Title extends Scene {
         Rect location = new Rect();
         Explosions explosions;
 
-        public Demo(Context context, View v) {
-            view = v;
+        public Demo(Context context, View view) {
+            this.view = view;
             copyright = (BitmapDrawable)context.getResources().getDrawable(R.drawable.copyright);
             copyright_pos = -copyright.getMinimumWidth();
             felspar = (BitmapDrawable)context.getResources().getDrawable(R.drawable.felspar);
@@ -111,12 +111,12 @@ public class Title extends Scene {
 
 
     MIntercept mintercept;
-    public Title(MIntercept m) {
-        super(m);
-        mintercept = m;
-        demo = new Demo(m, this);
+    public Title(MIntercept mintercept) {
+        super(mintercept);
+        this.mintercept = mintercept;
+        demo = new Demo(mintercept, this);
         draw(demo);
-        setOverlay(new Overlay(m, this));
+        setOverlay(new Overlay(mintercept, this));
     }
 
     @Override

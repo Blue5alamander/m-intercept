@@ -42,9 +42,9 @@ public class Overlay extends Element {
         private int offset;
         private BitmapDrawable on, off;
         private Rect location;
-        public OnOff(Context context, View v, Setting s, int on_res, int off_res, int o) {
-            setting = s;
-            offset = o;
+        public OnOff(Context context, View view, Setting setting, int on_res, int off_res, int offset) {
+            this.setting = setting;
+            this.offset = offset;
             on = (BitmapDrawable)context.getResources().getDrawable(on_res);
             off = (BitmapDrawable)context.getResources().getDrawable(off_res);
         }

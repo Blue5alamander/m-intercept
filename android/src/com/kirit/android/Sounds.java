@@ -33,8 +33,8 @@ public class Sounds implements Setting {
         private SoundPool pool;
         private int soundid;
         private int streamid;
-        public Effect(Context context, SoundPool p, int resid) {
-            pool = p;
+        public Effect(Context context, SoundPool pool, int resid) {
+            this.pool = pool;
             soundid = pool.load(context, resid, 1);
             streamid = 0;
         }
@@ -50,8 +50,8 @@ public class Sounds implements Setting {
     private int toggle;
     private HashMap<Integer, Effect> sounds = new HashMap<Integer, Effect>();
 
-    public Sounds(Context c) {
-        context = c;
+    public Sounds(Context contact) {
+        this.context = contact;
         pool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
         toggle = 0;
         set(true);

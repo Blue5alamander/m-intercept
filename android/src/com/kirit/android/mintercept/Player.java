@@ -36,11 +36,11 @@ public class Player extends Element {
     private Explosions shots;
     private Cities cities;
 
-    public Player(MIntercept c, View v, Game g) {
-        context = c;
-        view = v;
-        game = g;
-        shots = new Explosions(g, 10, 35);
+    public Player(MIntercept context, View view, Game game) {
+        this.context = context;
+        this.view = view;
+        this.game = game;
+        shots = new Explosions(game, 10, 35);
         cities = new Cities(game, context, view);
         reset();
     }

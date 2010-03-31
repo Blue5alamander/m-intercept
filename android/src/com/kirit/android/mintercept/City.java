@@ -40,11 +40,11 @@ public class City extends Element {
     private Rect location;
     private Explosion explosion;
 
-    public City(Game g, MIntercept c, View v, int n, int o) {
-        context = c;
-        view = v;
-        number = n;
-        outof = o;
+    public City(Game game, MIntercept context, View view, int number, int outof) {
+        this.context = context;
+        this.view = view;
+        this.number = number;
+        this.outof = outof;
         city = context.getResources().getDrawable(drawable.city);
         reset();
     }
@@ -63,8 +63,8 @@ public class City extends Element {
             return x >= location.left && x <= location.right;
     }
 
-    public void explode(Explosion e) {
-        explosion = e;
+    public void explode(Explosion explosion) {
+        this.explosion = explosion;
         explosion.setSize(city.getMinimumWidth());
         explosion.reset(
             location.left + (location.right - location.left) / 2,

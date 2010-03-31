@@ -52,9 +52,9 @@ public class Game extends Element {
 
     static public Random randomGenerator = new Random();
 
-    public Game(MIntercept c, View v) {
-        context = c;
-        view = v;
+    public Game(MIntercept context, View view) {
+        this.context = context;
+        this.view = view;
 
         score = new NumberPanel(context, 8, R.drawable.score_prolog, R.drawable.score_numbers, Layer.CHROME);
         missiles = new NumberPanel(context, 6, R.drawable.missiles_prolog, R.drawable.missiles_numbers, Layer.CHROME);

@@ -40,14 +40,14 @@ public class Opponent extends Element {
         private float sx, sy, cx, cy, dx, dy, tx;
         private Explosion explosion;
 
-        public Missile(Opponent o, Game g, MIntercept c, View v) {
-            context = c;
-            opponent = o;
-            game = g;
-            view = v;
+        public Missile(Opponent opponent, Game game, MIntercept context, View view) {
+            this.context = context;
+            this.opponent = opponent;
+            this.game = game;
+            this.view = view;
             inuse = false; exploding = false;
             dx = 0; dy = 0;
-            explosion = new Explosion(g, 10, Layer.MISSILES);
+            explosion = new Explosion(game, 10, Layer.MISSILES);
         }
 
         public boolean reset() {
@@ -131,11 +131,11 @@ public class Opponent extends Element {
     private Missile [] missiles;
     private int timer;
 
-    public Opponent(MIntercept context, View view, Game g) {
-        game = g;
+    public Opponent(MIntercept context, View view, Game game) {
+        this.game = game;
         missiles = new Missile [10];
         for ( int i = 0; i != missiles.length; ++i )
-            missiles[i] = new Missile(this, g, context, view);
+            missiles[i] = new Missile(this, game, context, view);
         reset();
     }
 
