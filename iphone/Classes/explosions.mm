@@ -47,7 +47,8 @@ mintercept::Explosions::explosion_ptr mintercept::Explosions::reset( int x, int 
     if ( explosions[0]->reset(x, y) ) {
         explosion_ptr head = explosions.front();
         explosions.pop_front();
-        return  *explosions.insert(explosions.end(), head);
+        explosions.push_back(head);
+        return head;
     } else
         return explosion_ptr();
 }
