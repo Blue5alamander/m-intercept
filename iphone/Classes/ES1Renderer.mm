@@ -43,14 +43,14 @@
 		glBindRenderbufferOES(GL_RENDERBUFFER_OES, colorRenderbuffer);
 		glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, colorRenderbuffer);
         
-        explosions = new mintercept::Explosions(8, 35);
+        game = new mintercept::Game;
 	}
 	
 	return self;
 }
 
 - (void) tap: (CGPoint) location {
-    explosions->reset(location.x, location.y);
+    game->tap(location.x, location.y);
 }
 
 - (void) render
@@ -73,8 +73,8 @@
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    explosions->tick();
-    explosions->draw(mintercept::Element::explosions);
+    game->tick();
+    game->draw(mintercept::Element::explosions);
 
 	// This application only creates a single color renderbuffer which is already bound at this point.
 	// This call is redundant, but needed if dealing with multiple renderbuffers.
@@ -101,7 +101,7 @@
 
 - (void) dealloc
 {
-    delete explosions;
+    delete game;
 
 	// Tear down GL
 	if (defaultFramebuffer)

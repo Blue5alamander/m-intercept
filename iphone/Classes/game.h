@@ -40,6 +40,8 @@ namespace mintercept {
         bool tick();
         void draw(Layer);
         
+        void tap(int x, int y);
+
         void operator () ( Explosions::explosion_ptr explosion );
     };
 

@@ -26,10 +26,18 @@ mintercept::Game::Game() {
 
 
 bool mintercept::Game::tick() {
-    return false;
+    bool opponent_running = opponent.tick();
+    player.tick();
+    return opponent_running;
 }
 
 void mintercept::Game::draw(Layer layer) {
+    player.draw(layer);
+    opponent.draw(layer);
+}
+
+void mintercept::Game::tap(int x, int y) {
+    player.tap(x, y);
 }
 
 void mintercept::Game::operator () ( Explosions::explosion_ptr explosion ) {

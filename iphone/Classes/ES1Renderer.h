@@ -24,7 +24,7 @@
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
 
-#include "explosions.h"
+#include "game.h"
 
 
 @interface ES1Renderer : NSObject <ESRenderer>
@@ -39,7 +39,7 @@
 	// The OpenGL names for the framebuffer and renderbuffer used to render to this view
 	GLuint defaultFramebuffer, colorRenderbuffer;
     
-	mintercept::Explosions *explosions;
+	mintercept::Game *game;
 }
 
 - (void) render;

@@ -45,7 +45,7 @@ namespace mintercept {
     public:
         Player();
 
-        bool tap( int x, int y );
+        void tap( int x, int y );
 
         bool tick();
         void draw(Layer);

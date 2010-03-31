@@ -34,6 +34,10 @@ mintercept::Player::Player()
 }
 
 
+void mintercept::Player::tap(int x, int y) {
+    shots.reset(x, y);
+}
+
 bool mintercept::Player::tick() {
     shots.tick();
     return cities.tick();
