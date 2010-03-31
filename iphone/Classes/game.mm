@@ -40,6 +40,6 @@ void mintercept::Game::tap(int x, int y) {
     player.tap(x, y);
 }
 
-void mintercept::Game::operator () ( Explosions::explosion_ptr explosion ) {
+void mintercept::Game::register_explosion( Explosions::explosion_ptr explosion ) {
     explosions.push_back( explosion );
 }

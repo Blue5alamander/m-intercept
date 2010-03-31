@@ -39,7 +39,7 @@ mintercept::Explosions::Explosions( std::size_t number, int size ) {
 mintercept::Explosions::Explosions( Game &game, std::size_t number, int size ) {
     fill_in( explosions, size, number );
     for ( iterator e( explosions.begin() ); e != explosions.end(); ++e )
-        game( *e );
+        game.register_explosion( *e );
 }
 
 

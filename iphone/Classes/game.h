@@ -42,7 +42,7 @@ namespace mintercept {
         
         void tap(int x, int y);
 
-        void operator () ( Explosions::explosion_ptr explosion );
+        void register_explosion( Explosions::explosion_ptr explosion );
     };
 
 
