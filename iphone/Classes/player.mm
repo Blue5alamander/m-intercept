@@ -55,13 +55,18 @@ void mintercept::Player::draw(Layer layer) {
 */
 
 
+mintercept::Player::Cities::Cities()
+: cities( 3 ) {
+}
+
+
 bool mintercept::Player::Cities::tick() {
-    std::for_each( cities, cities + number_of_cities, std::mem_fun_ref(&City::tick));
+    std::for_each( cities.begin(), cities.end(), std::mem_fun_ref(&City::tick));
     return true;
 }
 
 void mintercept::Player::Cities::draw(Layer layer) {
-    std::for_each( cities, cities + number_of_cities, std::bind2nd(std::mem_fun_ref(&City::draw), layer) );
+    std::for_each( cities.begin(), cities.end(), std::bind2nd(std::mem_fun_ref(&City::draw), layer) );
 }
 
 

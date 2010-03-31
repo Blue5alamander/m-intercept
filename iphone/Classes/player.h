@@ -23,6 +23,7 @@
 
 
 #include "explosions.h"
+#include <vector>
 
 
 namespace mintercept {
@@ -30,13 +31,15 @@ namespace mintercept {
 
     class Player : public Element {
         class Cities : public Element {
-            static const std::size_t number_of_cities = 3;
             class City : public Element {
             public:
                 bool tick();
                 void draw(Layer);
-            } cities[number_of_cities];
+            };
+            std::vector< City > cities;
         public:
+            Cities();
+
             bool tick();
             void draw(Layer);
         } cities;
