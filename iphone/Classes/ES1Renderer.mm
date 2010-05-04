@@ -67,7 +67,7 @@
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     
-    glOrthof(0.0f, 320.0f, 480.0f, 0.0f, -1.0f, 1.0f);
+    glOrthof(0.0f, backingWidth, backingHeight, 0.0f, -1.0f, 1.0f);
     glMatrixMode(GL_MODELVIEW);
 	
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
