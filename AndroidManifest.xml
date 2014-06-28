@@ -26,7 +26,9 @@
         android:versionCode="6"
         android:versionName="0.5.1"
     >
-    <application android:label="@string/app_name" android:icon="@drawable/icon">
+    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="20"></uses-sdk>
+    <uses-permission android:name="android.permission.VIBRATE" />
+   	<application android:label="@string/app_name" android:icon="@drawable/icon">
         <activity android:name="MIntercept">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,6 +36,4 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-sdk android:minSdkVersion="3"></uses-sdk>
-    <uses-permission android:name="android.permission.VIBRATE" />
 </manifest>
